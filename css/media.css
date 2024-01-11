@@ -1,0 +1,60 @@
+@media (max-width: 768px) {
+    .sidebar {width: 200px;}
+
+    .sidebar-show__content {margin-left: 200px !important;}
+
+    .sidebar-menu__link {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .down-triangle, .header__inner-username, .dropdown-link {font-size: 14px;}
+
+    .sidebar-menu__img, .sidebar-menu__img-block, #toggleSidebar {max-width: 24px;}
+
+    .logo {max-width: 100px;}
+
+    .header__inner-item {gap: 10px;}
+
+    .header__inner-profile {max-width: 32px;}
+
+    .dropdown-menu {min-width: 140px;}
+}
+
+@media (max-width: 425px) {
+    .header {height: 50px;}
+
+    .header__inner {padding: 0 15px;}
+
+    .header__inner-username {display: none;}
+
+    .sidebar {
+        top: 50px;
+        width: 130px;
+        height: calc(100% - 50px);
+    }
+
+    .sidebar-show__content {margin-left: 130px !important;}
+
+    .dropdown-menu {top: auto;}
+
+    .sidebar-menu {margin-top: 10px;}
+
+    .sidebar-menu__link {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .sidebar-menu__img, #toggleSidebar {
+        max-width: 18px;
+        max-height: 20px;
+    }
+
+    .sidebar-menu__img-block, .submenu__img-block {display: none;}
+
+    .down-triangle, .header__inner-username, .dropdown-link {font-size: 12px;}
+
+    .logo {max-width: 80px;}
+    
+    .header__inner-profile {max-width: 24px;}
+}
