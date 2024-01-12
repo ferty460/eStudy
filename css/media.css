@@ -1,7 +1,23 @@
-@media (max-width: 768px) {
-    .sidebar {width: 200px;}
+@media (max-width: 1150px) {
+    .begin__main {
+        flex-direction: column;
+        align-items: normal;
+        gap: 5px;
+    }
+}
 
-    .sidebar-show__content {margin-left: 200px !important;}
+@media (max-width: 800px) {
+    .advantages__block {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar-show__content {
+        margin-left: 0 !important;
+    }
+
+    .sidebar {width: 200px;}
 
     .sidebar-menu__link {
         padding: 10px 15px;
@@ -19,6 +35,64 @@
     .header__inner-profile {max-width: 32px;}
 
     .dropdown-menu {min-width: 140px;}
+
+    .begin__main {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .welcome__begin {
+        flex-direction: column;
+    }
+
+    .welcome__roles {flex-direction: column;}
+
+    
+    
+    .footer__inner {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer__makes-by, .footer__customer {text-align: center;}
+}
+
+@media (max-width: 700px) {
+    .best-courses__title {
+        font-size: 24px;
+    }
+
+    .course__title-link {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .advantages__block {grid-template-columns: repeat(1, 1fr);}
+
+    .best-courses__details > a {display: none;}
+
+    .course-tag > .tag__link {
+        font-size: 12px;
+        min-width: 100px;
+    }
+
+    .course__title-link, .course-author__link, .rating {font-size: 12px;}
+
+    .star {width: 14px;}
+
+    .course__image {max-width: 60px;}
+
+    .course__by-block {padding: 5px 0;}
+
+    .courses__item {gap: 10px;}
+
+    .best-courses__title {font-size: 18px;}
+}
+
+@media (max-width: 500px) {
+    .tag {display: none;}
 }
 
 @media (max-width: 425px) {
@@ -33,8 +107,6 @@
         width: 130px;
         height: calc(100% - 50px);
     }
-
-    .sidebar-show__content {margin-left: 130px !important;}
 
     .dropdown-menu {top: auto;}
 
@@ -52,9 +124,28 @@
 
     .sidebar-menu__img-block, .submenu__img-block {display: none;}
 
-    .down-triangle, .header__inner-username, .dropdown-link {font-size: 12px;}
+    .down-triangle, .header__inner-username, .dropdown-link, .tag, .welcome__title, .welcome__description {font-size: 12px;}
 
     .logo {max-width: 80px;}
     
     .header__inner-profile {max-width: 24px;}
+
+    .content {margin-top: 50px;}
+
+    .welcome__begin {
+        padding: 15px;
+        font-size: 12px;
+    }
+
+    .ok {padding: 5px 30px;}
+
+    .advantages__title {font-size: 24px;}
+
+    .advantages__item-title {font-size: 18px;}
+    
+    .advantages__item-description {font-size: 12px;}
+
+    .course__title-link, .course-author__link, .rating {font-size: 10px;}
+
+    .footer__inner {font-size: 12px;}
 }

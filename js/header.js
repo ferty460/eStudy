@@ -1,13 +1,16 @@
 document.getElementById('toggleSidebar').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');
     var content = document.getElementById('content');
+    var footer = document.querySelector('.footer');
 
     if (sidebar.classList.contains('sidebar-show') && content.classList.contains('sidebar-show__content')) {
         sidebar.classList.remove('sidebar-show');
         content.classList.remove('sidebar-show__content');
+        footer.classList.remove('sidebar-show__content');
     } else {
         sidebar.classList.add('sidebar-show');
         content.classList.add('sidebar-show__content');
+        footer.classList.add('sidebar-show__content');
     }
 });
 
