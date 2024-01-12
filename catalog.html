@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>Каталог | eStudy</title>
+</head>
+
+<body>
+
+    <header id="header" class="header">
+        <div class="header__inner">
+            <div class="header__inner-item">
+                <img src="images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <div>
+                    <a href="#" class="logo__link">
+                        <img src="images/logo.svg" alt="logo" class="logo">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header__inner-item">
+                <a href="#">
+                    <img src="images/profile.svg" alt="profile" class="header__inner-profile">
+                </a>
+                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="down-triangle">&#9660;</span>
+                </a>
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                        <li class="dropdown-item">
+                            <form action="#" method="post">
+                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar sidebar-show">
+            <nav class="sidebar-menu">
+                <ul class="sidebar-menu__list">
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/personal_account.svg" alt="personal account"
+                                    class="sidebar-menu__img">
+                            </div>
+                            <span>Личный кабинет</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item" id="submenu">
+                        <a href="#" class="sidebar-menu__link pull-out-menu">
+                            <div class="sidebar-menu__title">
+                                <div class="sidebar-menu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                </div>
+                                <span>Мои курсы</span>
+                            </div>
+                            <span class="down-triangle">&#9660;</span>
+                        </a>
+                    </li>
+
+                    <!-- SUBMENU MY COURSES -->
+                    <ul class="submenu__list sidebar-menu__list">
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                Английский
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                C++
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                ДЛЯ ДЕБИЛОВ
+                            </a>
+                        </li>
+                    </ul>
+
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link active">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                            </div>
+                            <span>Каталог</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                            </div>
+                            <span>Календарь</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                            </div>
+                            <span>Новости</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                            </div>
+                            <span>Поддержка</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                            </div>
+                            <span>О нас</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                            </div>
+                            <span>Админ. панель</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div id="content" class="content sidebar-show__content">
+            <section class="search">
+                <div class="search__block">
+                    <div class="search-bar__block">
+                        <form action="#" method="get" class="search-bar__form">
+                            <input type="search" name="course" id="search-bar" placeholder="Название или автор" class="search-bar">
+                            <input type="submit" value="Искать" class="ok">
+                        </form>
+                    </div>
+                    <div class="tags">
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Программирование</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Дизайн</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Маркетинг</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Финансы</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Личность</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Искусство</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Наука</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Языки</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Технологии</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Здоровье и спорт</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Фотография</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Видеомонтаж</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Музыка</a>
+                        </div>
+                        <div class="tag tags__item">
+                            <a href="#" class="tag__link">Психология</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="best-courses">
+                <div class="courses__block">
+                    <div class="best-courses__details">
+                        <h2 class="best-courses__title">Подборка лучших курсов</h2>
+                        <a href="#" class="ok">Подробнее</a>
+                    </div>
+                    <div class="courses__list">
+                        <div class="courses__item">
+                            <div class="course__image-block">
+                                <a href="#">
+                                    <img src="images/course/course1.png" alt="course" class="course__image">
+                                </a>
+                            </div>
+                            <div class="course__details">
+                                <div class="course__title-block">
+                                    <h4 class="course__title">
+                                        <a href="#" class="course__title-link">Английский для программистов</a>
+                                    </h4>
+                                    <div class="tag course-tag">
+                                        <a href="#" class="tag__link">Языки</a>
+                                    </div>
+                                </div>
+                                <div class="course__by-block">
+                                    <h5 class="course-author">
+                                        <a href="#" class="course-author__link">Удав Безумный</a>
+                                    </h5>
+                                    <div class="course-rating__block">
+                                        <img src="images/star.svg" alt="star" class="star">
+                                        <p class="rating">5.0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="courses__item">
+                            <div class="course__image-block">
+                                <a href="#">
+                                    <img src="images/course/course2.png" alt="course" class="course__image">
+                                </a>
+                            </div>
+                            <div class="course__details">
+                                <div class="course__title-block">
+                                    <h4 class="course__title">
+                                        <a href="#" class="course__title-link">Angular для чайников</a>
+                                    </h4>
+                                    <div class="tag course-tag">
+                                        <a href="#" class="tag__link">Программирование</a>
+                                    </div>
+                                </div>
+                                <div class="course__by-block">
+                                    <h5 class="course-author">
+                                        <a href="#" class="course-author__link">Удав Умный</a>
+                                    </h5>
+                                    <div class="course-rating__block">
+                                        <img src="images/star.svg" alt="star" class="star">
+                                        <p class="rating">5.0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="courses__item">
+                            <div class="course__image-block">
+                                <a href="#">
+                                    <img src="images/course/course3.png" alt="course" class="course__image">
+                                </a>
+                            </div>
+                            <div class="course__details">
+                                <div class="course__title-block">
+                                    <h4 class="course__title">
+                                        <a href="#" class="course__title-link">Теория по вселенной Pokemon</a>
+                                    </h4>
+                                    <div class="tag course-tag">
+                                        <a href="#" class="tag__link">Личность</a>
+                                    </div>
+                                </div>
+                                <div class="course__by-block">
+                                    <h5 class="course-author">
+                                        <a href="#" class="course-author__link">Опередивший время</a>
+                                    </h5>
+                                    <div class="course-rating__block">
+                                        <img src="images/star.svg" alt="star" class="star">
+                                        <p class="rating">5.0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer sidebar-show__content">
+        <div class="footer__inner">
+            <div class="footer__makes-by">
+                <span>ИС-4</span>
+                <span>Ростовцев В.С.</span>
+            </div>
+            <div class="footer__diplom">
+                <span>Дипломная работа</span>
+            </div>
+            <div class="footer__customer">
+                <span>Техникум</span>
+                <span>Бизнес и право</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/header.js"></script>
+</body>
+
+</html>

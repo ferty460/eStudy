@@ -23,6 +23,7 @@ body {
     height: 70px;
     background-color: #282C37;
     border-bottom: 1px solid #6C7293;
+    z-index: 1;
 }
 
 .header__inner {
@@ -59,7 +60,7 @@ body {
 }
 
 .dropdown-menu {
-    /* z-index: -1; */
+    z-index: 2;
     position: absolute;
     top: 0;
     right: 25px;
@@ -149,7 +150,7 @@ body {
     width: 28px;
 }
 
-.sidebar-menu__item:hover .sidebar-menu__link {
+.sidebar-menu__item:hover .sidebar-menu__link, .active {
     border-left: 5px solid #6C7293;
     background-color: #1D2027;
 }
@@ -175,7 +176,10 @@ body {
     padding: 30px;
     margin-left: 0;
     transition: margin-left 0.3s ease-in-out;
+    z-index: 0;
 }
+
+/* --------- LANDING MAIN --------- */
 
 .welcome__begin {
     display: flex;
@@ -200,6 +204,7 @@ body {
 }
 
 .ok {
+    display: block;
     padding: 5px 50px;
     color: #ffffff;
     background-color: rgba(111, 185, 99, 0.1);
@@ -234,7 +239,6 @@ body {
 
 .tag__link {
     display: block;
-    min-width: 150px;
     padding: 5px 10px;
     border: 2px solid #6C7293;
     border-radius: 10px;
@@ -367,6 +371,49 @@ body {
 
 .course-author__link {
     color: #6C7293;
+}
+
+/* --------- CATALOG --------- */
+
+.search__block {
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.search-bar__form {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #6C7293;
+}
+
+.search-bar {
+    background-color: #4F5968;
+    border: 1px solid #6C7293;
+    border-radius: 5px;
+    width: 250px;
+    min-width: 100px;
+    padding-left: 10px;
+    color: #ffffff;
+    transition: .3s;
+}
+
+.search-bar::placeholder {
+    color: #a0a0a0;
+}
+
+.search-bar:focus {
+    border: 1px solid #6FB963;
+}
+
+.tags {
+    margin-top: 25px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 /* --------- FOOTER --------- */

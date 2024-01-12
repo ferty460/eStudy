@@ -48,7 +48,9 @@
 
     .welcome__roles {flex-direction: column;}
 
-    
+    .tags {grid-template-columns: repeat(3, 1fr);}
+
+    .tags__item {font-size: 12px;}
     
     .footer__inner {
         flex-direction: column;
@@ -92,7 +94,19 @@
 }
 
 @media (max-width: 500px) {
-    .tag {display: none;}
+    .course-tag {display: none;}
+    
+    .tags {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tag{font-size: 8px;}
+
+    .search-bar, .ok {font-size: 12px;}
+
+    .search-bar__form {padding-bottom: 15px;}
+
+    .tags {margin-top: 15px;}
 }
 
 @media (max-width: 425px) {
@@ -124,7 +138,7 @@
 
     .sidebar-menu__img-block, .submenu__img-block {display: none;}
 
-    .down-triangle, .header__inner-username, .dropdown-link, .tag, .welcome__title, .welcome__description {font-size: 12px;}
+    .down-triangle, .header__inner-username, .dropdown-link, .welcome__title, .welcome__description {font-size: 12px;}
 
     .logo {max-width: 80px;}
     
