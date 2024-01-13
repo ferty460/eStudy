@@ -416,6 +416,106 @@ body {
     grid-template-columns: repeat(5, 1fr);
 }
 
+/* --------- PROFILE --------- */
+
+.profile__block {
+    display: flex;
+    gap: 20px;
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.profile-image {
+    max-width: 170px;
+    width: 170px;
+}
+
+.profile-details__block {
+    width: 100%;
+}
+
+.profile-username__block {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #6C7293;
+}
+
+.profile-username {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.profile-settings__link {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 5px;
+    border: 2px solid #6C7293;
+    border-radius: 10px;
+    color: #6C7293;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.profile-settings__link:hover {
+    background-color: #6C7293;
+    color: #ffffff;
+}
+
+.profile-settings__link:hover>.settings-image {
+    transition: .3s;
+    filter: brightness(0) invert(1);
+}
+
+.profile-additional {
+    margin-top: 15px;
+    color: #6C7293;
+    font-weight: 700;
+}
+
+.my-learning {
+    margin-top: 30px;
+}
+
+.course-progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.course-progress progress {
+    width: 100%;
+    height: 10px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.course-progress progress[value]::-webkit-progress-bar {
+    background-color: #D9D9D9;
+    border-radius: 40px;
+}
+
+.course-progress progress[value]::-webkit-progress-value {
+    border-radius: 40px;
+    background-color: #73FC70;
+}
+
+.progress-value {
+    color: #ffffff;
+}
+
+.my-courses {
+    margin-top: 30px;
+}
+
 /* --------- FOOTER --------- */
 
 .footer {

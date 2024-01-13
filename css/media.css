@@ -6,6 +6,27 @@
     }
 }
 
+@media (max-width: 1025px) {
+    .tags {grid-template-columns: repeat(3, 1fr);}
+
+    .profile-settings__link > p {
+        display: none;
+    }
+
+    .profile-settings__link {
+        padding: 0;
+        border: none;
+    }
+
+    .profile-username {
+        font-size: 24px;
+    }
+
+    .profile-image {
+        width: 120px;
+    }
+}
+
 @media (max-width: 800px) {
     .advantages__block {
         grid-template-columns: repeat(2, 1fr);
@@ -48,9 +69,12 @@
 
     .welcome__roles {flex-direction: column;}
 
-    .tags {grid-template-columns: repeat(3, 1fr);}
-
     .tags__item {font-size: 12px;}
+
+    .sort__select-form, .selected__item {
+        max-width: 100px;
+        font-size: 12px;
+    }
     
     .footer__inner {
         flex-direction: column;
@@ -91,6 +115,22 @@
     .courses__item {gap: 10px;}
 
     .best-courses__title {font-size: 18px;}
+
+    .profile-image {
+        width: 80px;
+    }
+
+    .profile-username {font-size: 16px;}
+
+    .profile-additional {font-size: 12px;}
+
+    .course-progress progress {
+        height: 5px;
+    }
+
+    .progress-value {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 500px) {
@@ -107,6 +147,12 @@
     .search-bar__form {padding-bottom: 15px;}
 
     .tags {margin-top: 15px;}
+
+    .course__by-block {padding: 0;}
+
+    .course-progress {
+        gap: 5px;
+    }
 }
 
 @media (max-width: 425px) {
@@ -160,6 +206,23 @@
     .advantages__item-description {font-size: 12px;}
 
     .course__title-link, .course-author__link, .rating {font-size: 10px;}
+    
+    .profile-username {max-width: 100px;}
+
+    .profile-image {width: 60px;}
+
+    .profile-username__block {padding-bottom: 10px;}
+
+    .profile__block {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .progress-value {
+        font-size: 8px;
+    }
+
+    .courses__block {padding: 15px;}
 
     .footer__inner {font-size: 12px;}
 }
