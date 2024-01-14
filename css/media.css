@@ -25,12 +25,26 @@
     .profile-image {
         width: 120px;
     }
+
+    .news-buttons {
+        max-width: 250px;
+    }
+
+    .ok, .cancel {
+        padding: 5px 10px;
+    }
 }
 
 @media (max-width: 800px) {
     .advantages__block {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .input-file > span {
+        padding: 5px 10px;
+        height: 30px;
+    } 
+
 }
 
 @media (max-width: 768px) {
@@ -133,6 +147,24 @@
     .progress-value {
         font-size: 12px;
     }
+
+    .news-buttons > a, .news-buttons > button, .news-buttons > input {
+        font-size: 12px;
+    }
+
+    .news-details__block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-inputs__block {
+        margin: 0;
+        padding: 0;
+    }
+
+    .news-image__block {
+        border: none;
+    }
 }
 
 @media (max-width: 500px) {
@@ -198,8 +230,6 @@
         font-size: 12px;
     }
 
-    .ok {padding: 5px 30px;}
-
     .advantages__title {font-size: 24px;}
 
     .advantages__item-title {font-size: 18px;}
@@ -224,6 +254,10 @@
     }
 
     .courses__block {padding: 15px;}
+
+    .news-cancel {
+        display: none;
+    }
 
     .footer__inner {font-size: 12px;}
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/media.css">
-    <title>Новости | eStudy</title>
+    <title>Новость | eStudy</title>
 </head>
 
 <body>
@@ -151,90 +151,40 @@
 
     <main class="main">
         <div id="content" class="content sidebar-show__content">
-            <section class="news">
-                <div class="courses__block">
-                    <div class="best-courses__details">
-                        <h2 class="best-courses__title">Новости</h2>
-                        <a href="#" class="ok">Добавить</a>
-                    </div>
-                    <div class="courses__list">
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img src="images/news.png" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
-                                <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
-                                </div>
+            <section class="add-news">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="add-news__block">
+                        <div class="best-courses__details news__details">
+                            <h2 class="best-courses__title">Мои курсы</h2>
+                            <div class="news-buttons">
+                                <a href="#" class="cancel news-cancel">Отмена</a>
+                                <button type="submit" class="ok">Добавить</button>
                             </div>
                         </div>
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img src="images/news.png" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
-                                <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
+                        <div class="news-details__block">
+                            <div class="news-image__block">
+                                <div class="input-file-row">
+                                    <label class="input-file">
+                                        <input type="file" name="file[]" multiple accept="image/*">
+                                        <span>Выберите файл</span>
+                                    </label>
+                                    <div class="input-file-list"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img src="images/news.png" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
-                                    </div>
+                            <div class="news-inputs__block">
+                                <div class="news-title__block">
+                                    <label for="news_title" class="label">Заголовок</label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
                                 </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
-                                <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
+                                <div class="news-description__block">
+                                    <label for="news_description" class="label">Описание</label>
+                                    <textarea name="news_description" id="news_description"
+                                        class="search-bar news-input"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </section>
         </div>
     </main>
@@ -256,6 +206,9 @@
     </footer>
 
     <script src="js/header.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/add_image.js"></script>
+
 </body>
 
 </html>

@@ -33,3 +33,12 @@ document.querySelector('#submenu').addEventListener('click', function(e) {
         submenu.style.maxHeight = submenu.scrollHeight + "px";
     } 
 });
+
+window.onload = function() {
+    var textareas = document.getElementsByTagName('textarea');
+    for(var i = 0; i < textareas.length; i++) {
+        textareas[i].addEventListener('focus', function() {
+            this.style.border = '1px solid #6FB963';
+        });
+    }
+}
