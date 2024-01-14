@@ -103,17 +103,17 @@
         font-size: 24px;
     }
 
-    .course__title-link {
+    .course__title-link, .news-note__title {
         font-size: 18px;
     }
 
-    .news-date {font-size: 12px;}
+    .news-date, .news-note__text {font-size: 12px;}
 }
 
 @media (max-width: 600px) {
     .advantages__block {grid-template-columns: repeat(1, 1fr);}
 
-    .best-courses__details > a, .news {display: none;}
+    .best-courses__details > a {display: none;}
 
     .course-tag > .tag__link {
         font-size: 12px;

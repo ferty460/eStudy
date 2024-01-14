@@ -707,6 +707,54 @@ body {
     padding: 5px 10px;
 }
 
+.news {
+    margin-top: 30px;
+}
+
+.news__block {
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.news-item {
+    margin-top: 20px;
+}
+
+.news-item__title-block {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.news-note__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.news-note__text-block {
+    margin-top: 10px;
+}
+
+.news-note__text {
+    color: #6C7293;
+    text-align: left;
+}
+
+.note-buttons {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.note-buttons > button, .note-buttons > button > img {
+    display: flex;
+    align-items: center;
+    width: 16px;
+}
+
 /* --------- FOOTER --------- */
 
 .footer {

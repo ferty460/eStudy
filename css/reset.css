@@ -91,4 +91,5 @@ legend {
 textarea {
 	resize: vertical;
 	min-height: 50px;
+	max-height: 250px;
 }
