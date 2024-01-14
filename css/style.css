@@ -508,12 +508,29 @@ body {
     background-color: #73FC70;
 }
 
+.course__image {
+    max-width: 110px;
+    border-radius: 10px;
+}
+
 .progress-value {
     color: #ffffff;
 }
 
 .my-courses {
     margin-top: 30px;
+}
+
+.news-date {
+    color: #6C7293;
+}
+
+.news__buttons {
+    margin-top: 20px;
+}
+
+.news__link {
+    max-width: 200px;
 }
 
 /* --------- FOOTER --------- */

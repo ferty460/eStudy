@@ -92,12 +92,14 @@
     .course__title-link {
         font-size: 18px;
     }
+
+    .news-date {font-size: 12px;}
 }
 
 @media (max-width: 600px) {
     .advantages__block {grid-template-columns: repeat(1, 1fr);}
 
-    .best-courses__details > a {display: none;}
+    .best-courses__details > a, .news {display: none;}
 
     .course-tag > .tag__link {
         font-size: 12px;
@@ -137,16 +139,15 @@
     .course-tag {display: none;}
     
     .tags {
+        margin-top: 15px;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .tag{font-size: 8px;}
-
+    .tag, .news__link {font-size: 8px;}
+    
     .search-bar, .ok {font-size: 12px;}
 
     .search-bar__form {padding-bottom: 15px;}
-
-    .tags {margin-top: 15px;}
 
     .course__by-block {padding: 0;}
 
@@ -205,7 +206,7 @@
     
     .advantages__item-description {font-size: 12px;}
 
-    .course__title-link, .course-author__link, .rating {font-size: 10px;}
+    .course__title-link, .course-author__link, .rating, .news-date {font-size: 10px;}
     
     .profile-username {max-width: 100px;}
 
