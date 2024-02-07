@@ -108,6 +108,22 @@
     }
 
     .news-date, .news-note__text {font-size: 12px;}
+
+    .availability-block {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .availability {
+        padding: 5px 10px;
+    }
+
+    .availability img {
+        max-width: 20px;
+    }
+
+    .label, .course-tags h4, .availability-title {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -185,6 +201,14 @@
 
     .course-progress {
         gap: 5px;
+    }
+
+    .label, .course-tags h4, .availability-title {
+        font-size: 12px;
+    }
+
+    .availability-description {
+        font-size: 8px;
     }
 }
 

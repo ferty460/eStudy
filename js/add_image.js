@@ -13,7 +13,6 @@ $('.input-file input[type=file]').on('change', function () {
         reader.onloadend = function () {
             let new_file_input = '<div class="input-file-list-item">' +
                 '<img class="input-file-list-img" src="' + reader.result + '">' +
-                '<span class="input-file-list-name">' + file.name + '</span>' +
                 '<a href="#" onclick="removeFilesItem(this); return false;" class="input-file-list-remove">x</a>' +
                 '</div>';
             $files_list.append(new_file_input);

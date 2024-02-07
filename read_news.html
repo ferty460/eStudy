@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/media.css">
     <title>Новость | eStudy</title>
 </head>
-<body>
+<body id="body">
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
@@ -153,7 +153,7 @@
                 <form method="post" enctype="multipart/form-data">
                     <div class="add-news__block">
                         <div class="best-courses__details news__details">
-                            <h2 class="best-courses__title">Мои курсы</h2>
+                            <h2 class="best-courses__title">Новость</h2>
                             <div class="news-buttons">
                                 <a href="#" class="cancel news-cancel">Отмена</a>
                                 <button type="submit" class="ok">Добавить</button>
@@ -163,7 +163,7 @@
                             <div class="news-image__block">
                                 <div class="input-file-row">
                                     <label class="input-file">
-                                        <input type="file" name="file[]" multiple accept="image/*">
+                                        <input id="file" type="file" name="file[]" accept="image/*">
                                         <span>Выберите файл</span>
                                     </label>
                                     <div class="input-file-list"></div>
@@ -190,7 +190,7 @@
                     <div class="best-courses__details news__details">
                         <h2 class="best-courses__title">Записи</h2>
                         <div class="news-buttons">
-                            <button type="submit" class="ok">Добавить</button>
+                            <button type="submit" class="ok" id="openForm">Добавить</button>
                         </div>
                     </div>
                     <div class="news-notes">
@@ -233,6 +233,28 @@
                     </div>
                 </div>
             </section>
+
+            <section class="add-note">
+                <div class="add-note__block" id="formContainer">
+                    <form action="#" method="post">
+                        <div class="news-inputs__block new-note">
+                            <div class="news-title__block">
+                                <label for="news_title1" class="label">Заголовок</label>
+                                <input type="text" id="news_title1" name="news_title" class="search-bar news-input">
+                            </div>
+                            <div class="news-description__block">
+                                <label for="news_description1" class="label">Описание</label>
+                                <textarea name="news_description" id="news_description1"
+                                    class="search-bar news-input"></textarea>
+                            </div>
+                            <div class="news-buttons">
+                                <button type="submit" class="ok" id="new-note-button">Добавить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="overlay"></div>
+            </section>
         </div>
     </main>
 
@@ -255,5 +277,6 @@
     <script src="js/header.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/add_image.js"></script>
+    <script src="js/add_note.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/media.css">
-    <title>Добавление новости | eStudy</title>
+    <title>Добавление курса | eStudy</title>
 </head>
 
 <body>
@@ -151,15 +151,11 @@
 
     <main class="main">
         <div id="content" class="content sidebar-show__content">
-            <section class="add-news">
+            <section class="course">
                 <form method="post" enctype="multipart/form-data">
                     <div class="add-news__block">
                         <div class="best-courses__details news__details">
-                            <h2 class="best-courses__title">Новость</h2>
-                            <div class="news-buttons">
-                                <a href="#" class="cancel news-cancel">Отмена</a>
-                                <button type="submit" class="ok">Добавить</button>
-                            </div>
+                            <h2 class="best-courses__title">Учебный курс</h2>
                         </div>
                         <div class="news-details__block">
                             <div class="news-image__block">
@@ -182,6 +178,121 @@
                                         class="search-bar news-input"></textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="course-tags">
+                            <h4>Выберите необходимый тэг, с которым вы ассоциируете ваш учебный курс:</h4>
+                            <div class="tags mt10">
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" checked value="PROGRAMMING">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Программирование</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="DESIGN">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Дизайн</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="MARKETING">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Маркетинг</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="FINANCE">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Финансы</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="PERSONALITY">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Личность</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="ART">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Искусство</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="SCIENCE">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Наука</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="LANGUAGES">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Языки</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="TECHOLOGIES">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Технологии</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="HEALTH">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Здоровье и спорт</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="PHOTO">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Фотография</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="VIDEO">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Видеомонтаж</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="MUSIC">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Музыка</span>
+                                    </div>
+                                </label>
+                                <label class="tag-label">
+                                    <input type="radio" name="tag" value="PSYCHOLOGY">
+                                    <div class="tag tags__item tag-course">
+                                        <span href="#" class="tag__link">Психология</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="availability-block">
+                            <label class="availability-label">
+                                <input type="radio" name="availability" value="PUBLIC" checked>
+                                <div class="availability">
+                                    <img src="images/availability-public.svg" alt="public">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title">Публичный</h4>
+                                        <p class="availability-description">Все смогут увидеть ваш курс и записаться на
+                                            него.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="availability-label">
+                                <input type="radio" name="availability" value="PRIVATE">
+                                <div class="availability">
+                                    <img src="images/availability-private.svg" alt="public">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title">Приватный</h4>
+                                        <p class="availability-description">Запись только по ссылке-приглашению.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="course-btns">
+                            <button class="ok" type="submit">Добавить</button>
                         </div>
                     </div>
                 </form>

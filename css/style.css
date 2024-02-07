@@ -201,6 +201,11 @@ body {
 
 .begin__title {
     font-weight: 700;
+    color: #6C7293;
+}
+
+.begin__description {
+    color: #6C7293;
 }
 
 .ok {
@@ -556,13 +561,13 @@ body {
     vertical-align: middle;
     color: rgb(255 255 255);
     text-align: center;
-    border-radius: 4px;
-    background-color: #419152;
+    border-radius: 10px;
+    background-color: rgba(111, 185, 99, 0.1);
     line-height: 22px;
     height: 40px;
     padding: 10px 20px;
     box-sizing: border-box;
-    border: none;
+    border: 2px solid #6FB963;
     margin: 0;
     transition: background-color 0.2s;
 }
@@ -583,7 +588,7 @@ body {
 
 /* Hover/active */
 .input-file:hover span {
-    background-color: #59be6e;
+    background-color: #6FB963;
 }
 
 .input-file:active span {
@@ -597,27 +602,28 @@ body {
 
 /* Список c превью */
 .input-file-list {
-    padding: 10px 0;
-}
-
-.input-file-list-item {
-    display: inline-block;
-    margin: 0 15px 15px;
-    width: 150px;
-    vertical-align: top;
+    margin-top: 10px;
+    width: 120px;
+    height: 160px;
+    border: 1px solid #6c7293;
+    border-radius: 10px;
+    overflow: hidden;
     position: relative;
 }
 
-.input-file-list-item img {
-    width: 150px;
+.input-file-list-item {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.input-file-list-name {
-    text-align: center;
-    display: block;
-    font-size: 12px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.input-file-list-img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    /* Масштабирование и обрезка изображения */
 }
 
 .input-file-list-remove {
@@ -687,7 +693,7 @@ body {
 }
 
 .news-image__block {
-    padding-top: 20px;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     border-right: 1px solid #6C7293;
@@ -749,10 +755,113 @@ body {
     align-items: center;
 }
 
-.note-buttons > button, .note-buttons > button > img {
+.note-buttons>button, .note-buttons>button>img {
     display: flex;
     align-items: center;
     width: 16px;
+}
+
+.add-note__block {
+    width: 50%;
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.new-note {
+    padding: 0;
+}
+
+#formContainer {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    overflow: hidden;
+}
+
+.tag-label > input, .availability-label > input {
+    visibility: hidden; 
+    position: absolute; 
+}
+
+.tag-label > input:checked + div > span {
+    background-color: #6C7293;
+    color: #ffffff;
+}
+
+.course-tags {
+    padding: 20px 0;
+    border-top: 1px solid #6C7293;
+}
+
+.course-tags h4 {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.availability-block {
+    padding: 20px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+    border-top: 1px solid #6C7293;
+}
+
+.availability {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 20px;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.availability-details {
+    width: 100%;
+}
+
+.availability-title {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.availability-description {
+    font-size: 12px;
+    color: #6C7293;
+}
+
+.availability-label > input:checked + div {
+    border: 3px solid #6C7293;
+}
+
+.course-btns {
+    width: 100%;
+    display: flex;
+    justify-content: right;
 }
 
 /* --------- FOOTER --------- */
