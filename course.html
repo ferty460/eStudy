@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>Курс | eStudy</title>
+</head>
+
+<body>
+    <header id="header" class="header">
+        <div class="header__inner">
+            <div class="header__inner-item">
+                <img src="images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <div>
+                    <a href="#" class="logo__link">
+                        <img src="images/logo.svg" alt="logo" class="logo">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header__inner-item">
+                <a href="#">
+                    <img src="images/profile.svg" alt="profile" class="header__inner-profile">
+                </a>
+                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="down-triangle">&#9660;</span>
+                </a>
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                        <li class="dropdown-item">
+                            <form action="#" method="post">
+                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar sidebar-show">
+            <nav class="sidebar-menu">
+                <ul class="sidebar-menu__list">
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/personal_account.svg" alt="personal account"
+                                    class="sidebar-menu__img">
+                            </div>
+                            <span>Личный кабинет</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item" id="submenu">
+                        <a href="#" class="sidebar-menu__link pull-out-menu">
+                            <div class="sidebar-menu__title">
+                                <div class="sidebar-menu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                </div>
+                                <span>Мои курсы</span>
+                            </div>
+                            <span class="down-triangle">&#9660;</span>
+                        </a>
+                    </li>
+
+                    <!-- SUBMENU MY COURSES -->
+                    <ul class="submenu__list sidebar-menu__list">
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                Английский
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                C++
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                ДЛЯ ДЕБИЛОВ
+                            </a>
+                        </li>
+                    </ul>
+
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                            </div>
+                            <span>Каталог</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                            </div>
+                            <span>Календарь</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link active">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                            </div>
+                            <span>Новости</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                            </div>
+                            <span>Поддержка</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                            </div>
+                            <span>О нас</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                            </div>
+                            <span>Админ. панель</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div id="content" class="content sidebar-show__content">
+            <section class="heading-course">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="add-news__block">
+                        <div class="best-courses__details news__details">
+                            <h2 class="best-courses__title">Учебный курс</h2>
+                        </div>
+                        <div class="news-details__block">
+                            <div class="news-image__block">
+                                <div class="input-file-row">
+                                    <label class="input-file">
+                                        <input id="file" type="file" name="file[]" accept="image/*">
+                                        <span>Выберите файл</span>
+                                    </label>
+                                    <div class="input-file-list"></div>
+                                </div>
+                            </div>
+                            <div class="news-inputs__block">
+                                <div class="news-title__block">
+                                    <label for="news_title" class="label">Заголовок</label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                </div>
+                                <div class="news-description__block">
+                                    <label for="news_description" class="label">Описание</label>
+                                    <textarea name="news_description" id="news_description"
+                                        class="search-bar news-input" style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="empty-course">
+                <div class="empty-block">
+                    <div>
+                        <p>В курсе пока нет ни одного урока.</p>
+                        <p>Создайте первый модуль, чтобы добавить уроки</p>
+                    </div>
+                    <a class="ok" href="">Новый модуль</a>
+                </div>
+            </section>
+
+            <section class="module-section">
+                <div class="module-block">
+                    <div class="module">
+                        <div class="module-head">
+                            <div class="module-details">
+                                <h4>Модуль 1</h4>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                            <div class="module-description">
+                                <p>В данном модуле рассматриваются основные понятия реляционной модели, а также
+                                    различные виды SQL запросов к одной таблице базы данных</p>
+                            </div>
+                        </div>
+                        <div class="lessons">
+                            <div class="module-item">
+                                <div class="lesson-details">
+                                    <div class="lesson-img">
+                                        <img src="images/lesson-theory.svg" alt="theory lesson">
+                                    </div>
+                                    <h5><a href="">Урок 1</a></h5>
+                                </div>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                            <div class="module-item">
+                                <div class="lesson-details">
+                                    <div class="lesson-img">
+                                        <img src="images/lesson-practice.svg" alt="practice lesson">
+                                    </div>
+                                    <h5><a href="">Урок 2</a></h5>
+                                </div>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                            <div class="module-item">
+                                <div class="lesson-details">
+                                    <div class="lesson-img">
+                                        <img src="images/lesson-practice.svg" alt="practice lesson">
+                                    </div>
+                                    <h5><a href="">Урок 3</a></h5>
+                                </div>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-head">
+                            <div class="module-details">
+                                <h4>Модуль 1</h4>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lessons">
+                            <div class="module-item">
+                                <div class="lesson-details">
+                                    <div class="lesson-img">
+                                        <img src="images/lesson-theory.svg" alt="theory lesson">
+                                    </div>
+                                    <h5><a href="">Урок 1</a></h5>
+                                </div>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                            <div class="module-item">
+                                <div class="lesson-details">
+                                    <div class="lesson-img">
+                                        <img src="images/lesson-practice.svg" alt="practice lesson">
+                                    </div>
+                                    <h5><a href="">Урок 2</a></h5>
+                                </div>
+                                <div class="module-actions">
+                                    <a href=""><img src="images/settings.svg" alt="edit"></a>
+                                    <a href=""><img src="images/delete.svg" alt="delete"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer sidebar-show__content">
+        <div class="footer__inner">
+            <div class="footer__makes-by">
+                <span>ИС-4</span>
+                <span>Ростовцев В.С.</span>
+            </div>
+            <div class="footer__diplom">
+                <span>Дипломная работа</span>
+            </div>
+            <div class="footer__customer">
+                <span>Техникум</span>
+                <span>Бизнес и право</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/header.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/add_image.js"></script>
+</body>
+
+</html>

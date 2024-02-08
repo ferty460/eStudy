@@ -181,6 +181,26 @@
     .news-image__block {
         border: none;
     }
+
+    .module-details h4, .lesson-details a {
+        font-size: 16px;
+    }
+
+    .module-description {
+        font-size: 14px;
+    }
+
+    .lesson-img {
+        width: 20px;
+    }
+
+    .module-actions img {
+        width: 14px;
+    }
+
+    .empty-block p {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 500px) {
@@ -284,4 +304,8 @@
     }
 
     .footer__inner {font-size: 12px;}
+
+    .module-description {
+        font-size: 12px;
+    }
 }

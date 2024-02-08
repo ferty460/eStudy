@@ -4,7 +4,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-color: #1B1B1B;
+    background-color: #131313;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
 }
@@ -862,6 +862,126 @@ body {
     width: 100%;
     display: flex;
     justify-content: right;
+}
+
+.empty-course {
+    margin-top: 30px;
+}
+
+.empty-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.empty-block p {
+    color: #ffffff;
+    text-align: center;
+}
+
+.module-section {
+    margin-top: 30px;
+}
+
+.module-block {
+    width: 100%;
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.module + .module {
+    margin-top: 25px;
+}
+
+.module-head {
+    padding: 15px;
+    border: 3px solid #6C7293;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.module-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.module-details h4 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.module-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.module-actions img {
+    width: 18px;
+}
+
+.module-actions a {
+    display: flex;
+    align-items: center;
+}
+
+.module-description {
+    padding-top: 10px;
+    color: #6C7293;
+}
+
+.lessons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+}
+
+.module-item {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+    padding: 15px;
+    border-left: 1px solid #6C7293;
+    border-right: 1px solid #6C7293;
+    border-bottom: 1px solid #6C7293;
+}
+
+.module-item:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.lesson-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lesson-details a {
+    font-size: 24px;
+    font-weight: 700;
+    color: #6C7293;
+}
+
+.lesson-details a:hover {
+    text-decoration: underline;
+}
+
+.lesson-img {
+    display: flex;
+    align-items: center;
+    width: 30px;
 }
 
 /* --------- FOOTER --------- */
