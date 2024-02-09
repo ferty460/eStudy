@@ -1016,6 +1016,22 @@ body {
     justify-content: center;
 }
 
+.lesson-type-block {
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.lesson-type-block h2 {
+    text-align: center;
+}
+
+.lesson-type-btn {
+    display: flex;
+    justify-content: end;
+}
+
 /* --------- FOOTER --------- */
 
 .footer {

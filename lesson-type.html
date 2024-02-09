@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>Тип урока | eStudy</title>
+</head>
+
+<body>
+    <header id="header" class="header">
+        <div class="header__inner">
+            <div class="header__inner-item">
+                <img src="images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <div>
+                    <a href="#" class="logo__link">
+                        <img src="images/logo.svg" alt="logo" class="logo">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header__inner-item">
+                <a href="#">
+                    <img src="images/profile.svg" alt="profile" class="header__inner-profile">
+                </a>
+                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="down-triangle">&#9660;</span>
+                </a>
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                        <li class="dropdown-item">
+                            <form action="#" method="post">
+                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar sidebar-show">
+            <nav class="sidebar-menu">
+                <ul class="sidebar-menu__list">
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/personal_account.svg" alt="personal account"
+                                    class="sidebar-menu__img">
+                            </div>
+                            <span>Личный кабинет</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item" id="submenu">
+                        <a href="#" class="sidebar-menu__link pull-out-menu">
+                            <div class="sidebar-menu__title">
+                                <div class="sidebar-menu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                </div>
+                                <span>Мои курсы</span>
+                            </div>
+                            <span class="down-triangle">&#9660;</span>
+                        </a>
+                    </li>
+
+                    <!-- SUBMENU MY COURSES -->
+                    <ul class="submenu__list sidebar-menu__list">
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                Английский
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                C++
+                            </a>
+                        </li>
+                        <li class="submenu__item sidebar-menu__item">
+                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                                <div class="submenu__img-block">
+                                    <img src="images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                </div>
+                                ДЛЯ ДЕБИЛОВ
+                            </a>
+                        </li>
+                    </ul>
+
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                            </div>
+                            <span>Каталог</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                            </div>
+                            <span>Календарь</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                            </div>
+                            <span>Новости</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                            </div>
+                            <span>Поддержка</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                            </div>
+                            <span>О нас</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="#" class="sidebar-menu__link">
+                            <div class="sidebar-menu__img-block">
+                                <img src="images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                            </div>
+                            <span>Админ. панель</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div id="content" class="content sidebar-show__content">
+            <section class="lesson-type">
+                <div class="lesson-type-block">
+                    <h2 class="best-courses__title">Выберите тип урока</h2>
+                    <form action="" method="post">
+                        <div class="availability-block" style="border: none;">
+                            <label class="availability-label">
+                                <input type="radio" name="availability" value="PUBLIC" checked>
+                                <div class="availability">
+                                    <img src="images/lesson-theory.svg" alt="public">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title">Текстовый материал</h4>
+                                        <p class="availability-description">Статьи, лекции, учебники</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="availability-label">
+                                <input type="radio" name="availability" value="PRIVATE">
+                                <div class="availability">
+                                    <img src="images/lesson-practice.svg" alt="public">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title">Практическое задание</h4>
+                                        <p class="availability-description">Проверка знаний студентов</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="lesson-type-btn">
+                            <button type="submit" class="ok">Выбрать</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer sidebar-show__content">
+        <div class="footer__inner">
+            <div class="footer__makes-by">
+                <span>ИС-4</span>
+                <span>Ростовцев В.С.</span>
+            </div>
+            <div class="footer__diplom">
+                <span>Дипломная работа</span>
+            </div>
+            <div class="footer__customer">
+                <span>Техникум</span>
+                <span>Бизнес и право</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/header.js"></script>
+</body>
+
+</html>
