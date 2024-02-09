@@ -201,6 +201,10 @@
     .empty-block p {
         font-size: 14px;
     }
+
+    .module-heading {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 500px) {
@@ -213,7 +217,7 @@
 
     .tag, .news__link {font-size: 8px;}
     
-    .search-bar, .ok {font-size: 12px;}
+    .search-bar, .ok, .cancel {font-size: 12px;}
 
     .search-bar__form {padding-bottom: 15px;}
 
