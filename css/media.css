@@ -9,6 +9,20 @@
 @media (max-width: 1025px) {
     .tags {grid-template-columns: repeat(3, 1fr);}
 
+    .lesson-tools, .lesson-tools-item:first-child {
+        grid-template-columns: repeat(1, 1fr);
+        border-top-right-radius: 10px;
+    }
+
+    .theory-lesson-block {
+        flex-direction: column;
+    }
+
+    .theory-lesson-main {
+        border-right: none;
+        border-bottom: 1px solid #6C7293;
+    }
+
     .profile-settings__link > p {
         display: none;
     }
@@ -160,7 +174,7 @@
         height: 5px;
     }
 
-    .progress-value {
+    .progress-value, .lesson-text {
         font-size: 12px;
     }
 
@@ -182,11 +196,11 @@
         border: none;
     }
 
-    .module-details h4, .lesson-details a {
+    .module-details h4, .lesson-details a, .lesson-chapter, .chapters-title {
         font-size: 16px;
     }
 
-    .module-description {
+    .module-description, .lesson-title, .chapters-item, .lesson-tools-item {
         font-size: 14px;
     }
 
@@ -204,6 +218,18 @@
 
     .module-heading {
         flex-direction: column;
+    }
+
+    .chapters-list {
+        margin-top: 10px;
+    }
+
+    .lesson-chapter, .lesson-title {
+        padding-bottom: 10px;
+    }
+
+    .lesson-tools-item {
+        padding: 10px 0;
     }
 }
 
@@ -233,6 +259,10 @@
 
     .availability-description {
         font-size: 8px;
+    }
+
+    .theory-lesson-content, .theory-lesson-chapters {
+        padding: 15px;
     }
 }
 
