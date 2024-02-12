@@ -794,12 +794,12 @@ body {
     overflow: hidden;
 }
 
-.tag-label > input, .availability-label > input {
-    visibility: hidden; 
-    position: absolute; 
+.tag-label>input, .availability-label>input {
+    visibility: hidden;
+    position: absolute;
 }
 
-.tag-label > input:checked + div > span {
+.tag-label>input:checked+div>span {
     background-color: #6C7293;
     color: #c5c5c5;
 }
@@ -854,7 +854,7 @@ body {
     color: #6C7293;
 }
 
-.availability-label > input:checked + div {
+.availability-label>input:checked+div {
     border: 3px solid #6C7293;
 }
 
@@ -897,7 +897,7 @@ body {
     border-radius: 10px;
 }
 
-.module + .module {
+.module+.module {
     margin-top: 25px;
 }
 
@@ -1039,6 +1039,12 @@ body {
     border-radius: 10px;
 }
 
+.practice-lesson-block {
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
 .theory-lesson-main {
     border-right: 1px solid #6C7293;
 }
@@ -1063,6 +1069,10 @@ body {
     border-top-left-radius: 10px;
 }
 
+.pratice-lesson-tools-item, .practice-tools {
+    border-top-right-radius: 10px;
+}
+
 .lesson-tools-item span {
     font-weight: 700;
     color: #6C7293;
@@ -1072,7 +1082,7 @@ body {
     background-color: #6C7293;
 }
 
-.lesson-tools-item:hover > span {
+.lesson-tools-item:hover>span {
     color: #c5c5c5;
 }
 
@@ -1103,6 +1113,8 @@ body {
 }
 
 .lesson-image {
+    display: block;
+    margin: 0 auto;
     border: 1px solid #6C7293;
     border-radius: 10px;
 }
@@ -1127,8 +1139,113 @@ body {
     color: #c5c5c5;
 }
 
-.chapters-item:hover > a, .active-chapter {
+.chapters-item:hover>a, .active-chapter {
     text-decoration: underline;
+}
+
+.lesson-inputs {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #6C7293;
+}
+
+.active-tools-item {
+    background-color: #6C7293;
+}
+
+.active-tools-item span {
+    color: #c5c5c5;
+}
+
+/* для элемента input c type="radio" */
+.custom-radio {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+/* для элемента label связанного с .custom-radio */
+.custom-radio+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+/* создание в label псевдоэлемента  before со следующими стилями */
+.custom-radio+label::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 2px solid #6C7293;
+    border-radius: 50%;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+}
+
+/* стили при наведении курсора на радио */
+.custom-radio:not(:disabled):not(:checked)+label:hover::before {
+    border-color: #7c8096;
+}
+
+/* стили для активной радиокнопки (при нажатии на неё) */
+.custom-radio:not(:disabled):active+label::before {
+    background-color: #7c8096;
+    border-color: #7c8096;
+}
+
+/* стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked */
+.custom-radio:focus:not(:checked)+label::before {
+    border-color: #6C7293;
+}
+
+/* стили для радиокнопки, находящейся в состоянии checked */
+.custom-radio:checked+label::before {
+    border-color: #6C7293;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-5 -5 10 10'%3e%3ccircle r='5' fill='%236C7293'/%3e%3c/svg%3e");
+}
+
+/* стили для радиокнопки, находящейся в состоянии disabled */
+.custom-radio:disabled+label::before {
+    background-color: #e9ecef;
+}
+
+.test-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #6C7293;
+}
+
+.test-title {
+    margin: 20px 0;
+    color: #6C7293;
+    font-weight: 700;
+}
+
+.test-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #6C7293;
+    border-radius: 10px;
+}
+
+.test-item svg {
+    cursor: pointer;
+    height: 20px;
+}
+
+.text-btns {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: end;
 }
 
 /* --------- FOOTER --------- */

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/media.css">
-    <title>Теоретический урок | eStudy</title>
+    <title>Тест | Практический урок | eStudy</title>
 </head>
 
 <body>
@@ -152,48 +152,87 @@
     <main class="main">
         <div id="content" class="content sidebar-show__content">
             <section class="theory-lesson">
-                <div class="theory-lesson-block">
-                    <div class="theory-lesson-main">
-                        <div class="lesson-tools">
-                            <div class="lesson-tools-item">
-                                <span>Добавить раздел</span>
+                <div class="practice-lesson-block">
+                    <div class="practice-lesson-main">
+                        <div class="lesson-tools practice-tools">
+                            <div class="lesson-tools-item active-tools-item">
+                                <span>Тест (задача)</span>
+                            </div>
+                            <div class="lesson-tools-item pratice-lesson-tools-item">
+                                <span>Пропуски</span>
                             </div>
                             <div class="lesson-tools-item">
-                                <span>Добавить заголовок</span>
+                                <span>Текстовая задача</span>
                             </div>
                             <div class="lesson-tools-item">
-                                <span>Добавить изображение</span>
-                            </div>
-                            <div class="lesson-tools-item">
-                                <span>Добавить текст</span>
+                                <span>Задача на сортировку</span>
                             </div>
                         </div>
                         <div class="theory-lesson-content">
-                            <h3 class="lesson-chapter">Раздел 1</h3>
-                            <h4 class="lesson-title">Заголовок</h4>
-                            <p class="lesson-text">Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-                                вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала
-                                XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм
-                                шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно
-                                пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его
-                                популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum
-                                в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus
-                                PageMaker, в шаблонах которых используется Lorem Ipsum.</p>
-                            <img src="images/lesson-image.png" alt="lesson image" class="lesson-image">
+                            <div class="lesson-inputs">
+                                <div class="module-inputs">
+                                    <div class="news-title__block">
+                                        <label for="news_title" class="label">Название урока</label>
+                                        <input type="text" id="news_title" name="news_title"
+                                            class="search-bar news-input">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label for="news_description" class="label">Условие задачи</label>
+                                        <textarea name="news_description" id="news_description"
+                                            class="search-bar news-input" style="height: 100px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="test-title">Варианты ответа</h4>
+                            <div class="test-list">
+                                <div class="test-item">
+                                    <input class="custom-radio" name="answer" type="radio" id="answer1" value="1"
+                                        checked>
+                                    <label for="answer1"></label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    </svg>
+                                </div>
+                                <div class="test-item">
+                                    <input class="custom-radio" name="answer" type="radio" id="answer2" value="1">
+                                    <label for="answer2"></label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    </svg>
+                                </div>
+                                <div class="test-item">
+                                    <input class="custom-radio" name="answer" type="radio" id="answer3" value="1">
+                                    <label for="answer3"></label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    </svg>
+                                </div>
+                                <div class="test-item">
+                                    <input class="custom-radio" name="answer" type="radio" id="answer4" value="1">
+                                    <label for="answer4"></label>
+                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    </svg>
+                                </div>
+                                <button class="ok">Добавить вариант ответа</button>
+                            </div>
+                            <div class="text-btns">
+                                <form action="" method="post">
+                                    <button type="submit" class="cancel">Удалить</button>
+                                </form>
+                                <form action="" method="post">
+                                    <button type="submit" class="ok">Изменить</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="theory-lesson-chapters">
-                        <h3 class="chapters-title">Разделы</h3>
-                        <ol class="chapters-list">
-                            <li class="chapters-item active-chapter"><a href="">Раздел 1</a></li>
-                            <li class="chapters-item"><a href="">Раздел 2</a></li>
-                            <li class="chapters-item"><a href="">Раздел 3</a></li>
-                            <li class="chapters-item"><a href="">Раздел 4</a></li>
-                            <li class="chapters-item"><a href="">Раздел 5</a></li>
-                            <li class="chapters-item"><a href="">Раздел 6</a></li>
-                            <li class="chapters-item"><a href="">Раздел 7</a></li>
-                            <li class="chapters-item"><a href="">Раздел 8</a></li>
-                        </ol>
                     </div>
                 </div>
             </section>
