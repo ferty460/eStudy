@@ -253,7 +253,7 @@
     
     .search-bar, .ok, .cancel {font-size: 12px;}
 
-    .search-bar__form {padding-bottom: 15px;}
+    .search-bar__form, .lesson-inputs, .spaces-btns {padding-bottom: 15px;}
 
     .course__by-block {padding: 0;}
 
@@ -269,8 +269,27 @@
         font-size: 8px;
     }
 
-    .theory-lesson-content, .theory-lesson-chapters {
+    .theory-lesson-content, .theory-lesson-chapters, .text-spaces-item {
         padding: 15px;
+    }
+
+    .text-spaces-elements {
+        padding-bottom: 15px;
+        margin: 15px 0;
+    }
+
+    .spaces-btns {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sort-list {
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    .sort-head {
+        font-size: 12px;
     }
 }
 

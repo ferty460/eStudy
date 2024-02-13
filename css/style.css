@@ -1236,7 +1236,7 @@ body {
     border-radius: 10px;
 }
 
-.test-item svg {
+.test-item svg, .sort-item svg {
     cursor: pointer;
     height: 20px;
 }
@@ -1246,6 +1246,70 @@ body {
     display: flex;
     gap: 20px;
     justify-content: end;
+}
+
+.answer {
+    padding-bottom: 25px;
+    margin: 25px 0;
+    border-bottom: 1px solid #6C7293;
+}
+
+.text-spaces-elements {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #6C7293;
+}
+
+.text-spaces-item {
+    padding: 20px;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.spaces-btns {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #6C7293;
+}
+
+.sort-list {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sort-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.sort-title {
+    color: #6C7293;
+    font-weight: 700;
+}
+
+.sort-head {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sort-head span {
+    color: #6C7293;
+    font-weight: 700;
+}
+
+.theory-lesson-content {
+    display: none;
 }
 
 /* --------- FOOTER --------- */
