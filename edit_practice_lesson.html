@@ -154,22 +154,6 @@
             <section class="theory-lesson">
                 <div class="practice-lesson-block">
                     <div class="practice-lesson-main">
-                        <div class="lesson-tools practice-tools">
-                            <div class="lesson-tools-item active-tools-item" onclick="openTab(event, 'test')">
-                                <span>Тест (задача)</span>
-                            </div>
-                            <div class="lesson-tools-item pratice-lesson-tools-item" onclick="openTab(event, 'spaces')">
-                                <span>Пропуски</span>
-                            </div>
-                            <div class="lesson-tools-item" onclick="openTab(event, 'text')">
-                                <span>Текстовая задача</span>
-                            </div>
-                            <div class="lesson-tools-item" onclick="openTab(event, 'sort')">
-                                <span>Задача на сортировку</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Тест -->
                         <div class="theory-lesson-content" id="test">
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
@@ -236,7 +220,6 @@
                             </div>
                         </div>
 
-                        <!-- Текстовая задача -->
                         <div class="theory-lesson-content" id="text">
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
@@ -268,7 +251,6 @@
                             </div>
                         </div>
 
-                        <!-- Задача с пропусками -->
                         <div class="theory-lesson-content" id="spaces">
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
@@ -318,7 +300,6 @@
                             </div>
                         </div>
 
-                        <!-- Задача на сортировку -->
                         <div class="theory-lesson-content" id="sort">
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
@@ -410,6 +391,9 @@
 
     <script src="js/header.js"></script>
     <script src="js/tab.js"></script>
+    <script>
+        document.getElementById("test").style.display='block';
+    </script>
 </body>
 
 </html>
