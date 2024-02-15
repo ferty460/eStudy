@@ -690,6 +690,7 @@ body {
 
 .news-input {
     width: 100%;
+    padding: 5px 10px;
 }
 
 .news-image__block {
@@ -707,10 +708,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-}
-
-.news-input {
-    padding: 5px 10px;
 }
 
 .news {
@@ -1308,8 +1305,29 @@ body {
     font-weight: 700;
 }
 
-.theory-lesson-content {
+.edit-practice-content {
     display: none;
+}
+
+.test-item-text {
+    color: #c5c5c5;
+}
+
+.spaces-block {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.spaces-input {
+    width: 100px;
+    padding: 5px 10px;
+}
+
+.sort-item .test-item-text {
+    width: 100%;
 }
 
 /* --------- FOOTER --------- */
