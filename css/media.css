@@ -288,7 +288,7 @@
         gap: 10px;
     }
 
-    .sort-head {
+    .sort-head, .test-item-text {
         font-size: 12px;
     }
 }
@@ -354,7 +354,7 @@
         gap: 10px;
     }
 
-    .progress-value {
+    .progress-value, .test-item-text {
         font-size: 8px;
     }
 

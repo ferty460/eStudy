@@ -1330,6 +1330,45 @@ body {
     width: 100%;
 }
 
+.registration-block {
+    max-width: 700px;
+    padding: 25px;
+    margin: 0 auto;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.registration-form {
+    margin-top: 30px;
+}
+
+.registration-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.registration-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.auth-link {
+    margin-top: 10px;
+    color: #c5c5c5;
+    text-align: center;
+}
+
+.auth-link a {
+    color: #6C7293;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
 /* --------- FOOTER --------- */
 
 .footer {

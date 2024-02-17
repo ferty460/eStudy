@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>Регистрация | eStudy</title>
+</head>
+
+<body>
+    <header id="header" class="header">
+        <div class="header__inner">
+            <div class="header__inner-item">
+                <div>
+                    <a href="#" class="logo__link">
+                        <img src="images/logo.svg" alt="logo" class="logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div id="content" class="content">
+            <div class="registration-block">
+                <h2 class="best-courses__title" style="text-align: center;">Регистрация</h2>
+                <p class="auth-link">Уже есть аккаунт? <a href="">Войти</a></p>
+                <form action="" method="post" class="registration-form">
+                    <div class="registration-item" id="step1">
+                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Имя">
+                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Фамилия">
+                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Отчество">
+                        <input type="number" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Возраст">
+                        <div class="registration-buttons" style="justify-content: end;">
+                            <button type="button" class="ok" id="to_step2" onclick="nextSection()">Далее</button>
+                        </div>
+                    </div>
+                    <div class="registration-item" id="step2" style="display: none;">
+                        <p style="color: #c5c5c5;">Пол:</p>
+                        <div class="availability-block" style="border: none; padding: 0;">
+                            <label class="availability-label">
+                                <input type="radio" name="gender" value="MALE" checked>
+                                <div class="availability">
+                                    <img src="images/male.svg" alt="male">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title" style="color: #6C7293;">Мужской</h4>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="availability-label">
+                                <input type="radio" name="gender" value="FEMALE">
+                                <div class="availability">
+                                    <img src="images/female.svg" alt="female">
+                                    <div class="availability-details">
+                                        <h4 class="availability-title" style="color: #6C7293;">Женский</h4>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <input type="email" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Электронная почта">
+                        <input type="password" id="news_title" name="news_title" class="search-bar news-input"
+                            placeholder="Пароль">
+                        <div class="registration-buttons">
+                            <button type="button" class="cancel" id="to_step1" onclick="prevSection()">Вернуться</button>
+                            <button class="ok" id="registr">Зарегистрироваться</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__makes-by">
+                <span>ИС-4</span>
+                <span>Ростовцев В.С.</span>
+            </div>
+            <div class="footer__diplom">
+                <span>Дипломная работа</span>
+            </div>
+            <div class="footer__customer">
+                <span>Техникум</span>
+                <span>Бизнес и право</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var currentSection = 1;
+
+        function nextSection() {
+            var inputs = document.getElementById('step' + currentSection).getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.trim() === '') {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+            }
+            document.getElementById('step' + currentSection).style.display = 'none';
+            currentSection++;
+            document.getElementById('step' + currentSection).style.display = 'flex';
+        }
+
+        function prevSection() {
+            document.getElementById('step' + currentSection).style.display = 'none';
+            currentSection--;
+            document.getElementById('step' + currentSection).style.display = 'flex';
+        }
+    </script>
+</body>
+
+</html>
