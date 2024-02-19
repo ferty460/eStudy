@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/media.css">
     <title>Регистрация | eStudy</title>
 </head>
 
@@ -16,7 +16,7 @@
             <div class="header__inner-item">
                 <div>
                     <a href="#" class="logo__link">
-                        <img src="images/logo.svg" alt="logo" class="logo">
+                        <img src="../static/images/logo.svg" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
@@ -30,13 +30,13 @@
                 <p class="auth-link">Уже есть аккаунт? <a href="">Войти</a></p>
                 <form action="" method="post" class="registration-form">
                     <div class="registration-item" id="step1">
-                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="text" name="news_title" class="search-bar news-input"
                             placeholder="Имя">
-                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="text" name="news_title" class="search-bar news-input"
                             placeholder="Фамилия">
-                        <input type="text" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="text" name="news_title" class="search-bar news-input"
                             placeholder="Отчество">
-                        <input type="number" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="number" name="news_title" class="search-bar news-input"
                             placeholder="Возраст">
                         <div class="registration-buttons" style="justify-content: end;">
                             <button type="button" class="ok" id="to_step2" onclick="nextSection()">Далее</button>
@@ -48,7 +48,7 @@
                             <label class="availability-label">
                                 <input type="radio" name="gender" value="MALE" checked>
                                 <div class="availability">
-                                    <img src="images/male.svg" alt="male">
+                                    <img src="../static/images/male.svg" alt="male">
                                     <div class="availability-details">
                                         <h4 class="availability-title" style="color: #6C7293;">Мужской</h4>
                                     </div>
@@ -57,16 +57,16 @@
                             <label class="availability-label">
                                 <input type="radio" name="gender" value="FEMALE">
                                 <div class="availability">
-                                    <img src="images/female.svg" alt="female">
+                                    <img src="../static/images/female.svg" alt="female">
                                     <div class="availability-details">
                                         <h4 class="availability-title" style="color: #6C7293;">Женский</h4>
                                     </div>
                                 </div>
                             </label>
                         </div>
-                        <input type="email" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="email" name="news_title" class="search-bar news-input"
                             placeholder="Электронная почта">
-                        <input type="password" id="news_title" name="news_title" class="search-bar news-input"
+                        <input type="password" name="news_title" class="search-bar news-input"
                             placeholder="Пароль">
                         <div class="registration-buttons">
                             <button type="button" class="cancel" id="to_step1" onclick="prevSection()">Вернуться</button>
