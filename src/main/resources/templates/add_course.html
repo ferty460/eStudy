@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
     <title>Добавление курса | eStudy</title>
 </head>
 
@@ -14,20 +14,20 @@
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
-                <img src="../static/images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
                 <div>
                     <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
+                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
 
             <div class="header__inner-item">
                 <a href="#">
-                    <img src="../static/images/profile.svg" alt="profile" class="header__inner-profile">
+                    <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
                 <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="header__inner-username" th:text="${user.getUsername()}"></span>
                     <span class="down-triangle">&#9660;</span>
                 </a>
                 <div id="dropdownMenu" class="dropdown-menu">
@@ -35,7 +35,7 @@
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
                         <li class="dropdown-item">
-                            <form action="#" method="post">
+                            <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
                             </form>
                         </li>
@@ -48,9 +48,9 @@
             <nav class="sidebar-menu">
                 <ul class="sidebar-menu__list">
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/profile}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/personal_account.svg" alt="personal account"
+                                <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
                                      class="sidebar-menu__img">
                             </div>
                             <span>Личный кабинет</span>
@@ -60,7 +60,7 @@
                         <a href="#" class="sidebar-menu__link pull-out-menu">
                             <div class="sidebar-menu__title">
                                 <div class="sidebar-menu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
                                 </div>
                                 <span>Мои курсы</span>
                             </div>
@@ -73,7 +73,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 Английский
                             </a>
@@ -81,7 +81,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 C++
                             </a>
@@ -89,7 +89,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 ДЛЯ ДЕБИЛОВ
                             </a>
@@ -99,7 +99,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>
                             <span>Каталог</span>
                         </a>
@@ -107,15 +107,15 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
                             </div>
                             <span>Календарь</span>
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link active">
+                        <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
                             </div>
                             <span>Новости</span>
                         </a>
@@ -123,7 +123,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
                             </div>
                             <span>Поддержка</span>
                         </a>
@@ -131,7 +131,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
                             </div>
                             <span>О нас</span>
                         </a>
@@ -139,7 +139,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
                             </div>
                             <span>Админ. панель</span>
                         </a>
@@ -154,7 +154,7 @@
             <section class="course">
 
                 <!-- Форма создания курса -->
-                <form method="post" enctype="multipart/form-data">
+                <form th:action="@{/courses/create}" method="post" enctype="multipart/form-data">
                     <div class="add-news__block">
                         <div class="best-courses__details news__details">
                             <h2 class="best-courses__title">Учебный курс</h2>
@@ -164,7 +164,7 @@
                             <div class="news-image__block">
                                 <div class="input-file-row">
                                     <label class="input-file">
-                                        <input id="file" type="file" name="file[]" accept="image/*">
+                                        <input id="file" type="file" name="file">
                                         <span>Выберите файл</span>
                                     </label>
                                     <div class="input-file-list"></div>
@@ -173,11 +173,11 @@
                             <div class="news-inputs__block">
                                 <div class="news-title__block">
                                     <label for="news_title" class="label">Заголовок</label>
-                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <input type="text" id="news_title" name="title" class="search-bar news-input">
                                 </div>
                                 <div class="news-description__block">
                                     <label for="news_description" class="label">Описание</label>
-                                    <textarea name="news_description" id="news_description"
+                                    <textarea name="description" id="news_description"
                                         class="search-bar news-input"></textarea>
                                 </div>
                             </div>
@@ -187,88 +187,10 @@
                             <h4>Выберите необходимый тэг, с которым вы ассоциируете ваш учебный курс:</h4>
 
                             <div class="tags mt10">
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" checked value="PROGRAMMING">
+                                <label class="tag-label" th:each="tag : ${tags}">
+                                    <input type="radio" name="tag" checked th:value="${tag.getId()}">
                                     <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Программирование</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="DESIGN">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Дизайн</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="MARKETING">
-                                    <div class="tag tags__item tag-course">
-                                        <span href="#" class="tag__link">Маркетинг</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="FINANCE">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Финансы</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="PERSONALITY">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Личность</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="ART">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Искусство</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="SCIENCE">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Наука</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="LANGUAGES">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Языки</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="TECHOLOGIES">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Технологии</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="HEALTH">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Здоровье и спорт</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="PHOTO">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Фотография</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="VIDEO">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Видеомонтаж</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="MUSIC">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Музыка</span>
-                                    </div>
-                                </label>
-                                <label class="tag-label">
-                                    <input type="radio" name="tag" value="PSYCHOLOGY">
-                                    <div class="tag tags__item tag-course">
-                                        <span class="tag__link">Психология</span>
+                                        <span class="tag__link" th:text="${tag.getName()}"></span>
                                     </div>
                                 </label>
                             </div>
@@ -278,7 +200,7 @@
                             <label class="availability-label">
                                 <input type="radio" name="availability" value="PUBLIC" checked>
                                 <div class="availability">
-                                    <img src="../static/images/availability-public.svg" alt="public">
+                                    <img th:src="@{/images/availability-public.svg}" alt="public">
                                     <div class="availability-details">
                                         <h4 class="availability-title">Публичный</h4>
                                         <p class="availability-description">Все смогут увидеть ваш курс и записаться на
@@ -289,10 +211,10 @@
                             <label class="availability-label">
                                 <input type="radio" name="availability" value="PRIVATE">
                                 <div class="availability">
-                                    <img src="../static/images/availability-private.svg" alt="public">
+                                    <img th:src="@{/images/availability-private.svg}" alt="public">
                                     <div class="availability-details">
                                         <h4 class="availability-title">Приватный</h4>
-                                        <p class="availability-description">Запись только по ссылке-приглашению.</p>
+                                        <p class="availability-description">Доступ только по ссылке-приглашению.</p>
                                     </div>
                                 </div>
                             </label>
@@ -324,9 +246,9 @@
         </div>
     </footer>
 
-    <script src="../static/js/header.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="../static/js/add_image.js"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+    <script th:src="@{/js/add_image.js}"></script>
 </body>
 
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
-    <title>Регистрация | eStudy</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <title>Авторизация | eStudy</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <div class="header__inner-item">
                 <div>
                     <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
+                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
@@ -27,12 +27,12 @@
         <div id="content" class="content">
             <div class="registration-block">
                 <h2 class="best-courses__title" style="text-align: center;">Авторизация</h2>
-                <p class="auth-link">Еще нет аккаунта? <a href="">Зарегистрироваться</a></p>
-                <form action="" method="post" class="registration-form">
+                <p class="auth-link">Еще нет аккаунта? <a th:href="@{/auth/registration}">Зарегистрироваться</a></p>
+                <form th:action="@{/auth/login}" method="post" class="registration-form">
                     <div class="registration-item" id="step2">
-                        <input type="email" name="news_title" class="search-bar news-input"
-                            placeholder="Электронная почта">
-                        <input type="password" name="news_title" class="search-bar news-input"
+                        <input type="text" name="username" class="search-bar news-input"
+                            placeholder="Имя пользователя">
+                        <input type="password" name="password" class="search-bar news-input"
                             placeholder="Пароль">
                         <div class="registration-buttons" style="justify-content: end;">
                             <button class="ok" id="registr">Войти</button>

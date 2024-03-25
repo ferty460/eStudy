@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
     <title>Личный кабинет | eStudy</title>
 </head>
 
@@ -14,20 +14,20 @@
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
-                <img src="../static/images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
                 <div>
-                    <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
+                    <a th:href="@{/}" class="logo__link">
+                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
 
             <div class="header__inner-item">
                 <a href="#">
-                    <img src="../static/images/profile.svg" alt="profile" class="header__inner-profile">
+                    <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
                 <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="header__inner-username" th:text="${user.getUsername()}"></span>
                     <span class="down-triangle">&#9660;</span>
                 </a>
                 <div id="dropdownMenu" class="dropdown-menu">
@@ -35,7 +35,7 @@
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
                         <li class="dropdown-item">
-                            <form action="#" method="post">
+                            <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
                             </form>
                         </li>
@@ -48,9 +48,9 @@
             <nav class="sidebar-menu">
                 <ul class="sidebar-menu__list">
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link active">
+                        <a th:href="@{/profile}" class="sidebar-menu__link active">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/personal_account.svg" alt="personal account"
+                                <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
                                      class="sidebar-menu__img">
                             </div>
                             <span>Личный кабинет</span>
@@ -60,7 +60,7 @@
                         <a href="#" class="sidebar-menu__link pull-out-menu">
                             <div class="sidebar-menu__title">
                                 <div class="sidebar-menu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
                                 </div>
                                 <span>Мои курсы</span>
                             </div>
@@ -73,7 +73,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 Английский
                             </a>
@@ -81,7 +81,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 C++
                             </a>
@@ -89,7 +89,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 ДЛЯ ДЕБИЛОВ
                             </a>
@@ -99,7 +99,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>
                             <span>Каталог</span>
                         </a>
@@ -107,7 +107,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
                             </div>
                             <span>Календарь</span>
                         </a>
@@ -115,7 +115,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
                             </div>
                             <span>Новости</span>
                         </a>
@@ -123,7 +123,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
                             </div>
                             <span>Поддержка</span>
                         </a>
@@ -131,7 +131,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
                             </div>
                             <span>О нас</span>
                         </a>
@@ -139,7 +139,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
                             </div>
                             <span>Админ. панель</span>
                         </a>
@@ -155,22 +155,22 @@
                 <div class="profile__block">
 
                     <div class="profile-img__block">
-                        <img src="../static/images/profile.svg" alt="profile" class="profile-image">
+                        <img th:src="@{/images/profile.svg}" alt="profile" class="profile-image">
                     </div>
 
                     <div class="profile-details__block">
                         <div class="profile-username__block">
-                            <h2 class="profile-username">Ростовцев Владимир</h2>
+                            <h2 class="profile-username" th:text="${user.getSurname() + ' ' + user.getName() + user.getPatronymic()}"></h2>
                             <div class="profile-settings">
                                 <a href="#" class="profile-settings__link">
-                                    <img src="../static/images/settings.svg" alt="settings" class="settings-image">
+                                    <img th:src="@{/images/settings.svg}" alt="settings" class="settings-image">
                                     <p>Настройки</p>
                                 </a>
                             </div>
                         </div>
                         <div class="profile-additional">
-                            <p class="gender">Пол: мужской</p>
-                            <p class="age">Возраст: 19 лет</p>
+                            <p class="gender">Пол: <span th:text="${user.getGender().getName()}"></span></p>
+                            <p class="age">Возраст: <span th:text="${user.getAge()}"></span></p>
                         </div>
                     </div>
 
@@ -188,7 +188,7 @@
                         <div class="courses__item">
                             <div class="course__image-block">
                                 <a href="#">
-                                    <img src="../static/images/course/course1.png" alt="course" class="course__image">
+                                    <img th:src="@{/images/course/course1.png}" alt="course" class="course__image">
                                 </a>
                             </div>
 
@@ -206,7 +206,7 @@
                                         <a href="#" class="course-author__link">Удав Безумный</a>
                                     </h5>
                                     <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
+                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
                                         <p class="rating">5.0</p>
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@
                         <div class="courses__item">
                             <div class="course__image-block">
                                 <a href="#">
-                                    <img src="../static/images/course/course2.png" alt="course" class="course__image">
+                                    <img th:src="@{/images/course/course2.png}" alt="course" class="course__image">
                                 </a>
                             </div>
                             <div class="course__details">
@@ -237,7 +237,7 @@
                                         <a href="#" class="course-author__link">Удав Умный</a>
                                     </h5>
                                     <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
+                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
                                         <p class="rating">5.0</p>
                                     </div>
                                 </div>
@@ -251,7 +251,7 @@
                         <div class="courses__item">
                             <div class="course__image-block">
                                 <a href="#">
-                                    <img src="../static/images/course/course3.png" alt="course" class="course__image">
+                                    <img th:src="@{/images/course/course3.png}" alt="course" class="course__image">
                                 </a>
                             </div>
                             <div class="course__details">
@@ -268,7 +268,7 @@
                                         <a href="#" class="course-author__link">Опередивший время</a>
                                     </h5>
                                     <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
+                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
                                         <p class="rating">5.0</p>
                                     </div>
                                 </div>
@@ -287,92 +287,41 @@
                 <div class="courses__block">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Мои курсы</h2>
-                        <a href="#" class="ok">Добавить</a>
+                        <a th:href="@{/courses/create}" class="ok">Добавить</a>
                     </div>
 
                     <div class="courses__list">
-                        <div class="courses__item">
+                        <div class="courses__item" th:each="course : ${my_courses}">
                             <div class="course__image-block">
                                 <a href="#">
-                                    <img src="../static/images/course/course1.png" alt="course" class="course__image">
+                                    <div class="input-file-list">
+                                        <div class="input-file-list-item">
+                                            <img th:src="@{/img/{id}(id=${course.getPreviewImageId()})}" alt="course" class="input-file-list-img">
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                             <div class="course__details">
                                 <div class="course__title-block">
                                     <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Английский для программистов</a>
+                                        <a href="#" class="course__title-link" th:text="${course.getTitle()}"></a>
                                     </h4>
                                     <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Языки</a>
+                                        <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
                                     </div>
                                 </div>
                                 <div class="course__by-block">
                                     <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
+                                        <a href="#" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
                                     </h5>
                                     <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
-                                        <p class="rating">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img src="../static/images/course/course2.png" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Angular для чайников</a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Программирование</a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Умный</a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
-                                        <p class="rating">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img src="../static/images/course/course3.png" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Теория по вселенной Pokemon</a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Личность</a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Опередивший время</a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img src="../static/images/star.svg" alt="star" class="star">
-                                        <p class="rating">5.0</p>
+                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
+                                        <p class="rating" th:text="${course.getRating()}"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
         </div>
@@ -394,7 +343,7 @@
         </div>
     </footer>
 
-    <script src="../static/js/header.js"></script>
+    <script th:src="@{/js/header.js}"></script>
 </body>
 
 </html>
