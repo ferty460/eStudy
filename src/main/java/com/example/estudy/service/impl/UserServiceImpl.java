@@ -1,6 +1,7 @@
 package com.example.estudy.service.impl;
 
 import com.example.estudy.domain.course.Course;
+import com.example.estudy.domain.user.Role;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.UserRepository;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
@@ -16,14 +19,14 @@
             <div class="header__inner-item">
                 <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
                 <div>
-                    <a href="#" class="logo__link">
+                    <a th:href="@{/}" class="logo__link">
                         <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
 
             <div class="header__inner-item">
-                <a href="#">
+                <a th:href="@{/profile}">
                     <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
                 <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
@@ -32,7 +35,7 @@
                 </a>
                 <div id="dropdownMenu" class="dropdown-menu">
                     <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
                         <li class="dropdown-item">
                             <form th:action="@{/logout}" method="post">
@@ -136,7 +139,7 @@
                             <span>О нас</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
+                    <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">

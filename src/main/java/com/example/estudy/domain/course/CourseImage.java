@@ -34,10 +34,10 @@ public class CourseImage {
     private boolean isPreviewImage;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] bytes;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "image")
     private Course course;
 
 }

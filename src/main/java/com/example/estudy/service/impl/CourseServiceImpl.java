@@ -2,6 +2,7 @@ package com.example.estudy.service.impl;
 
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.course.CourseImage;
+import com.example.estudy.repository.CourseImageRepository;
 import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.UserRepository;
 import com.example.estudy.service.CourseService;
@@ -19,6 +20,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final CourseImageRepository imageRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -35,29 +37,33 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
-    public Course update(Course course, Long courseId) {
-        Course editedCourse = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found"));
-        editedCourse.setAuthor(course.getAuthor());
-        editedCourse.setTag(course.getTag());
-        editedCourse.setTitle(course.getTitle());
-        editedCourse.setDescription(course.getDescription());
-        editedCourse.setRating(course.getRating());
-
-        return courseRepository.save(editedCourse);
-    }
-
-    @Override
-    @Transactional
     public Course create(Course course, Long userId, MultipartFile file) throws IOException {
         course.setAuthor(userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User with id " + userId + " not found")));
         course.setRating(0.0F);
-        addImage(file, course);
-        Course courseFromDB = courseRepository.save(course);
-        courseFromDB.setPreviewImageId(courseFromDB.getImages().get(0).getId());
-
+        if (file.getSize() != 0) {
+            CourseImage image = toImageEntity(file);
+            course.setImage(image);
+        }
         return courseRepository.save(course);
+    }
+
+    @Override
+    @Transactional
+    public Course update(Course course, Long courseId, MultipartFile file) throws IOException {
+        Course editedCourse = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found"));
+        editedCourse.setTitle(course.getTitle());
+        editedCourse.setDescription(course.getDescription());
+        if (file.getSize() != 0) {
+            CourseImage image = toImageEntity(file);
+            CourseImage oldImage = imageRepository.findById(editedCourse.getImage().getId())
+                    .orElseThrow(() -> new RuntimeException("Image not found"));
+            imageRepository.deleteById(oldImage.getId());
+            editedCourse.setImage(image);
+        }
+
+        return courseRepository.save(editedCourse);
     }
 
     @Override
@@ -68,18 +74,8 @@ public class CourseServiceImpl implements CourseService {
 
     /* --------- IMAGE --------- */
 
-    private void addImage(MultipartFile file, Course course) throws IOException {
-        CourseImage image;
-        if (file.getSize() != 0) {
-            image = toImageEntity(file);
-            image.setPreviewImage(true);
-            course.addImageToCourse(image);
-        }
-    }
-
     private CourseImage toImageEntity(MultipartFile file) throws IOException {
         CourseImage image = new CourseImage();
-        image.setName(file.getName());
         image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());
         image.setContentType(file.getContentType());

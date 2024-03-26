@@ -12,9 +12,9 @@ public interface CourseService {
 
     List<Course> getAllByUserId(Long id);
 
-    Course update(Course course, Long courseId);
+    Course update(Course course, Long courseId, MultipartFile file) throws IOException;
 
-    Course create(Course course, Long id, MultipartFile file) throws IOException;
+    Course create(Course course, Long userId, MultipartFile file) throws IOException;
 
     void delete(Long id);
 

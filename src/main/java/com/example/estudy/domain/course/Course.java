@@ -48,14 +48,12 @@ public class Course {
 
     /* --------- IMAGE --------- */
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
-    private List<CourseImage> images = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private CourseImage image;
 
-    private Long previewImageId;
-
-    public void addImageToCourse(CourseImage image) {
+    public void setImage(CourseImage image) {
         image.setCourse(this);
-        images.add(image);
+        this.image = image;
     }
 
 }

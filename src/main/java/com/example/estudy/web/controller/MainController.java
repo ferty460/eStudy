@@ -19,8 +19,12 @@ public class MainController {
 
     @GetMapping("/")
     public String mainPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.getByUsername(userDetails.getUsername());
-        model.addAttribute("user", user);
+        if (userDetails != null) {
+            User user = userService.getByUsername(userDetails.getUsername());
+            model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
+            model.addAttribute("user", user);
+        }
+
         return "main";
     }
 

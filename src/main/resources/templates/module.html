@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
     <title>Модуль | eStudy</title>
 </head>
 
@@ -14,28 +17,28 @@
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
-                <img src="../static/images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
+                <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
                 <div>
-                    <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
+                    <a th:href="@{/}" class="logo__link">
+                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
                 </div>
             </div>
 
             <div class="header__inner-item">
-                <a href="#">
-                    <img src="../static/images/profile.svg" alt="profile" class="header__inner-profile">
+                <a th:href="@{/profile}">
+                    <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
                 <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username">Ростовцев В.С.</span>
+                    <span class="header__inner-username" th:text="${user.getUsername()}"></span>
                     <span class="down-triangle">&#9660;</span>
                 </a>
                 <div id="dropdownMenu" class="dropdown-menu">
                     <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
                         <li class="dropdown-item">
-                            <form action="#" method="post">
+                            <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
                             </form>
                         </li>
@@ -48,9 +51,9 @@
             <nav class="sidebar-menu">
                 <ul class="sidebar-menu__list">
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/profile}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/personal_account.svg" alt="personal account"
+                                <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
                                      class="sidebar-menu__img">
                             </div>
                             <span>Личный кабинет</span>
@@ -60,7 +63,7 @@
                         <a href="#" class="sidebar-menu__link pull-out-menu">
                             <div class="sidebar-menu__title">
                                 <div class="sidebar-menu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
                                 </div>
                                 <span>Мои курсы</span>
                             </div>
@@ -73,7 +76,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 Английский
                             </a>
@@ -81,7 +84,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 C++
                             </a>
@@ -89,7 +92,7 @@
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
+                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
                                 ДЛЯ ДЕБИЛОВ
                             </a>
@@ -99,7 +102,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>
                             <span>Каталог</span>
                         </a>
@@ -107,7 +110,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
                             </div>
                             <span>Календарь</span>
                         </a>
@@ -115,7 +118,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
                             </div>
                             <span>Новости</span>
                         </a>
@@ -123,7 +126,7 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
                             </div>
                             <span>Поддержка</span>
                         </a>
@@ -131,15 +134,15 @@
                     <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
                             </div>
                             <span>О нас</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
+                    <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
                             </div>
                             <span>Админ. панель</span>
                         </a>
@@ -154,16 +157,15 @@
             <section class="module">
                 <div class="module-block">
                     <div class="module-heading">
-
                         <div class="module-inputs">
                             <div class="news-title__block">
                                 <label for="news_title" class="label">Заголовок</label>
-                                <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                <input type="text" id="news_title" name="title" class="search-bar news-input" th:value="${module1.getTitle()}">
                             </div>
                             <div class="news-description__block">
                                 <label for="news_description" class="label">Описание</label>
-                                <textarea name="news_description" id="news_description" class="search-bar news-input"
-                                    style="height: 100px;"></textarea>
+                                <textarea name="description" id="news_description" class="search-bar news-input"
+                                    style="height: 100px;" th:text="${module1.getDescription()}"></textarea>
                             </div>
                         </div>
 
@@ -175,46 +177,45 @@
                                 <button type="submit" class="ok">Изменить</button>
                             </form>
                         </div>
-
                     </div>
 
                     <div class="lessons">
                         <div class="module-item">
                             <div class="lesson-details">
                                 <div class="lesson-img">
-                                    <img src="../static/images/lesson-theory.svg" alt="theory lesson">
+                                    <img th:src="@{/images/lesson-theory.svg}" alt="theory lesson">
                                 </div>
                                 <h5><a href="">Урок 1</a></h5>
                             </div>
                             <div class="module-actions">
-                                <a href=""><img src="../static/images/settings.svg" alt="edit"></a>
-                                <a href=""><img src="../static/images/delete.svg" alt="delete"></a>
+                                <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
+                                <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
                             </div>
                         </div>
 
                         <div class="module-item">
                             <div class="lesson-details">
                                 <div class="lesson-img">
-                                    <img src="../static/images/lesson-practice.svg" alt="practice lesson">
+                                    <img th:src="@{/images/lesson-practice.svg}" alt="practice lesson">
                                 </div>
                                 <h5><a href="">Урок 2</a></h5>
                             </div>
                             <div class="module-actions">
-                                <a href=""><img src="../static/images/settings.svg" alt="edit"></a>
-                                <a href=""><img src="../static/images/delete.svg" alt="delete"></a>
+                                <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
+                                <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
                             </div>
                         </div>
 
                         <div class="module-item">
                             <div class="lesson-details">
                                 <div class="lesson-img">
-                                    <img src="../static/images/lesson-practice.svg" alt="practice lesson">
+                                    <img th:src="@{/images/lesson-practice.svg}" alt="practice lesson">
                                 </div>
                                 <h5><a href="">Урок 3</a></h5>
                             </div>
                             <div class="module-actions">
-                                <a href=""><img src="../static/images/settings.svg" alt="edit"></a>
-                                <a href=""><img src="../static/images/delete.svg" alt="delete"></a>
+                                <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
+                                <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
                             </div>
                         </div>
                     </div>
@@ -243,7 +244,7 @@
         </div>
     </footer>
 
-    <script src="../static/js/header.js"></script>
+    <script th:src="@{/js/header.js}"></script>
 </body>
 
 </html>

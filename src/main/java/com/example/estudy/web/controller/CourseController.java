@@ -3,6 +3,7 @@ package com.example.estudy.web.controller;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.CourseServiceImpl;
+import com.example.estudy.service.impl.ModuleServiceImpl;
 import com.example.estudy.service.impl.TagServiceImpl;
 import com.example.estudy.service.impl.UserServiceImpl;
 import com.example.estudy.web.dto.course.CourseDto;
@@ -29,14 +30,26 @@ public class CourseController {
     private final CourseServiceImpl courseService;
     private final UserServiceImpl userService;
     private final TagServiceImpl tagService;
+    private final ModuleServiceImpl moduleService;
 
     private final CourseMapper courseMapper;
+
+    @GetMapping
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Course course = courseService.getById(id);
+        User user = userService.getByUsername(userDetails.getUsername());
+        model.addAttribute("course", course);
+        model.addAttribute("user", user);
+        model.addAttribute("modules", moduleService.getAllByCourseId(course.getId()));
+        return "course";
+    }
 
     @GetMapping("/create")
     public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getByUsername(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
         return "add_course";
     }
 
@@ -50,18 +63,12 @@ public class CourseController {
         return "redirect:/profile";
     }
 
-    @PutMapping
-    public CourseDto update(@Validated(OnUpdate.class) CourseDto courseDto, Long courseId) {
+    @PostMapping("/update")
+    public String update(@Validated(OnUpdate.class) CourseDto courseDto,
+                         @RequestParam("file") MultipartFile file) throws IOException {
         Course course = courseMapper.toEntity(courseDto);
-        Course updatedCourse = courseService.update(course, courseId);
-        return courseMapper.toDto(updatedCourse);
-    }
-
-    @GetMapping("/{id}")
-    public String getById(@PathVariable Long id, Model model) {
-        Course course = courseService.getById(id);
-        model.addAttribute("course", course);
-        return "course";
+        Course updatedCourse = courseService.update(course, course.getId(), file);
+        return "redirect:/courses?id=" + updatedCourse.getId();
     }
 
     @DeleteMapping("/{id}")

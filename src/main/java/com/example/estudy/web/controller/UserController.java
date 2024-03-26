@@ -6,15 +6,11 @@ import com.example.estudy.service.CourseService;
 import com.example.estudy.service.UserService;
 import com.example.estudy.web.dto.course.CourseDto;
 import com.example.estudy.web.dto.user.UserDto;
-import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.CourseMapper;
 import com.example.estudy.web.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

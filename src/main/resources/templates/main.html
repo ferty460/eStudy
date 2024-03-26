@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="header__inner-item">
+            <div class="header__inner-item" sec:authorize="isAuthenticated()">
                 <a href="#">
                     <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
@@ -32,7 +35,7 @@
                 </a>
                 <div id="dropdownMenu" class="dropdown-menu">
                     <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
+                        <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
                         <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
                         <li class="dropdown-item">
                             <form th:action="@{/logout}" method="post">
@@ -47,7 +50,7 @@
         <div id="sidebar" class="sidebar sidebar-show">
             <nav class="sidebar-menu">
                 <ul class="sidebar-menu__list">
-                    <li class="sidebar-menu__item">
+                    <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
                         <a th:href="@{/profile}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
@@ -56,7 +59,7 @@
                             <span>Личный кабинет</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item" id="submenu">
+                    <li class="sidebar-menu__item" id="submenu" sec:authorize="isAuthenticated()">
                         <a href="#" class="sidebar-menu__link pull-out-menu">
                             <div class="sidebar-menu__title">
                                 <div class="sidebar-menu__img-block">
@@ -69,7 +72,7 @@
                     </li>
 
                     <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list">
+                    <ul class="submenu__list sidebar-menu__list" sec:authorize="isAuthenticated()">
                         <li class="submenu__item sidebar-menu__item">
                             <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
@@ -104,7 +107,7 @@
                             <span>Каталог</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
+                    <li class="sidebar-menu__item" th:if="${user}">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
@@ -136,7 +139,7 @@
                             <span>О нас</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
+                    <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
@@ -163,7 +166,7 @@
                         </div>
                     </div>
                     <div class="begin__button">
-                        <a href="#" class="ok">Начать</a>
+                        <a th:href="@{/courses/catalog}" class="ok">Начать</a>
                     </div>
                 </div>
 
