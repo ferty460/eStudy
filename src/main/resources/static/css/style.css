@@ -501,6 +501,14 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#myTeaching, #myLearning, .bg, #newModule {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .course-progress {
     display: flex;
     flex-direction: column;

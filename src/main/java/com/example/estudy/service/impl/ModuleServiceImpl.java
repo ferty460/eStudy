@@ -40,7 +40,7 @@ public class ModuleServiceImpl implements ModuleService {
                 .orElseThrow(() -> new RuntimeException("Module not found"));
         editedModule.setTitle(module.getTitle());
         editedModule.setDescription(module.getDescription());
-        return moduleRepository.save(module);
+        return moduleRepository.save(editedModule);
     }
 
     @Override

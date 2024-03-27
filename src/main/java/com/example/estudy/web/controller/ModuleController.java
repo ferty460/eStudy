@@ -34,7 +34,7 @@ public class ModuleController {
     public String create(@Validated(OnCreate.class) ModuleDto moduleDto, Long courseId) {
         Module module = moduleMapper.toEntity(moduleDto);
         moduleService.create(module, courseId);
-        return "redirect:/modules?id=" + module.getId();
+        return "redirect:/courses?id=" + courseId;
     }
 
     @GetMapping
@@ -51,6 +51,13 @@ public class ModuleController {
         Module module = moduleMapper.toEntity(moduleDto);
         moduleService.update(module, module.getId());
         return "redirect:/modules?id=" + module.getId();
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long id) {
+        Long courseId = moduleService.getById(id).getCourse().getId();
+        moduleService.delete(id);
+        return "redirect:/courses?id=" + courseId;
     }
 
 }

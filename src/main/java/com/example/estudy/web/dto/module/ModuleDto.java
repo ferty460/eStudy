@@ -1,5 +1,6 @@
 package com.example.estudy.web.dto.module;
 
+import com.example.estudy.domain.course.Course;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import jakarta.validation.constraints.NotNull;
@@ -17,5 +18,7 @@ public class ModuleDto {
     private String title;
 
     private String description;
+
+    private Course course;
 
 }

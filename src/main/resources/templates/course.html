@@ -238,7 +238,7 @@
                 </div>
             </section>
 
-            <section class="module-section">
+            <section class="module-section" th:if="${!modules.isEmpty()}">
                 <div class="module-block">
                     <div class="module" th:each="module1 : ${modules}">
                         <div class="module-head">
@@ -246,7 +246,10 @@
                                 <h4 th:text="${module1.getTitle()}"></h4>
                                 <div class="module-actions">
                                     <a th:href="@{/modules(id=__${module1.getId()}__)}"><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                    <a href="#"><img th:src="@{/images/delete.svg}" alt="delete"></a>
+                                    <form th:action="@{/modules/delete}" method="post" id="deleteForm">
+                                        <input type="hidden" name="id" th:value="${module1.getId()}">
+                                        <img th:src="@{/images/delete.svg}" alt="delete" class="pointer" onclick="toSubmit()">
+                                    </form>
                                 </div>
                             </div>
                             <div class="module-description">
@@ -317,6 +320,11 @@
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/js/add_image.js}"></script>
     <script th:src="@{/js/turnToCreateModule.js}"></script>
+    <script>
+        function toSubmit() {
+            document.getElementById('deleteForm').submit();
+        }
+    </script>
 </body>
 
 </html>

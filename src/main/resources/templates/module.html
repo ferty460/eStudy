@@ -159,22 +159,26 @@
                     <div class="module-heading">
                         <div class="module-inputs">
                             <div class="news-title__block">
-                                <label for="news_title" class="label">Заголовок</label>
-                                <input type="text" id="news_title" name="title" class="search-bar news-input" th:value="${module1.getTitle()}">
+                                <label for="module_title" class="label">Заголовок</label>
+                                <input type="text" id="module_title" name="title" class="search-bar news-input" th:value="${module1.getTitle()}">
                             </div>
                             <div class="news-description__block">
-                                <label for="news_description" class="label">Описание</label>
-                                <textarea name="description" id="news_description" class="search-bar news-input"
+                                <label for="module_description" class="label">Описание</label>
+                                <textarea name="description" id="module_description" class="search-bar news-input"
                                     style="height: 100px;" th:text="${module1.getDescription()}"></textarea>
                             </div>
                         </div>
 
                         <div class="module-btns">
-                            <form action="" method="post">
+                            <form th:action="@{/modules/delete}" method="post">
+                                <input type="hidden" name="id" th:value="${module1.getId()}">
                                 <button type="submit" class="cancel">Удалить</button>
                             </form>
-                            <form action="" method="post">
-                                <button type="submit" class="ok">Изменить</button>
+                            <form th:action="@{/modules/update}" method="post" id="editForm">
+                                <input type="hidden" name="id" th:value="${module1.getId()}" id="moduleId">
+                                <input type="hidden" name="title" id="title">
+                                <input type="hidden" name="description" id="description">
+                                <button type="submit" class="ok" onclick="submitChanges()">Изменить</button>
                             </form>
                         </div>
                     </div>
@@ -245,6 +249,15 @@
     </footer>
 
     <script th:src="@{/js/header.js}"></script>
+    <script>
+        function submitChanges() {
+            let title = document.getElementById('module_title').value;
+            let description = document.getElementById('module_description').value;
+            document.getElementById('title').value = title;
+            document.getElementById('description').value = description;
+            document.getElementById('editForm').submit();
+        }
+    </script>
 </body>
 
 </html>
