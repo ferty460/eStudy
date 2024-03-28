@@ -72,35 +72,24 @@
                     </li>
 
                     <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list" sec:authorize="isAuthenticated()">
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
-                                </div>
-                                Английский
+                    <ul class="submenu__list sidebar-menu__list">
+                        <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                            <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                                <span>Курсов нет</span>
                             </a>
                         </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                        <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                            <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
                                     <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
-                                C++
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
-                                </div>
-                                ДЛЯ ДЕБИЛОВ
+                                <span th:text="${course.getTitle()}"></span>
                             </a>
                         </li>
                     </ul>
 
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>

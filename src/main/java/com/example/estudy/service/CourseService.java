@@ -1,5 +1,6 @@
 package com.example.estudy.service;
 
+import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.course.Course;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +12,8 @@ public interface CourseService {
     Course getById(Long id);
 
     List<Course> getAllByUserId(Long id);
+
+    List<Course> getAllByAvailability(Availability availability);
 
     Course update(Course course, Long courseId, MultipartFile file) throws IOException;
 

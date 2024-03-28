@@ -43,6 +43,7 @@ public class ModuleController {
         Module module = moduleService.getById(id);
         model.addAttribute("module1", module);
         model.addAttribute("user", user);
+        model.addAttribute("followed_courses", user.getFollowedCourses());
         return "module";
     }
 

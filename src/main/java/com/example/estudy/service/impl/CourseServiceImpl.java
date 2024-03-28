@@ -1,7 +1,9 @@
 package com.example.estudy.service.impl;
 
+import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.course.CourseImage;
+import com.example.estudy.domain.user.User;
 import com.example.estudy.repository.CourseImageRepository;
 import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.UserRepository;
@@ -33,6 +35,17 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(readOnly = true)
     public List<Course> getAllByUserId(Long id) {
         return courseRepository.findAllByAuthorId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> getAllByAvailability(Availability availability) {
+        return courseRepository.findAllByAvailability(availability);
+    }
+
+    public void addFollowerToCourse(User follower, Course course) {
+        course.addFollower(follower);
+        courseRepository.save(course);
     }
 
     @Override

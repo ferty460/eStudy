@@ -74,34 +74,23 @@
 
                     <!-- SUBMENU MY COURSES -->
                     <ul class="submenu__list sidebar-menu__list">
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
-                                </div>
-                                Английский
+                        <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                            <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                                <span>Курсов нет</span>
                             </a>
                         </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
+                        <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                            <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
                                 <div class="submenu__img-block">
                                     <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                                 </div>
-                                C++
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
-                                </div>
-                                ДЛЯ ДЕБИЛОВ
+                                <span th:text="${course.getTitle()}"></span>
                             </a>
                         </li>
                     </ul>
 
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>
@@ -168,31 +157,40 @@
                         <div class="news-details__block">
                             <div class="news-image__block">
                                 <div class="input-file-row">
-                                    <label class="input-file">
+                                    <label class="input-file" th:if="${isCourseOwner}">
                                         <input id="file" type="file" name="file">
                                         <span>Выберите файл</span>
                                     </label>
                                     <div class="input-file-list">
-                                        <div class="input-file-list-item">
+                                        <div class="input-file-list-item" th:if="${isCourseOwner}">
                                             <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
                                             <a href="#" onclick="removeFilesItem(this); return false;" class="input-file-list-remove">x</a>
+                                        </div>
+                                        <div class="input-file-list-item" th:if="${!isCourseOwner}">
+                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="news-inputs__block">
-                                <div class="news-title__block">
+                                <div class="news-title__block" th:if="${isCourseOwner}">
                                     <label for="news_title" class="label">Заголовок</label>
                                     <input type="text" id="news_title" name="title" class="search-bar news-input" th:value="${course.getTitle()}">
                                 </div>
-                                <div class="news-description__block">
+                                <div class="news-description__block" th:if="${isCourseOwner}">
                                     <label for="news_description" class="label">Описание</label>
                                     <textarea name="description" id="news_description"
                                               class="search-bar news-input" th:text="${course.getDescription()}"></textarea>
                                 </div>
+                                <div class="welcome__title" th:if="${!isCourseOwner}" style="margin-top: 0;">
+                                    <h3 th:text="${course.getTitle()}"></h3>
+                                </div>
+                                <div class="welcome__description" th:if="${!isCourseOwner}">
+                                    <p th:text="${course.getDescription()}"></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="course-btns">
+                        <div class="course-btns" th:if="${isCourseOwner}">
                             <button class="ok" type="submit">Редактировать</button>
                         </div>
                     </div>
@@ -200,7 +198,7 @@
             </section>
 
             <section class="empty-course">
-                <div class="empty-block">
+                <div class="empty-block" th:if="${isCourseOwner}">
                     <div th:if="${modules.isEmpty()}">
                         <p>В курсе пока нет ни одного урока.</p>
                         <p>Создайте первый модуль, чтобы добавить уроки!</p>
@@ -214,7 +212,12 @@
                     </div>
                 </div>
 
-                <div class="lesson-type-block" id="newModule">
+                <div class="empty-block" th:if="${!isCourseOwner && modules.isEmpty()}">
+                    <p>В курсе пока нет ни одного урока.</p>
+                    <p>Подождите, пока преподаватель заполнит курс обучающими материалами!</p>
+                </div>
+
+                <div class="lesson-type-block" id="newModule" th:if="${isCourseOwner}">
                     <form th:action="@{/modules/create}" method="post">
                         <input type="hidden" name="courseId" th:value="${course.getId()}">
                         <div class="module-heading">
@@ -240,11 +243,14 @@
 
             <section class="module-section" th:if="${!modules.isEmpty()}">
                 <div class="module-block">
+                    <div class="best-courses__details news__details" style="margin-bottom: 20px;">
+                        <h2 class="best-courses__title">Программа курса</h2>
+                    </div>
                     <div class="module" th:each="module1 : ${modules}">
-                        <div class="module-head">
+                        <div class="module-head" th:id="'module' + ${module1.getId()}">
                             <div class="module-details">
                                 <h4 th:text="${module1.getTitle()}"></h4>
-                                <div class="module-actions">
+                                <div class="module-actions" th:if="${isCourseOwner}">
                                     <a th:href="@{/modules(id=__${module1.getId()}__)}"><img th:src="@{/images/settings.svg}" alt="edit"></a>
                                     <form th:action="@{/modules/delete}" method="post" id="deleteForm">
                                         <input type="hidden" name="id" th:value="${module1.getId()}">
@@ -256,7 +262,7 @@
                                 <p th:text="${module1.getDescription()}"></p>
                             </div>
                         </div>
-                        <div class="lessons">
+                        <div class="lessons" th:id="'lesson' + ${module1.getId()}">
                             <div class="module-item">
                                 <div class="lesson-details">
                                     <div class="lesson-img">
@@ -296,6 +302,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="invite-block" th:if="${!isCourseOwner}">
+                    <div class="module-btns">
+                        <form th:action="@{/courses/follow}" method="post">
+                            <input type="hidden" name="courseId" th:value="${course.getId()}">
+                            <button type="submit" class="ok">Поступить на курс</button>
+                        </form>
+                        <form action="" method="post">
+                            <button type="submit" class="cancel">&#9829; Хочу пройти</button>
+                        </form>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -324,6 +342,14 @@
         function toSubmit() {
             document.getElementById('deleteForm').submit();
         }
+
+        $(document).ready(function() {
+            $('.module-head').click(function() {
+                let moduleId = $(this).attr('id').split('module')[1];
+                let lessonId = 'lesson' + moduleId;
+                $('#' + lessonId).slideToggle();
+            });
+        });
     </script>
 </body>
 

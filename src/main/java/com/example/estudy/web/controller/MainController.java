@@ -23,6 +23,7 @@ public class MainController {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
             model.addAttribute("user", user);
+            model.addAttribute("followed_courses", user.getFollowedCourses());
         }
 
         return "main";
@@ -33,6 +34,7 @@ public class MainController {
         User user = userService.getByUsername(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
+        model.addAttribute("followed_courses", user.getFollowedCourses());
         return "profile";
     }
 

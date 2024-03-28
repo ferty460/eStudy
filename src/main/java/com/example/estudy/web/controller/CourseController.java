@@ -1,5 +1,6 @@
 package com.example.estudy.web.controller;
 
+import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.CourseServiceImpl;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/courses")
@@ -34,6 +36,17 @@ public class CourseController {
 
     private final CourseMapper courseMapper;
 
+    @GetMapping("/catalog")
+    public String catalog(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = userService.getByUsername(userDetails.getUsername());
+        List<Course> courses = courseService.getAllByAvailability(Availability.PUBLIC);
+        model.addAttribute("user", user);
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("courses", courses);
+        model.addAttribute("followed_courses", user.getFollowedCourses());
+        return "catalog";
+    }
+
     @GetMapping
     public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         Course course = courseService.getById(id);
@@ -41,7 +54,17 @@ public class CourseController {
         model.addAttribute("course", course);
         model.addAttribute("user", user);
         model.addAttribute("modules", moduleService.getAllByCourseId(course.getId()));
+        model.addAttribute("isCourseOwner", userService.isCourseOwner(user.getId(), course.getId()));
+        model.addAttribute("followed_courses", user.getFollowedCourses());
         return "course";
+    }
+
+    @PostMapping("/follow")
+    public String follow(@AuthenticationPrincipal UserDetails userDetails, Long courseId) {
+        User user = userService.getByUsername(userDetails.getUsername());
+        Course course = courseService.getById(courseId);
+        courseService.addFollowerToCourse(user, course);
+        return "redirect:/courses?id=" + courseId;
     }
 
     @GetMapping("/create")
@@ -50,6 +73,7 @@ public class CourseController {
         model.addAttribute("user", user);
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
+        model.addAttribute("followed_courses", user.getFollowedCourses());
         return "add_course";
     }
 

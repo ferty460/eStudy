@@ -54,6 +54,14 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
     private List<Course> courses = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "followers")
+    private Set<Course> followedCourses = new HashSet<>();
+
+    public void addCourse(Course course) {
+        this.followedCourses.add(course);
+        course.getFollowers().add(this);
+    }
+
     @Override
     public String toString() {
         return surname + " " + name.charAt(0) + ". " + (patronymic.isEmpty() ? "" : patronymic.charAt(0));
@@ -62,6 +70,8 @@ public class User implements UserDetails {
     public String toFullName() {
         return surname + " " + name + " " + (patronymic.isEmpty() ? "" : patronymic);
     }
+
+    /* --------- SECURITY --------- */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

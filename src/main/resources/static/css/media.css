@@ -51,6 +51,15 @@
     .ok, .cancel {
         padding: 5px 10px;
     }
+
+    .module-section {
+        flex-direction: column-reverse;
+    }
+
+    .invite-block {
+        width: 100%;
+        min-width: unset;
+    }
 }
 
 @media (max-width: 800px) {

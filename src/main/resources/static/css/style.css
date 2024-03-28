@@ -505,7 +505,7 @@ body {
     display: none;
 }
 
-.pointer {
+.pointer, .module-head {
     cursor: pointer;
 }
 
@@ -930,11 +930,24 @@ body {
 }
 
 .module-section {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
     margin-top: 30px;
 }
 
 .module-block {
     width: 100%;
+    padding: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.invite-block {
+    min-width: 350px;
     padding: 25px;
     background-color: #282C37;
     border: 1px solid #6C7293;

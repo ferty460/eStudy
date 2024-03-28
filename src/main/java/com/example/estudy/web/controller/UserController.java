@@ -28,17 +28,17 @@ public class UserController {
     private final UserMapper userMapper;
     private final CourseMapper courseMapper;
 
+    @GetMapping("/{id}")
+    public UserDto getById(@PathVariable Long id) {
+        User user = userService.getById(id);
+        return userMapper.toDto(user);
+    }
+
     @PutMapping
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto, Long userId) {
         User user = userMapper.toEntity(userDto);
         User updatedUser = userService.update(user, userId);
         return userMapper.toDto(updatedUser);
-    }
-
-    @GetMapping("/{id}")
-    public UserDto getById(@PathVariable Long id) {
-        User user = userService.getById(id);
-        return userMapper.toDto(user);
     }
 
     @DeleteMapping("/{id}")
