@@ -33,6 +33,7 @@ public class Course {
     @JoinColumn(name = "user_id")
     private User author;
 
+    //    Пользователи, поступившие на курс
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(
             name = "course_followers",
@@ -40,6 +41,15 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
     private Set<User> followers = new HashSet<>();
+
+    //    Пользователи, добавившие курс в Избранное
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "course_favorites",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
@@ -59,6 +69,11 @@ public class Course {
     public void addFollower(User follower) {
         this.followers.add(follower);
         follower.getFollowedCourses().add(this);
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+        user.getFavoriteCourses().add(this);
     }
 
     /* --------- IMAGE --------- */

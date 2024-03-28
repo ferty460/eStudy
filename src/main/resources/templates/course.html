@@ -303,14 +303,18 @@
                     </div>
                 </div>
 
-                <div class="invite-block" th:if="${!isCourseOwner}">
+                <div class="invite-block" th:if="${!isCourseOwner && !isCourseFollower}">
                     <div class="module-btns">
                         <form th:action="@{/courses/follow}" method="post">
                             <input type="hidden" name="courseId" th:value="${course.getId()}">
                             <button type="submit" class="ok">Поступить на курс</button>
                         </form>
-                        <form action="" method="post">
-                            <button type="submit" class="cancel">&#9829; Хочу пройти</button>
+                        <form th:action="@{/courses/favorite}" method="post">
+                            <input type="hidden" name="courseId" th:value="${course.getId()}">
+                            <button type="submit" class="cancel" th:if="${isCourseFavorite}">&#9829; В избранное</button>
+                            <div class="welcome__description" th:if="${!isCourseFavorite}">
+                                <p>Уже в Избранном!</p>
+                            </div>
                         </form>
                     </div>
                 </div>

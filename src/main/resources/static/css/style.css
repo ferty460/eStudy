@@ -230,6 +230,7 @@ body {
 }
 
 .roles__item {
+    width: 100%;
     background-color: #282C37;
     padding: 25px;
     border: 1px solid #6C7293;
@@ -483,7 +484,7 @@ body {
     font-weight: 700;
 }
 
-.my-learning {
+.my-learning, #myFavorites {
     width: 80%;
     position: absolute;
     z-index: 5;
@@ -501,7 +502,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#myTeaching, #myLearning, .bg, #newModule {
+#myTeaching, #myLearning, .bg, #newModule, #myFavorites {
     display: none;
 }
 
@@ -561,7 +562,7 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#toLearningList:hover, #toTeachingList:hover {
+#toLearningList:hover, #toTeachingList:hover, #toFavoriteList:hover {
     cursor: pointer;
     transition: .3s;
     transform: scale(1.01);

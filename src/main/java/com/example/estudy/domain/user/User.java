@@ -57,10 +57,8 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "followers")
     private Set<Course> followedCourses = new HashSet<>();
 
-    public void addCourse(Course course) {
-        this.followedCourses.add(course);
-        course.getFollowers().add(this);
-    }
+    @ManyToMany(mappedBy = "users")
+    private Set<Course> favoriteCourses = new HashSet<>();
 
     @Override
     public String toString() {

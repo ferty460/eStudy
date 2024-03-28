@@ -35,6 +35,7 @@ public class MainController {
         model.addAttribute("user", user);
         model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
         model.addAttribute("followed_courses", user.getFollowedCourses());
+        model.addAttribute("favorites_courses", user.getFavoriteCourses());
         return "profile";
     }
 

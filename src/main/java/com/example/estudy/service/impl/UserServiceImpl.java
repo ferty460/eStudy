@@ -57,6 +57,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isCourseFollower(long followerId, Course course) {
+        return course.getFollowers().stream()
+                .anyMatch(user -> user.getId().equals(followerId));
+    }
+
+    @Override
+    public boolean isCourseFavorite(long userId, Course course) {
+        return course.getUsers().stream()
+                .anyMatch(user -> user.getId().equals(userId));
+    }
+
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
     }

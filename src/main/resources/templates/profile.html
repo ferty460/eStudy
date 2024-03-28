@@ -202,13 +202,36 @@
                 </div>
             </section>
 
+            <section class="welcome">
+                <div class="welcome__roles">
+                    <div class="roles__item" id="toFavoriteList">
+                        <div class="welcome__details">
+                            <img th:src="@{/images/star.svg}" alt="learning" class="details__image">
+                            <div class="tag">
+                                <a href="#" class="tag__link">Избранное</a>
+                            </div>
+                        </div>
+                        <div class="welcome__title">
+                            <h3>Мое избранное</h3>
+                        </div>
+                        <div class="welcome__description">
+                            <p>Здесь вы найдете курсы, добавленные вами ранее в избранное</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="my-learning" id="myLearning">
-                <div class="courses__block">
+                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Мое обучение</h2>
                     </div>
 
                     <div class="courses__list">
+                        <div th:if="${followed_courses.isEmpty()}" class="profile-additional empty_course">
+                            <span style="text-align: center;">Курсов нет.</span>
+                            <span style="text-align: center;">Поступите на свой первый курс!</span>
+                        </div>
                         <div class="courses__item" th:each="course : ${followed_courses}">
                             <div class="course__image-block">
                                 <a th:href="@{/courses(id=__${course.getId()}__)}">
@@ -249,7 +272,7 @@
             </section>
 
             <section class="my-courses" id="myTeaching">
-                <div class="courses__block">
+                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Мои курсы</h2>
                         <a th:href="@{/courses/create}" class="ok">Добавить</a>
@@ -287,6 +310,56 @@
                                         <img th:src="@{/images/star.svg}" alt="star" class="star">
                                         <p class="rating" th:text="${course.getRating()}"></p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-favorites" id="myFavorites">
+                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
+                    <div class="best-courses__details">
+                        <h2 class="best-courses__title">Мое Избранное</h2>
+                    </div>
+
+                    <div class="courses__list">
+                        <div th:if="${favorites_courses.isEmpty()}" class="profile-additional empty_course">
+                            <span style="text-align: center;">Курсов нет.</span>
+                            <span style="text-align: center;">Внесите в список любой понравившийся вам курс!</span>
+                        </div>
+                        <div class="courses__item" th:each="course : ${favorites_courses}">
+                            <div class="course__image-block">
+                                <a th:href="@{/courses(id=__${course.getId()}__)}">
+                                    <div class="input-file-list">
+                                        <div class="input-file-list-item">
+                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="course__details">
+                                <div class="course__title-block">
+                                    <h4 class="course__title">
+                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
+                                    </h4>
+                                    <div class="tag course-tag">
+                                        <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
+                                    </div>
+                                </div>
+                                <div class="course__by-block">
+                                    <h5 class="course-author">
+                                        <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
+                                    </h5>
+                                    <div class="course-rating__block">
+                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
+                                        <p class="rating" th:text="${course.getRating()}"></p>
+                                    </div>
+                                </div>
+                                <div class="course-progress">
+                                    <progress max="100" value="50" class="progress-scale"></progress>
+                                    <p class="progress-value">50% материалов пройдено</p>
                                 </div>
                             </div>
                         </div>

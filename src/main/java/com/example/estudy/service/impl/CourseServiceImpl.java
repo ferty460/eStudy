@@ -43,8 +43,15 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAllByAvailability(availability);
     }
 
+    //     Добавление поступивших пользователей на курс
     public void addFollowerToCourse(User follower, Course course) {
         course.addFollower(follower);
+        courseRepository.save(course);
+    }
+
+    //     Связка пользователей, добавивших курс в избранное, с соответствующим курсом
+    public void addUserToCourse(User user, Course course) {
+        course.addUser(user);
         courseRepository.save(course);
     }
 

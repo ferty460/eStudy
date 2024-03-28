@@ -55,6 +55,8 @@ public class CourseController {
         model.addAttribute("user", user);
         model.addAttribute("modules", moduleService.getAllByCourseId(course.getId()));
         model.addAttribute("isCourseOwner", userService.isCourseOwner(user.getId(), course.getId()));
+        model.addAttribute("isCourseFollower", userService.isCourseFollower(user.getId(), course));
+        model.addAttribute("isCourseFavorite", userService.isCourseFollower(user.getId(), course));
         model.addAttribute("followed_courses", user.getFollowedCourses());
         return "course";
     }
@@ -64,6 +66,14 @@ public class CourseController {
         User user = userService.getByUsername(userDetails.getUsername());
         Course course = courseService.getById(courseId);
         courseService.addFollowerToCourse(user, course);
+        return "redirect:/courses?id=" + courseId;
+    }
+
+    @PostMapping("/favorite")
+    public String favorite(@AuthenticationPrincipal UserDetails userDetails, Long courseId) {
+        User user = userService.getByUsername(userDetails.getUsername());
+        Course course = courseService.getById(courseId);
+        courseService.addUserToCourse(user, course);
         return "redirect:/courses?id=" + courseId;
     }
 
