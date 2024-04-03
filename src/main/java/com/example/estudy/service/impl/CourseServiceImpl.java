@@ -43,6 +43,11 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAllByAvailability(availability);
     }
 
+    @Override
+    public List<Course> getAllByTagName(String tagName, Availability availability) {
+        return courseRepository.findAllByTagNameAndAvailability(tagName, availability);
+    }
+
     //     Добавление поступивших пользователей на курс
     public void addFollowerToCourse(User follower, Course course) {
         course.addFollower(follower);

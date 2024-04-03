@@ -106,7 +106,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/news}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
                             </div>
@@ -311,8 +311,8 @@
                         </form>
                         <form th:action="@{/courses/favorite}" method="post">
                             <input type="hidden" name="courseId" th:value="${course.getId()}">
-                            <button type="submit" class="cancel" th:if="${isCourseFavorite}">&#9829; В избранное</button>
-                            <div class="welcome__description" th:if="${!isCourseFavorite}">
+                            <button type="submit" class="cancel" th:if="${!isCourseFavorite}">&#9829; В избранное</button>
+                            <div class="welcome__description" th:if="${isCourseFavorite}">
                                 <p>Уже в Избранном!</p>
                             </div>
                         </form>

@@ -53,6 +53,11 @@ body {
     cursor: pointer;
 }
 
+.auth:hover {
+    color: #6c7293;
+    transition: .3s;
+}
+
 /* --------- dropdown-menu --------- */
 
 #toggleSidebar {

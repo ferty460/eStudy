@@ -1,41 +1,42 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.impl.CourseServiceImpl;
 import com.example.estudy.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+@RequestMapping("/news")
+@Validated
+public class NewsController {
 
     private final UserServiceImpl userService;
-    private final CourseServiceImpl courseService;
 
-    @GetMapping("/")
-    public String mainPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    @GetMapping
+    public String newsPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
-
-        return "main";
+        return "news";
     }
 
-    @GetMapping("/profile")
-    public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.getByUsername(userDetails.getUsername());
-        model.addAttribute("user", user);
-        model.addAttribute("my_courses", courseService.getAllByUserId(user.getId()));
-        model.addAttribute("followed_courses", user.getFollowedCourses());
-        model.addAttribute("favorites_courses", user.getFavoriteCourses());
-        return "profile";
+    @GetMapping("/create")
+    public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails != null) {
+            User user = userService.getByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+            model.addAttribute("followed_courses", user.getFollowedCourses());
+        }
+        return "add_news";
     }
 
 }

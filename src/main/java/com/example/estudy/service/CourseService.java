@@ -15,6 +15,8 @@ public interface CourseService {
 
     List<Course> getAllByAvailability(Availability availability);
 
+    List<Course> getAllByTagName(String tagName, Availability availability);
+
     Course update(Course course, Long courseId, MultipartFile file) throws IOException;
 
     Course create(Course course, Long userId, MultipartFile file) throws IOException;

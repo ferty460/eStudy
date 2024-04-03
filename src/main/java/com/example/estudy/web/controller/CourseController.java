@@ -37,13 +37,20 @@ public class CourseController {
     private final CourseMapper courseMapper;
 
     @GetMapping("/catalog")
-    public String catalog(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.getByUsername(userDetails.getUsername());
-        List<Course> courses = courseService.getAllByAvailability(Availability.PUBLIC);
-        model.addAttribute("user", user);
+    public String catalog(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(value = "tag", required = false) String tag, Model model) {
+        if (userDetails != null) {
+            User user = userService.getByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+            model.addAttribute("followed_courses", user.getFollowedCourses());
+        }
+        List<Course> courses;
+        if (tag != null && !tag.isEmpty()) {
+            courses = courseService.getAllByTagName(tag, Availability.PUBLIC);
+        } else {
+            courses = courseService.getAllByAvailability(Availability.PUBLIC);
+        }
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("courses", courses);
-        model.addAttribute("followed_courses", user.getFollowedCourses());
         return "catalog";
     }
 
@@ -56,7 +63,7 @@ public class CourseController {
         model.addAttribute("modules", moduleService.getAllByCourseId(course.getId()));
         model.addAttribute("isCourseOwner", userService.isCourseOwner(user.getId(), course.getId()));
         model.addAttribute("isCourseFollower", userService.isCourseFollower(user.getId(), course));
-        model.addAttribute("isCourseFavorite", userService.isCourseFollower(user.getId(), course));
+        model.addAttribute("isCourseFavorite", userService.isCourseFavorite(user.getId(), course));
         model.addAttribute("followed_courses", user.getFollowedCourses());
         return "course";
     }
