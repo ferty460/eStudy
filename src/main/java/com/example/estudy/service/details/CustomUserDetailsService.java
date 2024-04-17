@@ -1,4 +1,4 @@
-package com.example.estudy.service;
+package com.example.estudy.service.details;
 
 import com.example.estudy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

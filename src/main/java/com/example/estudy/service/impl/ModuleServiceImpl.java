@@ -5,12 +5,14 @@ import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.ModuleRepository;
 import com.example.estudy.service.ModuleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ModuleServiceImpl implements ModuleService {
 
     private final ModuleRepository moduleRepository;
@@ -31,6 +33,8 @@ public class ModuleServiceImpl implements ModuleService {
     public Module create(Module module, Long courseId) {
         module.setCourse(courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found")));
+
+        log.info("Saving new Module: {}", module);
         return moduleRepository.save(module);
     }
 
@@ -40,12 +44,15 @@ public class ModuleServiceImpl implements ModuleService {
                 .orElseThrow(() -> new RuntimeException("Module not found"));
         editedModule.setTitle(module.getTitle());
         editedModule.setDescription(module.getDescription());
+
+        log.info("Editing Module with id {}", module.getId());
         return moduleRepository.save(editedModule);
     }
 
     @Override
     public void delete(Long id) {
         moduleRepository.deleteById(id);
+        log.info("Module with id {} was deleted", id);
     }
 
 }

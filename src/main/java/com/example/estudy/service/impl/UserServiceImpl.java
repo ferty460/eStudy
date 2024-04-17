@@ -1,21 +1,26 @@
 package com.example.estudy.service.impl;
 
 import com.example.estudy.domain.course.Course;
+import com.example.estudy.domain.news.News;
 import com.example.estudy.domain.user.Role;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.repository.CourseRepository;
+import com.example.estudy.repository.NewsRepository;
 import com.example.estudy.repository.UserRepository;
 import com.example.estudy.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final NewsRepository newsRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -39,13 +44,17 @@ public class UserServiceImpl implements UserService {
         editedUser.setPatronymic(user.getPatronymic());
         editedUser.setUsername(user.getUsername());
         editedUser.setEmail(user.getEmail());
-        return null;
+
+        log.info("Editing User with id {}", id);
+        return editedUser;
     }
 
     @Override
     public User create(User user) {
         user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        log.info("saving new User: {}", user);
         return userRepository.save(user);
     }
 
@@ -69,7 +78,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isNewsAuthor(long userId, long newsId) {
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new RuntimeException("News not found"));
+        return news.getAuthor().getId() == userId;
+    }
+
+    @Override
     public void delete(Long id) {
+        log.info("Deleting User with id {}", id);
         userRepository.deleteById(id);
     }
 

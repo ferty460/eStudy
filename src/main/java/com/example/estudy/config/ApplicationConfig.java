@@ -33,7 +33,8 @@ public class ApplicationConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
-                        .requestMatchers("/auth/**", "/", "/courses/catalog", "/news", "/about", "/img/**").permitAll()
+                        .requestMatchers("/news/img/**", "/course/img/**").permitAll()
+                        .requestMatchers("/auth/**", "/", "/courses/catalog", "/news", "/news/**", "/about").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

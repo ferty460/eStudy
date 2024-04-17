@@ -44,6 +44,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Course> getAllByTagName(String tagName, Availability availability) {
         return courseRepository.findAllByTagNameAndAvailability(tagName, availability);
     }
@@ -82,9 +83,7 @@ public class CourseServiceImpl implements CourseService {
         editedCourse.setDescription(course.getDescription());
         if (file.getSize() != 0) {
             CourseImage image = toImageEntity(file);
-            CourseImage oldImage = imageRepository.findById(editedCourse.getImage().getId())
-                    .orElseThrow(() -> new RuntimeException("Image not found"));
-            imageRepository.deleteById(oldImage.getId());
+            imageRepository.deleteById(editedCourse.getImage().getId());
             editedCourse.setImage(image);
         }
 

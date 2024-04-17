@@ -1,6 +1,7 @@
 package com.example.estudy.domain.user;
 
 import com.example.estudy.domain.course.Course;
+import com.example.estudy.domain.news.News;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,9 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
     private List<Course> courses = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    private List<News> news = new ArrayList<>();
 
     @ManyToMany(mappedBy = "followers")
     private Set<Course> followedCourses = new HashSet<>();

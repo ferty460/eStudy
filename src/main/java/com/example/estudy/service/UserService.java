@@ -19,6 +19,8 @@ public interface UserService {
 
     boolean isCourseFavorite(long userId, Course course);
 
+    boolean isNewsAuthor(long userId, long newsId);
+
     void delete(Long id);
 
 }

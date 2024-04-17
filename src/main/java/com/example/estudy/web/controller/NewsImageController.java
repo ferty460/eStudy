@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller;
 
-import com.example.estudy.domain.course.CourseImage;
-import com.example.estudy.repository.CourseImageRepository;
+import com.example.estudy.domain.news.NewsImage;
+import com.example.estudy.repository.NewsImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -14,13 +14,13 @@ import java.io.ByteArrayInputStream;
 
 @RestController
 @RequiredArgsConstructor
-public class CourseImageController {
+public class NewsImageController {
 
-    private final CourseImageRepository imageRepository;
+    private final NewsImageRepository imageRepository;
 
-    @GetMapping("/course/img/{id}")
+    @GetMapping("/news/img/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
-        CourseImage image = imageRepository.findById(id).orElse(null);
+        NewsImage image = imageRepository.findById(id).orElse(null);
         assert image != null;
         return ResponseEntity.ok()
                 .header("fileName", image.getOriginalFileName())
@@ -28,4 +28,5 @@ public class CourseImageController {
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
+
 }

@@ -1,17 +1,16 @@
-package com.example.estudy.domain.course;
+package com.example.estudy.domain.news;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.engine.jdbc.env.internal.LobTypes;
 
 @Entity
-@Table(name = "course_images")
+@Table(name = "news_images")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseImage {
+public class NewsImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,6 @@ public class CourseImage {
     private byte[] bytes;
 
     @OneToOne(mappedBy = "image")
-    private Course course;
+    private News news;
 
 }

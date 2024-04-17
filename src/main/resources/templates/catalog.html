@@ -193,14 +193,14 @@
                             <h2 style="text-align: center;">Упс! Кажется, здесь пока нет курсов.</h2>
                             <p style="text-align: center; margin: 10px 0;">Но не отчаивайтесь, возможно, это временный перерыв.</p>
 
-                            <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a style="font-weight: bold; color: #6C7293;" href="/news"> новостном блоге</a>.</p>
+                            <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a style="font-weight: bold; color: #6C7293;" th:href="@{/news}">новостном блоге</a>.</p>
                         </div>
                         <div class="courses__item" th:each="course : ${courses}">
                             <div class="course__image-block">
                                 <a th:href="@{/courses(id=__${course.getId()}__)}">
                                     <div class="input-file-list">
                                         <div class="input-file-list-item">
-                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                            <img th:src="@{/course/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
                                         </div>
                                     </div>
                                 </a>

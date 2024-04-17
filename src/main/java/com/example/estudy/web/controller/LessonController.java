@@ -20,14 +20,6 @@ public class LessonController {
 
     private final UserServiceImpl userService;
 
-    @GetMapping("/type")
-    public String lessonsType(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.getByUsername(userDetails.getUsername());
-        model.addAttribute("user", user);
-        model.addAttribute("followed_courses", user.getFollowedCourses());
-        return "lesson_type";
-    }
-
     @GetMapping("/create")
     public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model, @RequestParam("type") String type) {
         User user = userService.getByUsername(userDetails.getUsername());
@@ -38,7 +30,7 @@ public class LessonController {
         } else if ("PRACTICAL".equals(type)) {
             return "add_practice_lesson";
         } else {
-            return "lesson_type";
+            return "profile";
         }
     }
 

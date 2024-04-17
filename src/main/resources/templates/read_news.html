@@ -1,187 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
     <title>Новость | eStudy</title>
 </head>
 <body id="body">
     <header id="header" class="header">
-        <div class="header__inner">
-            <div class="header__inner-item">
-                <img src="../static/images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
-                <div>
-                    <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
-                    </a>
-                </div>
-            </div>
-
-            <div class="header__inner-item">
-                <a href="#">
-                    <img src="../static/images/profile.svg" alt="profile" class="header__inner-profile">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                 </a>
-                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username">Ростовцев В.С.</span>
-                    <span class="down-triangle">&#9660;</span>
-                </a>
-                <div id="dropdownMenu" class="dropdown-menu">
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
-                        <li class="dropdown-item">
-                            <form action="#" method="post">
-                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
 
-        <div id="sidebar" class="sidebar sidebar-show">
-            <nav class="sidebar-menu">
-                <ul class="sidebar-menu__list">
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/personal_account.svg" alt="personal account"
-                                     class="sidebar-menu__img">
-                            </div>
-                            <span>Личный кабинет</span>
-                        </a>
+        <div class="header__inner-item" sec:authorize="isAuthenticated()">
+            <a href="#">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
                     </li>
-                    <li class="sidebar-menu__item" id="submenu">
-                        <a href="#" class="sidebar-menu__link pull-out-menu">
-                            <div class="sidebar-menu__title">
-                                <div class="sidebar-menu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
-                                </div>
-                                <span>Мои курсы</span>
-                            </div>
-                            <span class="down-triangle">&#9660;</span>
-                        </a>
-                    </li>
+                </ul>
+            </div>
+        </div>
 
-                    <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list">
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                Английский
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                C++
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                ДЛЯ ДЕБИЛОВ
-                            </a>
-                        </li>
-                    </ul>
+        <div class="header__inner-item" sec:authorize="isAnonymous()">
+            <a th:href="@{/auth/login}" class="header__inner-item auth">
+                <span class="header__inner-username">Войти</span>
+            </a>
+            <a th:href="@{/auth/registration}" class="header__inner-item auth">
+                <span class="header__inner-username">Зарегистрироваться</span>
+            </a>
+        </div>
+    </div>
 
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu" sec:authorize="isAuthenticated()">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
                             <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
                             </div>
-                            <span>Каталог</span>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
+
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list" sec:authorize="isAuthenticated()">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                             </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link active">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
-                            </div>
-                            <span>Новости</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
-                            </div>
-                            <span>Поддержка</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
-                            </div>
-                            <span>О нас</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
-                            </div>
-                            <span>Админ. панель</span>
+                            <span th:text="${course.getTitle()}"></span>
                         </a>
                     </li>
                 </ul>
-            </nav>
-        </div>
-    </header>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
     <main class="main">
         <div id="content" class="content sidebar-show__content">
             <section class="add-news">
+                <div class="bread-crumbs">
+                    <a th:href="@{/news}" class="best-courses__title uline">Новости</a>
+                    <span class="best-courses__title"> -> </span>
+                    <span th:text="${news.getTitle()}" class="best-courses__title" style="text-decoration: underline;"></span>
+                </div>
+
+                <div class="hystmodal" id="delete_news" aria-hidden="true">
+                    <div class="hystmodal__wrap">
+                        <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                            <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                <!-- Форма удаления новости  -->
+                                <form th:action="@{/news/delete}" method="post" id="deleteForm">
+                                    <div class="news-inputs__block new-note">
+                                        <div class="news-title__block">
+                                            <h2 class="best-courses__title">Вы уверены?</h2>
+                                        </div>
+                                        <div class="news-buttons" style="justify-content: center;">
+                                            <input type="hidden" name="id" th:value="${news.getId()}">
+                                            <button type="submit" class="ok">Удалить</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Форма редактирования новости -->
-                <form method="post" enctype="multipart/form-data">
+                <form th:action="@{/news/edit}" method="post" enctype="multipart/form-data">
                     <div class="add-news__block">
 
                         <div class="best-courses__details news__details">
                             <h2 class="best-courses__title">Новость</h2>
-                            <div class="news-buttons">
-                                <a href="#" class="cancel news-cancel">Отмена</a>
-                                <button type="submit" class="ok">Добавить</button>
+                            <div class="news-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}">
+                                <input type="hidden" name="id" th:value="${news.getId()}">
+                                <button type="button" class="cancel" data-hystmodal="#delete_news">Удалить</button>
+                                <button type="submit" class="ok">Редактировать</button>
                             </div>
                         </div>
 
                         <div class="news-details__block">
                             <div class="news-image__block">
                                 <div class="input-file-row">
-                                    <label class="input-file">
-                                        <input id="file" type="file" name="file[]" accept="image/*">
+                                    <label class="input-file" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}">
+                                        <input id="file" type="file" name="file">
                                         <span>Выберите файл</span>
                                     </label>
-                                    <div class="input-file-list"></div>
+                                    <div class="input-file-list">
+                                        <div class="input-file-list-item">
+                                            <img th:src="@{/news/img/{id}(id=${news.getImage().getId()})}" alt="news" class="input-file-list-img">
+                                            <a href="#" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}"
+                                               onclick="removeFilesItem(this); return false;" class="input-file-list-remove">x</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="news-inputs__block">
-                                <div class="news-title__block">
+                                <div class="news-title__block" th:if="${isNewsAuthor}">
                                     <label for="news_title" class="label">Заголовок</label>
-                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <input type="text" id="news_title" name="title" class="search-bar news-input" th:value="${news.getTitle()}">
                                 </div>
-                                <div class="news-description__block">
+                                <div class="news-description__block" th:if="${isNewsAuthor}">
                                     <label for="news_description" class="label">Описание</label>
-                                    <textarea name="news_description" id="news_description"
-                                        class="search-bar news-input"></textarea>
+                                    <textarea name="description" id="news_description"
+                                        class="search-bar news-input" th:text="${news.getDescription()}"></textarea>
+                                </div>
+                                <div sec:authorize="isAnonymous()">
+                                    <div class="welcome__title" style="margin-top: 0;">
+                                        <h3 th:text="${news.getTitle()}"></h3>
+                                    </div>
+                                    <div class="welcome__description">
+                                        <p th:text="${news.getDescription()}"></p>
+                                    </div>
+                                </div>
+                                <div sec:authorize="isAuthenticated()">
+                                    <div class="welcome__title" th:if="${!isNewsAuthor}" style="margin-top: 0;">
+                                        <h3 th:text="${news.getTitle()}"></h3>
+                                    </div>
+                                    <div class="welcome__description" th:if="${!isNewsAuthor}">
+                                        <p th:text="${news.getDescription()}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -191,53 +245,87 @@
 
             </section>
 
-            <section class="news">
+            <section class="news" style="margin-top: 30px;">
                 <div class="news__block">
 
                     <div class="best-courses__details news__details">
                         <h2 class="best-courses__title">Записи</h2>
-                        <div class="news-buttons">
-                            <button type="submit" class="ok" id="openForm">Добавить</button>
+                        <div class="news-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}">
+                            <button type="submit" class="ok" data-hystmodal="#new_note">Добавить</button>
                         </div>
                     </div>
 
                     <div class="news-notes">
-                        <div class="news-item">
-                            <div class="news-item__title-block">
-                                <h3 class="news-note__title">С новым годом!</h3>
-                                <div class="note-buttons">
-                                    <button type="button"><img src="../static/images/settings.svg" alt="edit"></button>
-                                    <button type="button"><img src="../static/images/delete.svg" alt="delete"></button>
-                                </div>
-                            </div>
-                            <div class="news-note__text-block">
-                                <p class="news-note__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae distinctio omnis itaque perspiciatis harum quis minus animi? Cumque, sequi? Id pariatur maxime, corrupti a vel eius! Laborum ad recusandae doloribus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo fuga mollitia sed nulla, debitis architecto ipsam fugiat atque molestiae commodi sunt inventore veniam harum ullam nisi a aperiam quae minima?</p>
-                            </div>
+                        <div th:if="${notes.isEmpty()}" style="margin: 50px auto; color: #6C7293;">
+                            <h2 style="text-align: center;">Упс! Кажется, здесь пока нет записей.</h2>
+                            <p style="text-align: center; margin: 10px 0;">Но не отчаивайтесь, возможно, это временно.</p>
+                            <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a class="empty-link" th:href="@{/courses/catalog}">каталоге курсов</a>.</p>
                         </div>
-
-                        <div class="news-item">
-                            <div class="news-item__title-block">
-                                <h3 class="news-note__title">С новым годом!</h3>
-                                <div class="note-buttons">
-                                    <button type="button"><img src="../static/images/settings.svg" alt="edit"></button>
-                                    <button type="button"><img src="../static/images/delete.svg" alt="delete"></button>
+                        <div class="news-item" th:each="note : ${notes}">
+                            <div class="news-item__title-block" th:if="${!note.getTitle().isEmpty()}">
+                                <h3 class="news-note__title" th:text="${note.getTitle()}" style="margin-bottom: .5rem;"></h3>
+                                <div class="note-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}">
+                                    <button type="button" th:attr="data-hystmodal='#edit_note' + ${note.getId()}">
+                                        <img th:src="@{/images/settings.svg}" alt="edit">
+                                    </button>
+                                    <button type="button" th:attr="data-hystmodal='#delete_note' + ${note.getId()}">
+                                        <img th:src="@{/images/delete.svg}" alt="delete">
+                                    </button>
                                 </div>
                             </div>
-                            <div class="news-note__text-block">
-                                <p class="news-note__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae distinctio omnis itaque perspiciatis harum quis minus animi? Cumque, sequi? Id pariatur maxime, corrupti a vel eius! Laborum ad recusandae doloribus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo fuga mollitia sed nulla, debitis architecto ipsam fugiat atque molestiae commodi sunt inventore veniam harum ullam nisi a aperiam quae minima?</p>
-                            </div>
-                        </div>
-
-                        <div class="news-item">
                             <div class="news-item__title-block">
-                                <h3 class="news-note__title">С новым годом!</h3>
-                                <div class="note-buttons">
-                                    <button type="button"><img src="../static/images/settings.svg" alt="edit"></button>
-                                    <button type="button"><img src="../static/images/delete.svg" alt="delete"></button>
+                                <p class="news-note__text" th:text="${note.getText()}"></p>
+                                <div class="note-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor && note.getTitle().isEmpty()}">
+                                    <button type="button" th:attr="data-hystmodal='#edit_note' + ${note.getId()}">
+                                        <img th:src="@{/images/settings.svg}" alt="edit">
+                                    </button>
+                                    <button type="button" th:attr="data-hystmodal='#delete_note' + ${note.getId()}">
+                                        <img th:src="@{/images/delete.svg}" alt="delete">
+                                    </button>
                                 </div>
                             </div>
-                            <div class="news-note__text-block">
-                                <p class="news-note__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae distinctio omnis itaque perspiciatis harum quis minus animi? Cumque, sequi? Id pariatur maxime, corrupti a vel eius! Laborum ad recusandae doloribus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo fuga mollitia sed nulla, debitis architecto ipsam fugiat atque molestiae commodi sunt inventore veniam harum ullam nisi a aperiam quae minima?</p>
+                            <div class="hystmodal" th:id="${'edit_note' + note.getId()}" aria-hidden="true">
+                                <div class="hystmodal__wrap">
+                                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                        <div class="add-note__block" style="width: 100%;">
+                                            <form th:action="@{/notes/edit}" method="post">
+                                                <div class="news-inputs__block new-note">
+                                                    <div class="news-title__block">
+                                                        <label class="label">Заголовок</label>
+                                                        <input type="text" name="title" class="search-bar news-input" th:value="${note.getTitle()}">
+                                                    </div>
+                                                    <div class="news-description__block">
+                                                        <label class="label">Текст</label>
+                                                        <textarea name="text" class="search-bar news-input" style="margin-bottom: 1rem;" th:text="${note.getText()}"></textarea>
+                                                    </div>
+                                                    <div class="news-buttons">
+                                                        <input type="hidden" name="id" th:value="${note.getId()}">
+                                                        <button type="submit" class="ok" id="new-note-button1">Редактировать</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hystmodal" th:id="${'delete_note' + note.getId()}" aria-hidden="true">
+                                <div class="hystmodal__wrap">
+                                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                        <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                                            <form th:action="@{/notes/delete}" method="post">
+                                                <div class="news-inputs__block new-note">
+                                                    <div class="news-title__block">
+                                                        <h2 class="best-courses__title">Вы уверены?</h2>
+                                                    </div>
+                                                    <div class="news-buttons" style="justify-content: center;">
+                                                        <input type="hidden" name="id" th:value="${news.getId()}">
+                                                        <button type="submit" class="ok">Удалить</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -245,29 +333,33 @@
                 </div>
             </section>
 
-            <section class="add-note">
-                <div class="add-note__block" id="formContainer">
+            <section class="hystmodal" id="new_note" aria-hidden="true">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <div class="add-note__block" style="width: 100%;">
 
-                    <!-- Форма Добавления записи в новость  -->
-                    <form action="#" method="post">
-                        <div class="news-inputs__block new-note">
-                            <div class="news-title__block">
-                                <label for="news_title1" class="label">Заголовок</label>
-                                <input type="text" id="news_title1" name="news_title" class="search-bar news-input">
-                            </div>
-                            <div class="news-description__block">
-                                <label for="news_description1" class="label">Описание</label>
-                                <textarea name="news_description" id="news_description1"
-                                    class="search-bar news-input"></textarea>
-                            </div>
-                            <div class="news-buttons">
-                                <button type="submit" class="ok" id="new-note-button">Добавить</button>
-                            </div>
+                            <!-- Форма Добавления записи в новость  -->
+                            <form th:action="@{/notes/create}" method="post">
+                                <div class="news-inputs__block new-note">
+                                    <div class="news-title__block">
+                                        <label for="news_title1" class="label">Заголовок</label>
+                                        <input type="text" id="news_title1" name="title" class="search-bar news-input">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label for="news_description1" class="label">Текст</label>
+                                        <textarea name="text" id="news_description1"
+                                            class="search-bar news-input" style="margin-bottom: 1rem;"></textarea>
+                                    </div>
+                                    <div class="news-buttons">
+                                        <input type="hidden" name="newsId" th:value="${news.getId()}">
+                                        <button type="submit" class="ok" id="new-note-button">Добавить</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
-                    </form>
-                    
+                    </div>
                 </div>
-                <div id="overlay"></div>
             </section>
         </div>
     </main>
@@ -288,9 +380,14 @@
         </div>
     </footer>
 
-    <script src="../static/js/header.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="../static/js/add_image.js"></script>
-    <script src="../static/js/add_note.js"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+    <script th:src="@{/js/add_image.js}"></script>
+    <script>
+        const new_note = new HystModal({
+            linkAttributeName: "data-hystmodal",
+            // настройки (не обязательно), см. API
+        });
+    </script>
 </body>
 </html>

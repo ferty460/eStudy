@@ -489,28 +489,6 @@ body {
     font-weight: 700;
 }
 
-.my-learning, #myFavorites {
-    width: 80%;
-    position: absolute;
-    z-index: 5;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#newModule {
-    width: 50%;
-    position: absolute;
-    z-index: 5;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#myTeaching, #myLearning, .bg, #newModule, #myFavorites {
-    display: none;
-}
-
 .pointer, .module-head {
     cursor: pointer;
 }
@@ -757,10 +735,6 @@ body {
     gap: 5px;
 }
 
-.news {
-    margin-top: 30px;
-}
-
 .news__block {
     padding: 25px;
     background-color: #282C37;
@@ -818,24 +792,11 @@ body {
 }
 
 #formContainer {
-    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 4;
-}
-
-#overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 3;
-    overflow: hidden;
 }
 
 .tag-label>input, .availability-label>input {
@@ -1465,4 +1426,20 @@ body {
     justify-content: center;
     gap: 10px;
     margin: 20px 0;
+}
+
+.bread-crumbs {
+    margin-bottom: 1rem;
+}
+
+.uline:hover {
+    text-decoration: underline;
+}
+
+.empty-link {
+    color: #c5c5c5;
+}
+
+.empty-link:hover {
+    text-decoration: underline;
 }

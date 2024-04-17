@@ -10,11 +10,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
     <title>Личный кабинет | eStudy</title>
 </head>
 
 <body>
-    <div class="bg"></div>
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
@@ -170,7 +171,7 @@
 
             <section class="welcome">
                 <div class="welcome__roles">
-                    <div class="roles__item" id="toLearningList">
+                    <div class="roles__item" id="toLearningList" data-hystmodal="#myLearning">
                         <div class="welcome__details">
                             <img th:src="@{/images/learning.svg}" alt="learning" class="details__image">
                             <div class="tag">
@@ -185,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="roles__item" id="toTeachingList">
+                    <div class="roles__item" id="toTeachingList" data-hystmodal="#myTeaching">
                         <div class="welcome__details">
                             <img th:src="@{/images/teaching.svg}" alt="teaching" class="details__image">
                             <div class="tag">
@@ -200,115 +201,72 @@
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="welcome">
                 <div class="welcome__roles">
-                    <div class="roles__item" id="toFavoriteList">
-                        <div class="welcome__details">
-                            <img th:src="@{/images/star.svg}" alt="learning" class="details__image">
-                            <div class="tag">
-                                <a href="#" class="tag__link">Избранное</a>
-                            </div>
-                        </div>
-                        <div class="welcome__title">
-                            <h3>Мое избранное</h3>
-                        </div>
-                        <div class="welcome__description">
-                            <p>Здесь вы найдете курсы, добавленные вами ранее в избранное</p>
+                    <div class="roles__item" id="toFavoriteList" data-hystmodal="#myFavorites">
+                    <div class="welcome__details">
+                        <img th:src="@{/images/star.svg}" alt="learning" class="details__image">
+                        <div class="tag">
+                            <a href="#" class="tag__link">Избранное</a>
                         </div>
                     </div>
+                    <div class="welcome__title">
+                        <h3>Мое избранное</h3>
+                    </div>
+                    <div class="welcome__description">
+                        <p>Здесь вы найдете курсы, добавленные вами ранее в избранное</p>
+                    </div>
+                </div>
                 </div>
             </section>
 
-            <section class="my-learning" id="myLearning">
-                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
-                    <div class="best-courses__details">
-                        <h2 class="best-courses__title">Мое обучение</h2>
-                    </div>
+            <section class="hystmodal" aria-hidden="true" id="myLearning">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <button data-hystclose class="hystmodal__close">Закрыть</button>
+                        <div class="courses__block" style="max-height: 700px;">
+                            <div class="best-courses__details">
+                                <h2 class="best-courses__title">Мое обучение</h2>
+                            </div>
 
-                    <div class="courses__list">
-                        <div th:if="${followed_courses.isEmpty()}" class="profile-additional empty_course">
-                            <span style="text-align: center;">Курсов нет.</span>
-                            <span style="text-align: center;">Поступите на свой первый курс!</span>
-                        </div>
-                        <div class="courses__item" th:each="course : ${followed_courses}">
-                            <div class="course__image-block">
-                                <a th:href="@{/courses(id=__${course.getId()}__)}">
-                                    <div class="input-file-list">
-                                        <div class="input-file-list-item">
-                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                            <div class="courses__list">
+                                <div th:if="${followed_courses.isEmpty()}" class="profile-additional empty_course">
+                                    <span style="text-align: center;">Курсов нет.</span>
+                                    <span style="text-align: center;">Поступите на свой первый курс!</span>
+                                </div>
+                                <div class="courses__item" th:each="course : ${followed_courses}">
+                                    <div class="course__image-block">
+                                        <a th:href="@{/courses(id=__${course.getId()}__)}">
+                                            <div class="input-file-list">
+                                                <div class="input-file-list-item">
+                                                    <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="course__details">
+                                        <div class="course__title-block">
+                                            <h4 class="course__title">
+                                                <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
+                                            </h4>
+                                            <div class="tag course-tag">
+                                                <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating" th:text="${course.getRating()}"></p>
-                                    </div>
-                                </div>
-                                <div class="course-progress">
-                                    <progress max="100" value="50" class="progress-scale"></progress>
-                                    <p class="progress-value">50% материалов пройдено</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="my-courses" id="myTeaching">
-                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
-                    <div class="best-courses__details">
-                        <h2 class="best-courses__title">Мои курсы</h2>
-                        <a th:href="@{/courses/create}" class="ok">Добавить</a>
-                    </div>
-
-                    <div class="courses__list">
-                        <div th:if="${my_courses.isEmpty()}" class="profile-additional empty_course">
-                            <span style="text-align: center;">Курсов нет.</span>
-                            <span style="text-align: center;">Создайте свой первый курс!</span>
-                        </div>
-                        <div class="courses__item" th:each="course : ${my_courses}">
-                            <div class="course__image-block">
-                                <a th:href="@{/courses(id=__${course.getId()}__)}">
-                                    <div class="input-file-list">
-                                        <div class="input-file-list-item">
-                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                        <div class="course__by-block">
+                                            <h5 class="course-author">
+                                                <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
+                                            </h5>
+                                            <div class="course-rating__block">
+                                                <img th:src="@{/images/star.svg}" alt="star" class="star">
+                                                <p class="rating" th:text="${course.getRating()}"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating" th:text="${course.getRating()}"></p>
+                                        <div class="course-progress">
+                                            <progress max="100" value="50" class="progress-scale"></progress>
+                                            <p class="progress-value">50% материалов пройдено</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -317,49 +275,105 @@
                 </div>
             </section>
 
-            <section class="my-favorites" id="myFavorites">
-                <div class="courses__block" style="max-height: 700px; overflow-y: overlay;">
-                    <div class="best-courses__details">
-                        <h2 class="best-courses__title">Мое Избранное</h2>
-                    </div>
-
-                    <div class="courses__list">
-                        <div th:if="${favorites_courses.isEmpty()}" class="profile-additional empty_course">
-                            <span style="text-align: center;">Курсов нет.</span>
-                            <span style="text-align: center;">Внесите в список любой понравившийся вам курс!</span>
-                        </div>
-                        <div class="courses__item" th:each="course : ${favorites_courses}">
-                            <div class="course__image-block">
-                                <a th:href="@{/courses(id=__${course.getId()}__)}">
-                                    <div class="input-file-list">
-                                        <div class="input-file-list-item">
-                                            <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
-                                        </div>
-                                    </div>
-                                </a>
+            <section class="hystmodal" aria-hidden="true" id="myTeaching">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <button data-hystclose class="hystmodal__close">Закрыть</button>
+                        <div class="courses__block" style="max-height: 700px;">
+                            <div class="best-courses__details">
+                                <h2 class="best-courses__title">Мои курсы</h2>
+                                <a th:href="@{/courses/create}" class="ok">Добавить</a>
                             </div>
 
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
+                            <div class="courses__list">
+                                <div th:if="${my_courses.isEmpty()}" class="profile-additional empty_course">
+                                    <span style="text-align: center;">Курсов нет.</span>
+                                    <span style="text-align: center;">Создайте свой первый курс!</span>
+                                </div>
+                                <div class="courses__item" th:each="course : ${my_courses}">
+                                    <div class="course__image-block">
+                                        <a th:href="@{/courses(id=__${course.getId()}__)}">
+                                            <div class="input-file-list">
+                                                <div class="input-file-list-item">
+                                                    <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="course__details">
+                                        <div class="course__title-block">
+                                            <h4 class="course__title">
+                                                <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
+                                            </h4>
+                                            <div class="tag course-tag">
+                                                <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course__by-block">
+                                            <h5 class="course-author">
+                                                <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
+                                            </h5>
+                                            <div class="course-rating__block">
+                                                <img th:src="@{/images/star.svg}" alt="star" class="star">
+                                                <p class="rating" th:text="${course.getRating()}"></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating" th:text="${course.getRating()}"></p>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hystmodal" aria-hidden="true" id="myFavorites">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <button data-hystclose class="hystmodal__close">Закрыть</button>
+                        <div class="courses__block" style="max-height: 700px;">
+                            <div class="best-courses__details">
+                                <h2 class="best-courses__title">Мое Избранное</h2>
+                            </div>
+
+                            <div class="courses__list">
+                                <div th:if="${favorites_courses.isEmpty()}" class="profile-additional empty_course">
+                                    <span style="text-align: center;">Курсов нет.</span>
+                                    <span style="text-align: center;">Внесите в список любой понравившийся вам курс!</span>
                                 </div>
-                                <div class="course-progress">
-                                    <progress max="100" value="50" class="progress-scale"></progress>
-                                    <p class="progress-value">50% материалов пройдено</p>
+                                <div class="courses__item" th:each="course : ${favorites_courses}">
+                                    <div class="course__image-block">
+                                        <a th:href="@{/courses(id=__${course.getId()}__)}">
+                                            <div class="input-file-list">
+                                                <div class="input-file-list-item">
+                                                    <img th:src="@{/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="course__details">
+                                        <div class="course__title-block">
+                                            <h4 class="course__title">
+                                                <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
+                                            </h4>
+                                            <div class="tag course-tag">
+                                                <a href="#" class="tag__link" th:text="${course.getTag().getName()}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course__by-block">
+                                            <h5 class="course-author">
+                                                <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
+                                            </h5>
+                                            <div class="course-rating__block">
+                                                <img th:src="@{/images/star.svg}" alt="star" class="star">
+                                                <p class="rating" th:text="${course.getRating()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="course-progress">
+                                            <progress max="100" value="50" class="progress-scale"></progress>
+                                            <p class="progress-value">50% материалов пройдено</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +401,20 @@
 
     <script th:src="@{/js/header.js}"></script>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/js/switch.js}"></script>
+    <script>
+        const myLearning = new HystModal({
+            linkAttributeName: "data-hystmodal",
+            // настройки (не обязательно), см. API
+        });
+        const myTeaching = new HystModal({
+            linkAttributeName: "data-hystmodal",
+            // настройки (не обязательно), см. API
+        });
+        const myFavorites = new HystModal({
+            linkAttributeName: "data-hystmodal",
+            // настройки (не обязательно), см. API
+        });
+    </script>
 </body>
 
 </html>

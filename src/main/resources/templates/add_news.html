@@ -155,12 +155,12 @@
             <section class="add-news">
 
                 <!-- Форма создания новости -->
-                <form method="post" enctype="multipart/form-data">
+                <form th:action="@{/news/create}" method="post" enctype="multipart/form-data">
                     <div class="add-news__block">
                         <div class="best-courses__details news__details">
                             <h2 class="best-courses__title">Новость</h2>
                             <div class="news-buttons">
-                                <a href="#" class="cancel news-cancel">Отмена</a>
+                                <a th:href="@{/news}" class="cancel news-cancel">Отмена</a>
                                 <button type="submit" class="ok">Добавить</button>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                             <div class="news-image__block">
                                 <div class="input-file-row">
                                     <label class="input-file">
-                                        <input id="file" type="file" name="file[]" accept="image/*">
+                                        <input id="file" type="file" name="file">
                                         <span>Выберите файл</span>
                                     </label>
                                     <div class="input-file-list"></div>
@@ -178,11 +178,11 @@
                             <div class="news-inputs__block">
                                 <div class="news-title__block">
                                     <label for="news_title" class="label">Заголовок</label>
-                                    <input type="text" id="news_title" name="news_title" class="search-bar news-input">
+                                    <input type="text" id="news_title" name="title" class="search-bar news-input">
                                 </div>
                                 <div class="news-description__block">
                                     <label for="news_description" class="label">Описание</label>
-                                    <textarea name="news_description" id="news_description"
+                                    <textarea name="description" id="news_description"
                                         class="search-bar news-input"></textarea>
                                 </div>
                             </div>

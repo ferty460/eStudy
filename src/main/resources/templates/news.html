@@ -156,85 +156,45 @@
                 <div class="courses__block">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Новости</h2>
-                        <a th:href="@{/news/create}" class="ok">Добавить</a>
+                        <a th:href="@{/news/create}" class="ok" sec:authorize="hasRole('ROLE_ADMIN')">Добавить</a>
                     </div>
 
                     <div class="courses__list">
-                        <div class="courses__item">
+                        <div th:if="${news.isEmpty()}" style="margin: 50px auto; color: #6C7293;">
+                            <h2 style="text-align: center;">Упс! Кажется, здесь пока нет новостей.</h2>
+                            <p style="text-align: center; margin: 10px 0;">Но не отчаивайтесь, возможно, это временный перерыв.</p>
+
+                            <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a class="empty-link" th:href="@{/courses/catalog}">каталоге курсов</a>.</p>
+                        </div>
+                        <div class="courses__item" th:each="new1 : ${news}">
                             <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/news.png}" alt="course" class="course__image">
+                                <a th:href="@{/news/read(id=__${new1.getId()}__)}">
+                                    <div class="input-file-list">
+                                        <div class="input-file-list-item">
+                                            <img th:src="@{/news/img/{id}(id=${new1.getImage().getId()})}" alt="news" class="input-file-list-img">
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
 
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
+                            <div class="course__details" style="display: flex; flex-direction: column; justify-content: space-around;">
+                                <div>
+                                    <div class="course__title-block">
+                                        <h4 class="course__title">
+                                            <a th:href="@{/news/read(id=__${new1.getId()}__)}" class="course__title-link" th:text="${new1.getTitle()}"></a>
+                                        </h4>
+                                        <div class="news-date__block">
+                                            <span class="news-date" th:text="${@dateUtil.toRuFormat(new1.getDateOfCreated())}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="course__by-block">
+                                        <h5 class="course-author">
+                                            <a href="#" class="course-author__link" th:text="${new1.getAuthor().getUsername()}"></a>
+                                        </h5>
                                     </div>
                                 </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
                                 <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/news.png}" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
-                                <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/news.png}" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">С Новым годом!</a>
-                                    </h4>
-                                    <div class="news-date__block">
-                                        <span class="news-date">01.01.2024</span>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
-                                    </h5>
-                                </div>
-                                <div class="news__buttons">
-                                    <a href="#" class="tag__link news__link">Читать</a>
+                                    <a th:href="@{/news/read(id=__${new1.getId()}__)}" class="tag__link news__link">Читать</a>
                                 </div>
                             </div>
                         </div>

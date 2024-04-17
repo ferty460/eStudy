@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
     <title>Модуль | eStudy</title>
 </head>
 
@@ -144,6 +146,11 @@
     <main class="main">
         <div id="content" class="content sidebar-show__content">
             <section class="module">
+                <div class="bread-crumbs">
+                    <a th:href="@{/courses(id=__${module1.getCourse().getId()}__)}" th:text="${module1.getCourse().getTitle()}" class="best-courses__title uline"></a>
+                    <span class="best-courses__title"> -> </span>
+                    <span th:text="${module1.getTitle()}" class="best-courses__title" style="text-decoration: underline;"></span>
+                </div>
                 <div class="module-block">
                     <div class="module-heading">
                         <div class="module-inputs">
@@ -214,7 +221,48 @@
                     </div>
                     
                     <div class="module__new-lesson">
-                        <a th:href="@{/lessons/type}" class="ok">Новый урок</a>
+                        <a href="#" class="ok" data-hystmodal="#lesson_type">Новый урок</a>
+                    </div>
+
+                    <!-- MODAL -->
+                    <div class="hystmodal" id="lesson_type" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 850px;">
+                                <button data-hystclose class="hystmodal__close">Закрыть</button>
+                                <div class="lesson-type-block">
+                                    <h2 class="best-courses__title">Выберите тип урока</h2>
+
+                                    <!-- Форма выбора типа курса -->
+                                    <form th:action="@{/lessons/create}" method="get">
+                                        <div class="availability-block" style="border: none;">
+                                            <label class="availability-label">
+                                                <input type="radio" name="type" value="THEORETICAL" checked>
+                                                <div class="availability">
+                                                    <img th:src="@{/images/lesson-theory.svg}" alt="public">
+                                                    <div class="availability-details">
+                                                        <h4 class="availability-title">Текстовый материал</h4>
+                                                        <p class="availability-description">Статьи, лекции, учебники</p>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            <label class="availability-label">
+                                                <input type="radio" name="type" value="PRACTICAL">
+                                                <div class="availability">
+                                                    <img th:src="@{/images/lesson-practice.svg}" alt="public">
+                                                    <div class="availability-details">
+                                                        <h4 class="availability-title">Практическое задание</h4>
+                                                        <p class="availability-description">Проверка знаний студентов</p>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="lesson-type-btn">
+                                            <button type="submit" class="ok">Выбрать</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -239,6 +287,11 @@
 
     <script th:src="@{/js/header.js}"></script>
     <script>
+        const lesson_type = new HystModal({
+            linkAttributeName: "data-hystmodal",
+            // настройки (не обязательно), см. API
+        });
+
         function submitChanges() {
             let title = document.getElementById('module_title').value;
             let description = document.getElementById('module_description').value;
