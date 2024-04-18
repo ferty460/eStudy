@@ -10,209 +10,240 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Теоретический урок | eStudy</title>
+    <title>Теоретическое занятие | eStudy</title>
 </head>
 
 <body>
-    <header id="header" class="header">
-        <div class="header__inner">
-            <div class="header__inner-item">
-                <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
-                <div>
-                    <a th:href="@{/}" class="logo__link">
-                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
-                    </a>
-                </div>
-            </div>
-
-            <div class="header__inner-item">
-                <a th:href="@{/profile}">
-                    <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                 </a>
-                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username" th:text="${user.getUsername()}"></span>
-                    <span class="down-triangle">&#9660;</span>
-                </a>
-                <div id="dropdownMenu" class="dropdown-menu">
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
-                        <li class="dropdown-item">
-                            <form th:action="@{/logout}" method="post">
-                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
 
-        <div id="sidebar" class="sidebar sidebar-show">
-            <nav class="sidebar-menu">
-                <ul class="sidebar-menu__list">
-                    <li class="sidebar-menu__item">
-                        <a th:href="@{/profile}" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
-                                     class="sidebar-menu__img">
-                            </div>
-                            <span>Личный кабинет</span>
-                        </a>
+        <div class="header__inner-item">
+            <a th:href="@{/profile}">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
                     </li>
-                    <li class="sidebar-menu__item" id="submenu">
-                        <a href="#" class="sidebar-menu__link pull-out-menu">
-                            <div class="sidebar-menu__title">
-                                <div class="sidebar-menu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
-                                </div>
-                                <span>Мои курсы</span>
-                            </div>
-                            <span class="down-triangle">&#9660;</span>
-                        </a>
-                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-                    <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list">
-                        <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
-                            <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
-                                <span>Курсов нет</span>
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
-                            <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
-                                </div>
-                                <span th:text="${course.getTitle()}"></span>
-                            </a>
-                        </li>
-                    </ul>
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
 
-                    <li class="sidebar-menu__item">
-                        <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
-                            </div>
-                            <span>Каталог</span>
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                             </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a th:href="@{/news}" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
-                            </div>
-                            <span>Новости</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
-                            </div>
-                            <span>Поддержка</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
-                            </div>
-                            <span>О нас</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
-                            </div>
-                            <span>Админ. панель</span>
+                            <span th:text="${course.getTitle()}"></span>
                         </a>
                     </li>
                 </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main class="main">
-        <div id="content" class="content sidebar-show__content">
-            <section class="theory-lesson">
-                <div class="theory-lesson-block">
-
-                    <div class="theory-lesson-main">
-                        <div class="lesson-tools">
-                            <div class="lesson-tools-item">
-                                <span>Добавить раздел</span>
-                            </div>
-                            <div class="lesson-tools-item">
-                                <span>Добавить заголовок</span>
-                            </div>
-                            <div class="lesson-tools-item">
-                                <span>Добавить изображение</span>
-                            </div>
-                            <div class="lesson-tools-item">
-                                <span>Добавить текст</span>
-                            </div>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                         </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-                        <div class="theory-lesson-content">
-                            <h3 class="lesson-chapter">Раздел 1</h3>
-                            <h4 class="lesson-title">Заголовок</h4>
-                            <p class="lesson-text">Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-                                вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала
-                                XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм
-                                шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно
-                                пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его
-                                популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum
-                                в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus
-                                PageMaker, в шаблонах которых используется Lorem Ipsum.</p>
-                            <img th:src="@{/images/lesson-image.png}" alt="lesson image" class="lesson-image">
+<main class="main">
+    <div id="content" class="content sidebar-show__content">
+        <section class="lesson-data" style="margin-bottom: 30px;">
+
+            <!-- Форма создания курса -->
+            <form th:action="@{/courses/create}" method="post">
+                <div class="add-news__block">
+                    <div class="best-courses__details news__details">
+                        <h2 class="best-courses__title">Теоретическое занятие</h2>
+                    </div>
+
+                    <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
+                        <div class="news-inputs__block">
+                            <div class="news-title__block">
+                                <label for="news_title" class="label">Заголовок</label>
+                                <input type="text" id="news_title" name="title" class="search-bar news-input" required>
+                            </div>
+                            <div class="news-description__block">
+                                <label for="news_description" class="label">Описание</label>
+                                <textarea name="description" id="news_description"
+                                          class="search-bar news-input"></textarea>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="theory-lesson-chapters">
-                        <h3 class="chapters-title">Разделы</h3>
-                        <ol class="chapters-list">
-                            <li class="chapters-item active-chapter"><a href="">Раздел 1</a></li>
-                            <li class="chapters-item"><a href="">Раздел 2</a></li>
-                            <li class="chapters-item"><a href="">Раздел 3</a></li>
-                            <li class="chapters-item"><a href="">Раздел 4</a></li>
-                            <li class="chapters-item"><a href="">Раздел 5</a></li>
-                            <li class="chapters-item"><a href="">Раздел 6</a></li>
-                            <li class="chapters-item"><a href="">Раздел 7</a></li>
-                            <li class="chapters-item"><a href="">Раздел 8</a></li>
-                        </ol>
+                    <div class="course-btns">
+                        <button class="ok" type="submit">Изменить</button>
                     </div>
-                    
                 </div>
-            </section>
-        </div>
-    </main>
+            </form>
 
-    <footer class="footer sidebar-show__content">
-        <div class="footer__inner">
-            <div class="footer__makes-by">
-                <span>ИС-4</span>
-                <span>Ростовцев В.С.</span>
-            </div>
-            <div class="footer__diplom">
-                <span>Дипломная работа</span>
-            </div>
-            <div class="footer__customer">
-                <span>Техникум</span>
-                <span>Бизнес и право</span>
-            </div>
-        </div>
-    </footer>
+        </section>
 
-    <script th:src="@{/js/header.js}"></script>
+        <section class="theory-lesson">
+            <div class="theory-lesson-block">
+
+                <div class="theory-lesson-main">
+                    <div class="lesson-tools">
+                        <div class="lesson-tools-item">
+                            <span>Добавить раздел</span>
+                        </div>
+                        <div class="lesson-tools-item">
+                            <span>Добавить заголовок</span>
+                        </div>
+                        <div class="lesson-tools-item">
+                            <span>Добавить изображение</span>
+                        </div>
+                        <div class="lesson-tools-item">
+                            <span>Добавить текст</span>
+                        </div>
+                    </div>
+
+                    <div class="theory-lesson-content">
+                        <h3 class="lesson-chapter">Раздел 1</h3>
+                        <h4 class="lesson-title">Заголовок</h4>
+                        <p class="lesson-text">Lorem Ipsum - это текст-"рыба", часто используемый в печати и
+                            вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала
+                            XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм
+                            шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно
+                            пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его
+                            популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum
+                            в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus
+                            PageMaker, в шаблонах которых используется Lorem Ipsum.</p>
+                        <img th:src="@{/images/lesson-image.png}" alt="lesson image" class="lesson-image">
+                    </div>
+                </div>
+
+                <div class="theory-lesson-chapters">
+                    <h3 class="chapters-title">Разделы</h3>
+                    <ol class="chapters-list">
+                        <li class="chapters-item active-chapter"><a href="">Раздел 1</a></li>
+                        <li class="chapters-item"><a href="">Раздел 2</a></li>
+                        <li class="chapters-item"><a href="">Раздел 3</a></li>
+                        <li class="chapters-item"><a href="">Раздел 4</a></li>
+                        <li class="chapters-item"><a href="">Раздел 5</a></li>
+                        <li class="chapters-item"><a href="">Раздел 6</a></li>
+                        <li class="chapters-item"><a href="">Раздел 7</a></li>
+                        <li class="chapters-item"><a href="">Раздел 8</a></li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer sidebar-show__content">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/js/header.js}"></script>
 </body>
 
 </html>

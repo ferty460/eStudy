@@ -284,6 +284,8 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <!-- Редактирование записи -->
                             <div class="hystmodal" th:id="${'edit_note' + note.getId()}" aria-hidden="true">
                                 <div class="hystmodal__wrap">
                                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -308,6 +310,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Удаление записи -->
                             <div class="hystmodal" th:id="${'delete_note' + note.getId()}" aria-hidden="true">
                                 <div class="hystmodal__wrap">
                                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -318,7 +322,7 @@
                                                         <h2 class="best-courses__title">Вы уверены?</h2>
                                                     </div>
                                                     <div class="news-buttons" style="justify-content: center;">
-                                                        <input type="hidden" name="id" th:value="${news.getId()}">
+                                                        <input type="hidden" name="id" th:value="${note.getId()}">
                                                         <button type="submit" class="ok">Удалить</button>
                                                     </div>
                                                 </div>
@@ -333,6 +337,7 @@
                 </div>
             </section>
 
+            <!-- Добавление записи -->
             <section class="hystmodal" id="new_note" aria-hidden="true">
                 <div class="hystmodal__wrap">
                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">

@@ -2,6 +2,7 @@ package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.module.Module;
 import com.example.estudy.domain.user.User;
+import com.example.estudy.service.impl.LessonServiceImpl;
 import com.example.estudy.service.impl.ModuleServiceImpl;
 import com.example.estudy.service.impl.UserServiceImpl;
 import com.example.estudy.web.dto.module.ModuleDto;
@@ -27,6 +28,7 @@ public class ModuleController {
 
     private final ModuleServiceImpl moduleService;
     private final UserServiceImpl userService;
+    private final LessonServiceImpl lessonService;
 
     private final ModuleMapper moduleMapper;
 
@@ -34,7 +36,7 @@ public class ModuleController {
     public String create(@Validated(OnCreate.class) ModuleDto moduleDto, Long courseId) {
         Module module = moduleMapper.toEntity(moduleDto);
         moduleService.create(module, courseId);
-        return "redirect:/courses?id=" + courseId;
+        return "redirect:/modules?id=" + module.getId();
     }
 
     @GetMapping
@@ -42,6 +44,7 @@ public class ModuleController {
         User user = userService.getByUsername(userDetails.getUsername());
         Module module = moduleService.getById(id);
         model.addAttribute("module1", module);
+        model.addAttribute("lessons", lessonService.getAllByModuleId(module.getId()));
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
         return "module";

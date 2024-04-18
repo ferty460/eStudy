@@ -1,7 +1,13 @@
 package com.example.estudy.web.controller;
 
+import com.example.estudy.domain.lesson.Lesson;
 import com.example.estudy.domain.user.User;
+import com.example.estudy.service.impl.LessonServiceImpl;
 import com.example.estudy.service.impl.UserServiceImpl;
+import com.example.estudy.web.dto.lesson.LessonDto;
+import com.example.estudy.web.dto.validation.OnCreate;
+import com.example.estudy.web.dto.validation.OnUpdate;
+import com.example.estudy.web.mappers.LessonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,6 +26,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LessonController {
 
     private final UserServiceImpl userService;
+    private final LessonServiceImpl lessonService;
+
+    private final LessonMapper lessonMapper;
+
+    @GetMapping
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = userService.getByUsername(userDetails.getUsername());
+        model.addAttribute("user", user);
+        model.addAttribute("followed_courses", user.getFollowedCourses());
+        model.addAttribute("lesson", lessonService.getById(id));
+        return "lesson";
+    }
 
     @GetMapping("/create")
     public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model, @RequestParam("type") String type) {
@@ -26,12 +45,33 @@ public class LessonController {
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
         if ("THEORETICAL".equals(type)) {
-            return "theory_lesson";
+            return "add_theory_lesson";
         } else if ("PRACTICAL".equals(type)) {
             return "add_practice_lesson";
         } else {
             return "profile";
         }
+    }
+
+    @PostMapping("/create")
+    public String create(@Validated(OnCreate.class) LessonDto lessonDto, Long moduleId) {
+        Lesson lesson = lessonMapper.toEntity(lessonDto);
+        lessonService.create(lesson, moduleId);
+        return "redirect:/lessons?id=" + lesson.getId();
+    }
+
+    @PostMapping("/edit")
+    public String update(@Validated(OnUpdate.class) LessonDto lessonDto) {
+        Lesson lesson = lessonMapper.toEntity(lessonDto);
+        lessonService.update(lesson, lesson.getId());
+        return "redirect:/lessons?id=" + lesson.getId();
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long id) {
+        Long moduleId = lessonService.getById(id).getModule().getId();
+        lessonService.delete(id);
+        return "redirect:/modules?id=" + moduleId;
     }
 
 }

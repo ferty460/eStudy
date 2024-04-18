@@ -260,51 +260,45 @@
                                 <h4 th:text="${module1.getTitle()}"></h4>
                                 <div class="module-actions" th:if="${isCourseOwner}">
                                     <a th:href="@{/modules(id=__${module1.getId()}__)}"><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                    <form th:action="@{/modules/delete}" method="post" id="deleteForm">
-                                        <input type="hidden" name="id" th:value="${module1.getId()}">
-                                        <img th:src="@{/images/delete.svg}" alt="delete" class="pointer" onclick="toSubmit()">
-                                    </form>
+                                    <a href="" th:attr="data-hystmodal='#delete_module' + ${module1.getId()}">
+                                        <img th:src="@{/images/delete.svg}" alt="delete" class="pointer">
+                                    </a>
                                 </div>
                             </div>
                             <div class="module-description">
                                 <p th:text="${module1.getDescription()}"></p>
                             </div>
+                            <div class="hystmodal" th:id="${'delete_module' + module1.getId()}" aria-hidden="true">
+                                <div class="hystmodal__wrap">
+                                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                        <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                                            <form th:action="@{/modules/delete}" method="post">
+                                                <div class="news-inputs__block new-note">
+                                                    <div class="news-title__block">
+                                                        <h2 class="best-courses__title">Вы уверены?</h2>
+                                                    </div>
+                                                    <div class="news-buttons" style="justify-content: center;">
+                                                        <input type="hidden" name="id" th:value="${module1.getId()}">
+                                                        <button type="submit" class="ok">Удалить</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="lessons" th:id="'lesson' + ${module1.getId()}">
-                            <div class="module-item">
+                            <div class="module-item" th:each="lesson : ${module1.getLessons()}">
                                 <div class="lesson-details">
                                     <div class="lesson-img">
-                                        <img th:src="@{/images/lesson-theory.svg}" alt="theory lesson">
+                                        <img th:src="@{/images/learning.svg}" alt="lesson">
                                     </div>
-                                    <h5><a href="#">Урок 1</a></h5>
+                                    <h5><a th:href="@{/lessons(id=__${lesson.getId()}__)}" th:text="${lesson.getTitle()}"></a></h5>
                                 </div>
                                 <div class="module-actions">
-                                    <a href="#"><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                    <a href="#"><img th:src="@{/images/delete.svg}" alt="delete"></a>
-                                </div>
-                            </div>
-                            <div class="module-item">
-                                <div class="lesson-details">
-                                    <div class="lesson-img">
-                                        <img th:src="@{/images/lesson-practice.svg}" alt="practice lesson">
-                                    </div>
-                                    <h5><a href="#">Урок 2</a></h5>
-                                </div>
-                                <div class="module-actions">
-                                    <a href="#"><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                    <a href="#"><img th:src="@{/images/delete.svg}" alt="delete"></a>
-                                </div>
-                            </div>
-                            <div class="module-item">
-                                <div class="lesson-details">
-                                    <div class="lesson-img">
-                                        <img th:src="@{/images/lesson-practice.svg}" alt="practice lesson">
-                                    </div>
-                                    <h5><a href="#">Урок 3</a></h5>
-                                </div>
-                                <div class="module-actions">
-                                    <a href="#"><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                    <a href="#"><img th:src="@{/images/delete.svg}" alt="delete"></a>
+                                    <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
+                                    <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
                                 </div>
                             </div>
                         </div>
@@ -350,10 +344,6 @@
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/js/add_image.js}"></script>
     <script>
-        function toSubmit() {
-            document.getElementById('deleteForm').submit();
-        }
-
         $(document).ready(function() {
             $('.module-head').click(function() {
                 let moduleId = $(this).attr('id').split('module')[1];

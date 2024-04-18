@@ -1,5 +1,6 @@
 package com.example.estudy.domain.course;
 
+import com.example.estudy.domain.module.Module;
 import com.example.estudy.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,9 @@ public class Course {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
     private Tag tag;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "course")
+    private List<Module> modules = new ArrayList<>();
 
     private Availability availability;
 

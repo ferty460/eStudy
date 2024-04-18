@@ -1,153 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/media.css">
-    <title>Практический урок | eStudy</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <title>Практическое занятие | eStudy</title>
 </head>
 
 <body>
-    <header id="header" class="header">
-        <div class="header__inner">
-            <div class="header__inner-item">
-                <img src="../static/images/sidebar_button.svg" alt="sidebar_button" id="toggleSidebar">
-                <div>
-                    <a href="#" class="logo__link">
-                        <img src="../static/images/logo.svg" alt="logo" class="logo">
-                    </a>
-                </div>
-            </div>
-
-            <div class="header__inner-item">
-                <a href="#">
-                    <img src="../static/images/profile.svg" alt="profile" class="header__inner-profile">
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                 </a>
-                <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
-                    <span class="header__inner-username">Ростовцев В.С.</span>
-                    <span class="down-triangle">&#9660;</span>
-                </a>
-                <div id="dropdownMenu" class="dropdown-menu">
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Личный кабинет</a></li>
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
-                        <li class="dropdown-item">
-                            <form action="#" method="post">
-                                <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
 
-        <div id="sidebar" class="sidebar sidebar-show">
-            <nav class="sidebar-menu">
-                <ul class="sidebar-menu__list">
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/personal_account.svg" alt="personal account"
-                                     class="sidebar-menu__img">
-                            </div>
-                            <span>Личный кабинет</span>
-                        </a>
+        <div class="header__inner-item">
+            <a th:href="@{/profile}">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
                     </li>
-                    <li class="sidebar-menu__item" id="submenu">
-                        <a href="#" class="sidebar-menu__link pull-out-menu">
-                            <div class="sidebar-menu__title">
-                                <div class="sidebar-menu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="sidebar-menu__img">
-                                </div>
-                                <span>Мои курсы</span>
-                            </div>
-                            <span class="down-triangle">&#9660;</span>
-                        </a>
-                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-                    <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list">
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                Английский
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                C++
-                            </a>
-                        </li>
-                        <li class="submenu__item sidebar-menu__item">
-                            <a href="#" class="submenu__link sidebar-menu__link my-courses__link">
-                                <div class="submenu__img-block">
-                                    <img src="../static/images/sidebar/my_courses.svg" alt="my courses" class="submenu__img">
-                                </div>
-                                ДЛЯ ДЕБИЛОВ
-                            </a>
-                        </li>
-                    </ul>
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
 
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/catalog.svg" alt="catalog" class="sidebar-menu__img">
-                            </div>
-                            <span>Каталог</span>
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/calendar.svg" alt="calendar" class="sidebar-menu__img">
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
                             </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/news.svg" alt="news" class="sidebar-menu__img">
-                            </div>
-                            <span>Новости</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/support.svg" alt="support" class="sidebar-menu__img">
-                            </div>
-                            <span>Поддержка</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/about.svg" alt="about" class="sidebar-menu__img">
-                            </div>
-                            <span>О нас</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img src="../static/images/sidebar/admin_panel.svg" alt="admin_panel" class="sidebar-menu__img">
-                            </div>
-                            <span>Админ. панель</span>
+                            <span th:text="${course.getTitle()}"></span>
                         </a>
                     </li>
                 </ul>
-            </nav>
-        </div>
-    </header>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
     <main class="main">
         <div id="content" class="content sidebar-show__content">
@@ -305,8 +297,8 @@
         </div>
     </footer>
 
-    <script src="../static/js/header.js"></script>
-    <script src="../static/js/tab.js"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/tab.js}"></script>
     <script>
         document.getElementById("sort").style.display='block';
     </script>

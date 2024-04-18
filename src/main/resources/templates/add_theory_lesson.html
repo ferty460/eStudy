@@ -10,11 +10,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Каталог | eStudy</title>
+    <title>Теоретическое занятие | eStudy</title>
 </head>
 
 <body>
-
     <header id="header" class="header">
         <div class="header__inner">
             <div class="header__inner-item">
@@ -26,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="header__inner-item" sec:authorize="isAuthenticated()">
+            <div class="header__inner-item">
                 <a th:href="@{/profile}">
                     <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
@@ -46,21 +45,12 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="header__inner-item" sec:authorize="isAnonymous()">
-                <a th:href="@{/auth/login}" class="header__inner-item auth">
-                    <span class="header__inner-username">Войти</span>
-                </a>
-                <a th:href="@{/auth/registration}" class="header__inner-item auth">
-                    <span class="header__inner-username">Зарегистрироваться</span>
-                </a>
-            </div>
         </div>
 
         <div id="sidebar" class="sidebar sidebar-show">
             <nav class="sidebar-menu">
                 <ul class="sidebar-menu__list">
-                    <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
+                    <li class="sidebar-menu__item">
                         <a th:href="@{/profile}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
@@ -69,7 +59,7 @@
                             <span>Личный кабинет</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item" id="submenu" sec:authorize="isAuthenticated()">
+                    <li class="sidebar-menu__item" id="submenu">
                         <a href="#" class="sidebar-menu__link pull-out-menu">
                             <div class="sidebar-menu__title">
                                 <div class="sidebar-menu__img-block">
@@ -82,7 +72,7 @@
                     </li>
 
                     <!-- SUBMENU MY COURSES -->
-                    <ul class="submenu__list sidebar-menu__list" sec:authorize="isAuthenticated()">
+                    <ul class="submenu__list sidebar-menu__list">
                         <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
                             <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
                                 <span>Курсов нет</span>
@@ -99,14 +89,14 @@
                     </ul>
 
                     <li class="sidebar-menu__item">
-                        <a th:href="@{/courses/catalog}" class="sidebar-menu__link active">
+                        <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
                             </div>
                             <span>Каталог</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
+                    <li class="sidebar-menu__item">
                         <a href="#" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
@@ -153,80 +143,35 @@
 
     <main class="main">
         <div id="content" class="content sidebar-show__content">
-            <section class="search">
-                <div class="search__block">
-                    <div class="search-bar__block">
+            <section class="lesson-data" style="margin-bottom: 30px;">
 
-                        <!-- Форма поиска -->
-                        <form action="#" method="get" class="search-bar__form">
-                            <input type="search" name="course" id="search-bar" placeholder="Название или автор"
-                                class="search-bar">
-                            <input type="submit" value="Искать" class="ok">
-                        </form>
-                    </div>
-                    <div class="tags">
-                        <div class="tag tags__item" th:each="tag : ${tags}">
-                            <a th:href="@{/courses/catalog(tag=${tag.getName()})}" class="tag__link" th:text="${tag.getName()}"></a>
+                <!-- Форма создания курса -->
+                <form th:action="@{/courses/create}" method="post">
+                    <div class="add-news__block">
+                        <div class="best-courses__details news__details">
+                            <h2 class="best-courses__title">Теоретическое занятие</h2>
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="best-courses">
-                <div class="courses__block">
-                    <div class="best-courses__details">
-                        <h2 class="best-courses__title">Онлайн-курсы</h2>
-
-                        <!-- Форма сортировки курсов в каталоге -->
-                        <form action="#" method="get" class="sort_select-form">
-                            <select name="courses" class="sort__select-form">
-                                <option class="selected__item" value="date">дата обновления &darr;</option>
-                                <option class="selected__item" value="date">дата обновления &uarr;</option>
-                                <option class="selected__item" value="date">рейтинг</option>
-                                <option class="selected__item" value="date">дата обновления &uarr;</option>
-                            </select>
-                        </form>
-                    </div>
-
-                    <div class="courses__list">
-                        <div th:if="${courses.isEmpty()}" style="margin: 50px auto; color: #6C7293;">
-                            <h2 style="text-align: center;">Упс! Кажется, здесь пока нет курсов.</h2>
-                            <p style="text-align: center; margin: 10px 0;">Но не отчаивайтесь, возможно, это временный перерыв.</p>
-
-                            <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a class="empty-link" th:href="@{/news}">новостном блоге</a>.</p>
-                        </div>
-                        <div class="courses__item" th:each="course : ${courses}">
-                            <div class="course__image-block">
-                                <a th:href="@{/courses(id=__${course.getId()}__)}">
-                                    <div class="input-file-list">
-                                        <div class="input-file-list-item">
-                                            <img th:src="@{/course/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a th:href="@{/courses/catalog(tag=${course.getTag().getName()})}" class="tag__link" th:text="${course.getTag().getName()}"></a>
-                                    </div>
+                        <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
+                            <div class="news-inputs__block">
+                                <div class="news-title__block">
+                                    <label for="news_title" class="label">Заголовок</label>
+                                    <input type="text" id="news_title" name="title" class="search-bar news-input" required>
                                 </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a th:href="@{/users(id=__${course.getAuthor().getId()}__)}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating" th:text="${course.getRating()}"></p>
-                                    </div>
+                                <div class="news-description__block">
+                                    <label for="news_description" class="label">Описание</label>
+                                    <textarea name="description" id="news_description"
+                                              class="search-bar news-input"></textarea>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="course-btns">
+                            <button class="ok" type="submit">Добавить</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+
             </section>
         </div>
     </main>
@@ -247,7 +192,6 @@
         </div>
     </footer>
 
-    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/js/header.js}"></script>
 </body>
 
