@@ -66,7 +66,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return surname + " " + name.charAt(0) + ". " + (patronymic.isEmpty() ? "" : patronymic.charAt(0));
+        return surname + " " + name.charAt(0) + ". " + (patronymic.isEmpty() ? "" : patronymic.charAt(0) + '.');
     }
 
     public String toFullName() {

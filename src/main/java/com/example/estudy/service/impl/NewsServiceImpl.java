@@ -74,7 +74,7 @@ public class NewsServiceImpl implements NewsService {
             news.setImage(image);
         }
 
-        log.info("Saving new News: {}", news);
+        log.info("Saving new News: title = {}, authorId = {}", news.getTitle(), news.getAuthor().getId());
         return newsRepository.save(news);
     }
 

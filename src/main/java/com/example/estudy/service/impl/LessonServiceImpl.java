@@ -34,7 +34,8 @@ public class LessonServiceImpl implements LessonService {
         lesson.setModule(moduleRepository.findById(moduleId)
                 .orElseThrow(() -> new RuntimeException("Module not found")));
 
-        log.info("Saving new Lesson: {}", lesson);
+        log.info("Saving new Lesson: title = {}, date of created = {}, authorId = {}",
+                lesson.getTitle(), lesson.getDateOfCreated(), lesson.getModule().getCourse().getAuthor().getId());
         return lessonRepository.save(lesson);
     }
 

@@ -50,7 +50,8 @@ public class NewsItemServiceImpl implements NewsItemService {
         item.setNews(newsRepository.findById(newsId)
                 .orElseThrow(() -> new RuntimeException("News not found")));
 
-        log.info("Saving new News Item: {}", item);
+        log.info("Saving new News Item: title = {}, newsId = {}, authorId = {}",
+                item.getTitle(), item.getNews().getId(), item.getNews().getAuthor().getId());
         return newsItemRepository.save(item);
     }
 

@@ -262,51 +262,6 @@
                     <div class="module__new-lesson">
                         <a href="#" class="ok" data-hystmodal="#new_lesson">Новый урок</a>
                     </div>
-
-                    <!-- TODO: Просто блок для выбора типа уроков (теор. || практ.) -->
-                    <!--<div class="hystmodal" id="lesson_type" aria-hidden="true">
-                        <div class="hystmodal__wrap">
-                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 850px;">
-                                <button data-hystclose class="hystmodal__close">Закрыть</button>
-                                <div class="lesson-type-block">
-                                    <h2 class="best-courses__title">Выберите тип урока</h2>
-
-                                    &lt;!&ndash; Форма выбора типа курса &ndash;&gt;
-                                    <form th:action="@{/lessons/create}" method="post">
-                                        <div class="availability-block" style="border: none;">
-                                            <label class="availability-label">
-                                                <input type="radio" name="type" value="THEORETICAL" checked>
-                                                <div class="availability">
-                                                    <img th:src="@{/images/lesson-theory.svg}" alt="public">
-                                                    <div class="availability-details">
-                                                        <h4 class="availability-title">Текстовый материал</h4>
-                                                        <p class="availability-description">Статьи, лекции, учебники</p>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                            <label class="availability-label">
-                                                <input type="radio" name="type" value="PRACTICAL">
-                                                <div class="availability">
-                                                    <img th:src="@{/images/lesson-practice.svg}" alt="public">
-                                                    <div class="availability-details">
-                                                        <h4 class="availability-title">Практическое задание</h4>
-                                                        <p class="availability-description">Проверка знаний студентов</p>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div class="lesson-type-btn">
-                                            <button type="submit" class="ok">Выбрать</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                <div class="lesson-type-block">
-                                    <h2 class="best-courses__title">Выберите тип урока</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </section>
 
@@ -315,7 +270,7 @@
                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
                         <div class="add-note__block" style="width: 100%;">
 
-                            <!-- Форма Добавления записи в новость  -->
+                            <!-- Форма Добавления урока  -->
                             <form th:action="@{/lessons/create}" method="post">
                                 <div class="news-inputs__block new-note">
                                     <div class="news-title__block">

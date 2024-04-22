@@ -9,6 +9,7 @@ import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.UserRepository;
 import com.example.estudy.service.CourseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
@@ -71,6 +73,9 @@ public class CourseServiceImpl implements CourseService {
             CourseImage image = toImageEntity(file);
             course.setImage(image);
         }
+
+        log.info("Saving new Course: title = {}, tag = {}, authorId = {}",
+                course.getTitle(), course.getTag().getName(), course.getAuthor().getId());
         return courseRepository.save(course);
     }
 
@@ -87,12 +92,14 @@ public class CourseServiceImpl implements CourseService {
             editedCourse.setImage(image);
         }
 
+        log.info("Editing course with id {}", editedCourse.getId());
         return courseRepository.save(editedCourse);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
+        log.info("Deleting course with id {}", id);
         courseRepository.deleteById(id);
     }
 

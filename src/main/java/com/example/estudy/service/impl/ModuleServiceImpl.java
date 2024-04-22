@@ -34,7 +34,8 @@ public class ModuleServiceImpl implements ModuleService {
         module.setCourse(courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found")));
 
-        log.info("Saving new Module: {}", module);
+        log.info("Saving new Module: title = {}, authorId = {}",
+                module.getTitle(), module.getCourse().getAuthor().getId());
         return moduleRepository.save(module);
     }
 

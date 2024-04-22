@@ -216,98 +216,161 @@
 
         </section>
 
-        <!-- TODO: Доделать содержимое уроков -->
-        <!--<section class="news" style="margin-top: 30px;">
-            <div class="news__block">
-
-                <div class="best-courses__details news__details">
-                    <h2 class="best-courses__title">Содержимое урока</h2>
-                    <div class="news-buttons" sec:authorize="isAuthenticated()">
-                        <button type="submit" class="ok" data-hystmodal="#new_note">Добавить</button>
-                    </div>
+        <section class="empty-course">
+            <div class="empty-block" th:if="${isCourseOwner}">
+                <div th:if="${lesson.getContents().isEmpty()}">
+                    <p>В уроке пока нет обучающих материалов.</p>
+                    <p>Заполните урок обучающими материалами, чтобы другие могли обучаться по ним!</p>
                 </div>
-
-                <div class="news-notes">
-                    <div th:if="${notes.isEmpty()}" style="margin: 50px auto; color: #6C7293;">
-                        <h2 style="text-align: center;">Упс! Кажется, здесь пока нет записей.</h2>
-                        <p style="text-align: center; margin: 10px 0;">Но не отчаивайтесь, возможно, это временно.</p>
-                        <p style="text-align: center;">Вы всегда можете поискать что-то интересное в нашем <a class="empty-link" th:href="@{/courses/catalog}">каталоге курсов</a>.</p>
-                    </div>
-                    <div class="news-item" th:each="note : ${notes}">
-                        <div class="news-item__title-block" th:if="${!note.getTitle().isEmpty()}">
-                            <h3 class="news-note__title" th:text="${note.getTitle()}" style="margin-bottom: .5rem;"></h3>
-                            <div class="note-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor}">
-                                <button type="button" th:attr="data-hystmodal='#edit_note' + ${note.getId()}">
-                                    <img th:src="@{/images/settings.svg}" alt="edit">
-                                </button>
-                                <button type="button" th:attr="data-hystmodal='#delete_note' + ${note.getId()}">
-                                    <img th:src="@{/images/delete.svg}" alt="delete">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="news-item__title-block">
-                            <p class="news-note__text" th:text="${note.getText()}"></p>
-                            <div class="note-buttons" sec:authorize="isAuthenticated()" th:if="${isNewsAuthor && note.getTitle().isEmpty()}">
-                                <button type="button" th:attr="data-hystmodal='#edit_note' + ${note.getId()}">
-                                    <img th:src="@{/images/settings.svg}" alt="edit">
-                                </button>
-                                <button type="button" th:attr="data-hystmodal='#delete_note' + ${note.getId()}">
-                                    <img th:src="@{/images/delete.svg}" alt="delete">
-                                </button>
-                            </div>
-                        </div>
-
-                        &lt;!&ndash; Редактирование записи &ndash;&gt;
-                        <div class="hystmodal" th:id="${'edit_note' + note.getId()}" aria-hidden="true">
-                            <div class="hystmodal__wrap">
-                                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
-                                    <div class="add-note__block" style="width: 100%;">
-                                        <form th:action="@{/notes/edit}" method="post">
-                                            <div class="news-inputs__block new-note">
-                                                <div class="news-title__block">
-                                                    <label class="label">Заголовок</label>
-                                                    <input type="text" name="title" class="search-bar news-input" th:value="${note.getTitle()}">
-                                                </div>
-                                                <div class="news-description__block">
-                                                    <label class="label">Текст</label>
-                                                    <textarea name="text" class="search-bar news-input" style="margin-bottom: 1rem;" th:text="${note.getText()}"></textarea>
-                                                </div>
-                                                <div class="news-buttons">
-                                                    <input type="hidden" name="id" th:value="${note.getId()}">
-                                                    <button type="submit" class="ok" id="new-note-button1">Редактировать</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        &lt;!&ndash; Удаление записи &ndash;&gt;
-                        <div class="hystmodal" th:id="${'delete_note' + note.getId()}" aria-hidden="true">
-                            <div class="hystmodal__wrap">
-                                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
-                                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
-                                        <form th:action="@{/notes/delete}" method="post">
-                                            <div class="news-inputs__block new-note">
-                                                <div class="news-title__block">
-                                                    <h2 class="best-courses__title">Вы уверены?</h2>
-                                                </div>
-                                                <div class="news-buttons" style="justify-content: center;">
-                                                    <input type="hidden" name="id" th:value="${note.getId()}">
-                                                    <button type="submit" class="ok">Удалить</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div th:if="${!lesson.getContents().isEmpty()}">
+                    <p>Пополните урок обучающими материалами.</p>
+                    <p>Чем их больше, тем лучше запомнится суть вашего урока!</p>
                 </div>
-
+                <div class="course-btns1">
+                    <button class="ok" type="submit" data-hystmodal="#new_materials">Пополнить</button>
+                </div>
             </div>
-        </section>-->
+
+            <div class="empty-block" th:if="${!isCourseOwner && lesson.getContents().isEmpty()}">
+                <p>В уроке пока нет обучающих материалов.</p>
+                <p>Подождите, пока преподаватель заполнит урок обучающими материалами!</p>
+            </div>
+
+            <div class="hystmodal" id="new_materials" aria-hidden="true">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <button data-hystclose class="hystmodal__close">Закрыть</button>
+                        <div class="lesson-type-block">
+                            <h2 class="best-courses__title">Выберите тип урока</h2>
+
+                            <div class="availability-block" style="border: none;">
+                                <label class="availability-label" data-hystmodal='#theoretical'>
+                                    <input type="radio" name="type" value="THEORETICAL">
+                                    <div class="availability">
+                                        <img th:src="@{/images/lesson-theory.svg}" alt="public">
+                                        <div class="availability-details">
+                                            <h4 class="availability-title">Текстовый материал</h4>
+                                            <p class="availability-description">Статьи, лекции, учебники</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="availability-label" data-hystmodal='#practical'>
+                                    <input type="radio" name="type" value="PRACTICAL">
+                                    <div class="availability">
+                                        <img th:src="@{/images/lesson-practice.svg}" alt="public">
+                                        <div class="availability-details">
+                                            <h4 class="availability-title">Практическое задание</h4>
+                                            <p class="availability-description">Проверка знаний студентов</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hystmodal" id="theoretical">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+
+                    <!-- Форма создания урока -->
+                    <form th:action="@{/theoretical/create}" method="post">
+                        <div class="add-news__block">
+                            <div class="best-courses__details news__details">
+                                <h2 class="best-courses__title">Теоретическое занятие</h2>
+                            </div>
+
+                            <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
+                                <div class="news-inputs__block">
+                                    <div class="news-title__block">
+                                        <label for="th_title" class="label">Заголовок</label>
+                                        <input type="text" id="th_title" name="title" class="search-bar news-input" required>
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label for="th_description" class="label">Описание</label>
+                                        <textarea name="description" id="th_description"
+                                                  class="search-bar news-input"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-btns">
+                                <input type="hidden" name="lessonId" th:value="${lesson.getId()}">
+                                <button class="ok" type="submit">Добавить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="hystmodal" id="practical">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+
+                    <!-- Форма создания урока -->
+                    <form th:action="@{/theoretical/create}" method="post">
+                        <div class="add-news__block">
+                            <div class="best-courses__details news__details">
+                                <h2 class="best-courses__title">Практическое занятие</h2>
+                            </div>
+
+                            <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
+                                <div class="news-inputs__block">
+                                    <div class="news-title__block">
+                                        <label for="pr_title" class="label">Заголовок</label>
+                                        <input type="text" id="pr_title" name="title" class="search-bar news-input" required>
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label for="pr_description" class="label">Описание</label>
+                                        <textarea name="description" id="pr_description"
+                                                  class="search-bar news-input"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-btns">
+                                <input type="hidden" name="lessonId" th:value="${lesson.getId()}">
+                                <button class="ok" type="submit">Добавить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="news" style="margin-top: 30px;" th:if="${!lesson.getContents().isEmpty()}">
+            <div class="module-block">
+                <div class="best-courses__details news__details" style="margin-bottom: 20px;">
+                    <h2 class="best-courses__title">Содержимое урока</h2>
+                </div>
+                <div class="module">
+                    <div class="lessons">
+                        <div class="module-item" th:each="content : ${lesson.getContents()}" style="border: none; margin-left: 0;">
+                            <div class="lesson-details">
+                                <div class="lesson-img" th:switch="${content.type}">
+                                    <img th:case="'Theoretical'" th:src="@{/images/lesson-theory.svg}" alt="lesson">
+                                    <img th:case="'Practical'" th:src="@{/images/lesson-practice.svg}" alt="lesson">
+                                </div>
+                                <h5 th:switch="${content.type}">
+                                    <a th:case="'Theoretical'" th:href="@{/theoretical(id=__${content.getId()}__)}" th:text="${content.getTitle()}"></a>
+                                    <a th:case="'Practical'" th:href="@{/practical(id=__${content.getId()}__)}" th:text="${content.getTitle()}"></a>
+                                </h5>
+                            </div>
+                            <!-- TODO: доделать -->
+                            <div class="module-actions">
+                                <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
+                                <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Добавление записи -->
         <section class="hystmodal" id="new_note" aria-hidden="true">

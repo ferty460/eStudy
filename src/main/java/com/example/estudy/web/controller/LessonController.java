@@ -33,31 +33,20 @@ public class LessonController {
     @GetMapping
     public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getByUsername(userDetails.getUsername());
+        Lesson lesson = lessonService.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
-        model.addAttribute("lesson", lessonService.getById(id));
+        model.addAttribute("lesson", lesson);
+        model.addAttribute("isCourseOwner",
+                userService.isCourseOwner(user.getId(), lesson.getModule().getCourse().getId()));
         return "lesson";
-    }
-
-    @GetMapping("/create")
-    public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model, @RequestParam("type") String type) {
-        User user = userService.getByUsername(userDetails.getUsername());
-        model.addAttribute("user", user);
-        model.addAttribute("followed_courses", user.getFollowedCourses());
-        if ("THEORETICAL".equals(type)) {
-            return "add_theory_lesson";
-        } else if ("PRACTICAL".equals(type)) {
-            return "add_practice_lesson";
-        } else {
-            return "profile";
-        }
     }
 
     @PostMapping("/create")
     public String create(@Validated(OnCreate.class) LessonDto lessonDto, Long moduleId) {
         Lesson lesson = lessonMapper.toEntity(lessonDto);
         lessonService.create(lesson, moduleId);
-        return "redirect:/lessons?id=" + lesson.getId();
+        return "redirect:/modules?id=" + lesson.getModule().getId();
     }
 
     @PostMapping("/edit")

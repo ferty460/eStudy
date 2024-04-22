@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
     <title>Теоретическое занятие | eStudy</title>
 </head>
 
@@ -145,8 +147,18 @@
     <div id="content" class="content sidebar-show__content">
         <section class="lesson-data" style="margin-bottom: 30px;">
 
-            <!-- Форма создания курса -->
-            <form th:action="@{/courses/create}" method="post">
+            <div class="bread-crumbs">
+                <a th:href="@{/courses(id=__${content.getLesson().getModule().getCourse().getId()}__)}" th:text="${content.getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/modules(id=__${content.getLesson().getModule().getId()}__)}" th:text="${content.getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/lessons(id=__${content.getLesson().getId()}__)}" th:text="${content.getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <span th:text="${content.getTitle()}" class="best-courses__title" style="text-decoration: underline;"></span>
+            </div>
+
+            <!-- Форма редактрования теоретического контента -->
+            <form th:action="@{/theoretical/update}" method="post">
                 <div class="add-news__block">
                     <div class="best-courses__details news__details">
                         <h2 class="best-courses__title">Теоретическое занятие</h2>
@@ -156,17 +168,18 @@
                         <div class="news-inputs__block">
                             <div class="news-title__block">
                                 <label for="news_title" class="label">Заголовок</label>
-                                <input type="text" id="news_title" name="title" class="search-bar news-input" required>
+                                <input type="text" id="news_title" name="title" class="search-bar news-input" th:value="${content.getTitle()}" required>
                             </div>
                             <div class="news-description__block">
                                 <label for="news_description" class="label">Описание</label>
                                 <textarea name="description" id="news_description"
-                                          class="search-bar news-input"></textarea>
+                                          class="search-bar news-input" th:text="${content.getDescription()}"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="course-btns">
+                        <input type="hidden" name="id" th:value="${content.getId()}">
                         <button class="ok" type="submit">Изменить</button>
                     </div>
                 </div>
@@ -177,51 +190,133 @@
         <section class="theory-lesson">
             <div class="theory-lesson-block">
 
-                <div class="theory-lesson-main">
+                <div class="theory-lesson-main" th:each="chapter, iterStat : ${content.getChapters()}"
+                     th:id="${'chapter' + chapter.getId()}" th:style="${!iterStat.first ? 'display: none; width: 100%;' : 'width: 100%;'}">
                     <div class="lesson-tools">
-                        <div class="lesson-tools-item">
+                        <div class="lesson-tools-item" data-hystmodal='#new_chapter'>
                             <span>Добавить раздел</span>
                         </div>
-                        <div class="lesson-tools-item">
+                        <div class="lesson-tools-item" th:attr="data-hystmodal='#new_title' + ${chapter.getId()}">
                             <span>Добавить заголовок</span>
                         </div>
-                        <div class="lesson-tools-item">
+                        <div class="lesson-tools-item" th:attr="data-hystmodal='#new_image' + ${chapter.getId()}">
                             <span>Добавить изображение</span>
                         </div>
-                        <div class="lesson-tools-item">
+                        <div class="lesson-tools-item" th:attr="data-hystmodal='#new_text' + ${chapter.getId()}">
                             <span>Добавить текст</span>
                         </div>
                     </div>
 
                     <div class="theory-lesson-content">
-                        <h3 class="lesson-chapter">Раздел 1</h3>
-                        <h4 class="lesson-title">Заголовок</h4>
-                        <p class="lesson-text">Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-                            вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала
-                            XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм
-                            шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно
-                            пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его
-                            популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum
-                            в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus
-                            PageMaker, в шаблонах которых используется Lorem Ipsum.</p>
-                        <img th:src="@{/images/lesson-image.png}" alt="lesson image" class="lesson-image">
+                        <h3 class="lesson-chapter" style="text-decoration: underline;" th:text="${chapter.getName()}"></h3>
+                        <div th:each="item : ${chapter.getCombinedContent()}" th:utext="${item.getContent()}"></div>
+                    </div>
+
+                    <div class="hystmodal" th:id="${'new_title' + chapter.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма Добавления заголовка  -->
+                                    <form th:action="@{/titles/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label for="news_title2" class="label" style="margin-bottom: .5rem">Название заголовка</label>
+                                                <input type="text" id="news_title2" name="value" class="search-bar news-input">
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hystmodal" th:id="${'new_text' + chapter.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма Добавления заголовка  -->
+                                    <form th:action="@{/texts/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label for="news_title3" class="label" style="margin-bottom: .5rem">Введите текст</label>
+                                                <textarea name="value" id="news_title3" class="search-bar news-input"></textarea>
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hystmodal" th:id="${'new_image' + chapter.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма Добавления заголовка  -->
+                                    <form th:action="@{/images/create}" method="post" enctype="multipart/form-data">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label for="news_title4" class="label" style="margin-bottom: .5rem">Выберите изображение</label>
+                                                <input type="file" name="image" id="news_title4">
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="theory-lesson-chapters">
                     <h3 class="chapters-title">Разделы</h3>
-                    <ol class="chapters-list">
-                        <li class="chapters-item active-chapter"><a href="">Раздел 1</a></li>
-                        <li class="chapters-item"><a href="">Раздел 2</a></li>
-                        <li class="chapters-item"><a href="">Раздел 3</a></li>
-                        <li class="chapters-item"><a href="">Раздел 4</a></li>
-                        <li class="chapters-item"><a href="">Раздел 5</a></li>
-                        <li class="chapters-item"><a href="">Раздел 6</a></li>
-                        <li class="chapters-item"><a href="">Раздел 7</a></li>
-                        <li class="chapters-item"><a href="">Раздел 8</a></li>
+                    <ol class="chapters-list" id="chapters-list">
+                        <li th:each="chapter, iterStat : ${content.getChapters()}" th:class="${iterStat.first ? 'active-chapter chapters-item' : 'chapters-item'}">
+                            <a th:href="@{${'#chapter' + chapter.getId()}}" th:text="${chapter.getName()}"></a>
+                        </li>
                     </ol>
                 </div>
+            </div>
 
+            <div class="hystmodal" id="new_chapter" aria-hidden="true">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                            <!-- Форма Добавления раздела  -->
+                            <form th:action="@{/chapters/create}" method="post">
+                                <div class="news-inputs__block new-note">
+                                    <div class="news-title__block" style="align-items: center">
+                                        <label for="news_title1" class="label" style="margin-bottom: .5rem">Название раздела</label>
+                                        <input type="text" id="news_title1" name="name" class="search-bar news-input">
+                                    </div>
+                                    <div class="news-buttons" style="justify-content: center">
+                                        <input type="hidden" name="contentId" th:value="${content.getId()}">
+                                        <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -244,6 +339,31 @@
 </footer>
 
 <script th:src="@{/js/header.js}"></script>
+<script>
+    const new_chapter = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+</script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('.chapters-list a').click(function(e) {
+            e.preventDefault();
+            let chapterId = $(this).attr('href').substring(1);
+
+            // Удаляем класс active-chapter у всех элементов списка
+            $('.chapters-list li').removeClass('active-chapter');
+
+            // Добавляем класс active-chapter к элементу списка, соответствующему открытому разделу
+            $(this).parent().addClass('active-chapter');
+
+            // Скрываем все блоки разделов, кроме того, на который указывает ссылка, и показываем его
+            $('.theory-lesson-main').hide();
+            $('#' + chapterId).show();
+        });
+    });
+</script>
 </body>
 
 </html>
