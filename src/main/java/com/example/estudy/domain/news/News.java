@@ -25,6 +25,7 @@ public class News {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "news")

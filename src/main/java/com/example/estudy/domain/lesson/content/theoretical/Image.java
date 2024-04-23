@@ -51,6 +51,12 @@ public class Image {
 
     @Override
     public String toString() {
-        return "<img src=\"/theoretical/img/" + id + "\" alt=\"lesson image\" class=\"lesson-image\">";
+        return "<div class=\"lesson-actions\"><div></div>" +
+                "<img src=\"/theoretical/img/" + id + "\" alt=\"lesson image\" class=\"lesson-image\">" +
+                "<div class=\"module-actions\" style=\"min-width: 50px; align-items: start;\">" +
+                "<a href=\"\" data-hystmodal='#edit_image" + id + "'><img src=\"/images/settings.svg\" alt=\"edit\" title=\"Редактировать\"></a>\n" +
+                "<a href=\"\" data-hystmodal='#delete_image" + id + "'><img src=\"/images/delete.svg\" alt=\"delete\"></a>" +
+                "</div>" +
+                "</div>";
     }
 }

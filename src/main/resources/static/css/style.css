@@ -1132,6 +1132,7 @@ body {
     color: #6C7293;
     text-align: justify;
     padding-bottom: 20px;
+    padding-right: 10px;
     line-height: 22px;
     text-indent: 30px;
 }
@@ -1271,6 +1272,11 @@ body {
     display: flex;
     gap: 20px;
     justify-content: end;
+}
+
+.lesson-actions {
+    display: flex;
+    justify-content: space-between;
 }
 
 .answer {

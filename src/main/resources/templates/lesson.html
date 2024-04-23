@@ -154,13 +154,14 @@
     <div id="content" class="content sidebar-show__content">
         <section class="add-news">
             <div class="bread-crumbs">
-                <a th:href="@{/courses(id=__${lesson.getModule().getCourse().getId()}__)}" th:text="${lesson.getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <a th:href="@{/courses(id=__${lesson.getModule().getCourse().getId()}__)}" title="курс" th:text="${lesson.getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
                 <span class="best-courses__title"> -> </span>
-                <a th:href="@{/modules(id=__${lesson.getModule().getId()}__)}" th:text="${lesson.getModule().getTitle()}" class="best-courses__title uline"></a>
+                <a th:href="@{/modules(id=__${lesson.getModule().getId()}__)}" title="модуль" th:text="${lesson.getModule().getTitle()}" class="best-courses__title uline"></a>
                 <span class="best-courses__title"> -> </span>
-                <span th:text="${lesson.getTitle()}" class="best-courses__title" style="text-decoration: underline;"></span>
+                <span th:text="${lesson.getTitle()}" title="урок" class="best-courses__title" style="text-decoration: underline;"></span>
             </div>
 
+            <!-- УДАЛЕНИЕ УРОКА -->
             <div class="hystmodal" id="delete_lesson" aria-hidden="true">
                 <div class="hystmodal__wrap">
                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -236,6 +237,7 @@
                 <p>Подождите, пока преподаватель заполнит урок обучающими материалами!</p>
             </div>
 
+            <!-- ВЫБОР ТИПА УРОКА -->
             <div class="hystmodal" id="new_materials" aria-hidden="true">
                 <div class="hystmodal__wrap">
                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -271,6 +273,7 @@
             </div>
         </section>
 
+        <!-- СОЗДАНИЕ ТЕОРЕТИЧЕСКОГО ЗАНЯТИЯ -->
         <section class="hystmodal" id="theoretical">
             <div class="hystmodal__wrap">
                 <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -307,12 +310,13 @@
 
         </section>
 
+        <!-- СОЗДАНИЕ ПРАКТИЧЕСКОГО ЗАНЯТИЯ -->
         <section class="hystmodal" id="practical">
             <div class="hystmodal__wrap">
                 <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
 
                     <!-- Форма создания урока -->
-                    <form th:action="@{/theoretical/create}" method="post">
+                    <form th:action="@{/practical/create}" method="post">
                         <div class="add-news__block">
                             <div class="best-courses__details news__details">
                                 <h2 class="best-courses__title">Практическое занятие</h2>
@@ -343,6 +347,7 @@
 
         </section>
 
+        <!-- СОДЕРЖИМОЕ УРОКА -->
         <section class="news" style="margin-top: 30px;" th:if="${!lesson.getContents().isEmpty()}">
             <div class="module-block">
                 <div class="best-courses__details news__details" style="margin-bottom: 20px;">
@@ -361,42 +366,65 @@
                                     <a th:case="'Practical'" th:href="@{/practical(id=__${content.getId()}__)}" th:text="${content.getTitle()}"></a>
                                 </h5>
                             </div>
-                            <!-- TODO: доделать -->
                             <div class="module-actions">
-                                <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
-                                <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
+                                <a href="" th:attr="data-hystmodal='#edit_lesson' + ${content.getType() + content.getId()}"><img th:src="@{/images/settings.svg}" alt="edit" title="Редактировать"></a>
+                                <a href="" th:attr="data-hystmodal='#delete_lesson' + ${content.getType() + content.getId()}"><img th:src="@{/images/delete.svg}" alt="delete"></a>
+                            </div>
+
+                            <div class="hystmodal" th:id="${'edit_lesson' + content.getType() + content.getId()}">
+                                <div class="hystmodal__wrap">
+                                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+
+                                        <!-- Форма редактирования урока -->
+                                        <form th:action="@{/theoretical/edit}" method="post">
+                                            <div class="add-news__block">
+                                                <div class="best-courses__details news__details">
+                                                    <h2 class="best-courses__title">Теоретическое занятие</h2>
+                                                </div>
+
+                                                <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
+                                                    <div class="news-inputs__block">
+                                                        <div class="news-title__block">
+                                                            <label class="label">Заголовок</label>
+                                                            <input type="text" name="title" class="search-bar news-input" th:value="${content.getTitle()}" required>
+                                                        </div>
+                                                        <div class="news-description__block">
+                                                            <label class="label">Описание</label>
+                                                            <textarea name="description" class="search-bar news-input" th:text="${content.getDescription()}"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="course-btns">
+                                                    <input type="hidden" name="id" th:value="${content.getId()}">
+                                                    <button class="ok" type="submit">Редактировать</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hystmodal" th:id="${'delete_lesson' + content.getType() + content.getId()}" aria-hidden="true">
+                                <div class="hystmodal__wrap">
+                                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                        <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                                            <form th:action="@{/theoretical/delete}" method="post">
+                                                <div class="news-inputs__block new-note">
+                                                    <div class="news-title__block">
+                                                        <h2 class="best-courses__title">Вы уверены?</h2>
+                                                    </div>
+                                                    <div class="news-buttons" style="justify-content: center;">
+                                                        <input type="hidden" name="id" th:value="${content.getId()}">
+                                                        <button type="submit" class="ok">Удалить</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Добавление записи -->
-        <section class="hystmodal" id="new_note" aria-hidden="true">
-            <div class="hystmodal__wrap">
-                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
-                    <div class="add-note__block" style="width: 100%;">
-
-                        <!-- Форма Добавления записи в новость  -->
-                        <form th:action="@{/notes/create}" method="post">
-                            <div class="news-inputs__block new-note">
-                                <div class="news-title__block">
-                                    <label for="news_title1" class="label">Заголовок</label>
-                                    <input type="text" id="news_title1" name="title" class="search-bar news-input">
-                                </div>
-                                <div class="news-description__block">
-                                    <label for="news_description1" class="label">Текст</label>
-                                    <textarea name="text" id="news_description1"
-                                              class="search-bar news-input" style="margin-bottom: 1rem;"></textarea>
-                                </div>
-                                <div class="news-buttons">
-                                    <input type="hidden" name="newsId" th:value="${lesson.getId()}">
-                                    <button type="submit" class="ok" id="new-note-button">Добавить</button>
-                                </div>
-                            </div>
-                        </form>
-
                     </div>
                 </div>
             </div>

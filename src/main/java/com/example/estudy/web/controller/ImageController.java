@@ -39,4 +39,18 @@ public class ImageController {
         return "redirect:/theoretical?id=" + chapter.getTheoreticalContent().getId();
     }
 
+    @PostMapping("/images/update")
+    public String update(@RequestParam("image") MultipartFile file, Long id, Long chapterId) {
+        Chapter chapter = chapterService.getById(chapterId);
+        imageService.update(file, id);
+        return "redirect:/theoretical?id=" + chapter.getTheoreticalContent().getId();
+    }
+
+    @PostMapping("/images/delete")
+    public String delete(Long id) {
+        Long lessonId = imageService.getById(id).getChapter().getTheoreticalContent().getId();
+        imageService.delete(id);
+        return "redirect:/theoretical?id=" + lessonId;
+    }
+
 }

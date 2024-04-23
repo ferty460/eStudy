@@ -56,4 +56,18 @@ public class TheoreticalContentController {
         return "redirect:/theoretical?id=" + editedContent.getId();
     }
 
+    @PostMapping("/edit")
+    public String edit(@Validated(OnUpdate.class) TheoreticalContentDto contentDto) {
+        TheoreticalContent editedContent = contentMapper.toEntity(contentDto);
+        contentService.update(editedContent, editedContent.getId());
+        return "redirect:/lessons?id=" + editedContent.getLesson().getId();
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long id) {
+        Long lessonId = contentService.getById(id).getLesson().getId();
+        contentService.delete(id);
+        return "redirect:/lessons?id=" + lessonId;
+    }
+
 }

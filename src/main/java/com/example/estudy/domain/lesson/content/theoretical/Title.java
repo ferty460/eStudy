@@ -34,6 +34,12 @@ public class Title {
 
     @Override
     public String toString() {
-        return "<h4 class=\"lesson-title\">" + value + "</h4>";
+        return "<div class=\"lesson-actions\">" +
+                "<h4 class=\"lesson-title\">" + value + "</h4>" +
+                "<div class=\"module-actions\" style=\"min-width: 50px; align-items: start;\">" +
+                "<a href=\"\" data-hystmodal='#edit_title" + id + "'><img src=\"/images/settings.svg\" alt=\"edit\" title=\"Редактировать\"></a>\n" +
+                "<a href=\"\" data-hystmodal='#delete_title" + id + "'><img src=\"/images/delete.svg\" alt=\"delete\"></a>" +
+                "</div>" +
+                "</div>";
     }
 }

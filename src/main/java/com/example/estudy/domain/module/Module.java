@@ -26,6 +26,7 @@ public class Module {
     @Column(nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

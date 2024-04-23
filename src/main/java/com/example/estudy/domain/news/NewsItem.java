@@ -22,6 +22,7 @@ public class NewsItem {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

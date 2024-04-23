@@ -147,9 +147,9 @@
         <div id="content" class="content sidebar-show__content">
             <section class="module">
                 <div class="bread-crumbs">
-                    <a th:href="@{/courses(id=__${module1.getCourse().getId()}__)}" th:text="${module1.getCourse().getTitle()}" class="best-courses__title uline"></a>
+                    <a th:href="@{/courses(id=__${module1.getCourse().getId()}__)}" title="Курс" th:text="${module1.getCourse().getTitle()}" class="best-courses__title uline"></a>
                     <span class="best-courses__title"> -> </span>
-                    <span th:text="${module1.getTitle()}" class="best-courses__title" style="text-decoration: underline;"></span>
+                    <span th:text="${module1.getTitle()}" title="Модуль" class="best-courses__title" style="text-decoration: underline;"></span>
                 </div>
                 <div class="module-block">
                     <div class="module-heading">

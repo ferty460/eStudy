@@ -19,6 +19,7 @@ public class Text {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,6 +35,12 @@ public class Text {
 
     @Override
     public String toString() {
-        return "<p class=\"lesson-text\">" + value + "</p>";
+        return "<div class=\"lesson-actions\">" +
+                "<p class=\"lesson-text\">" + value + "</p>" +
+                "<div class=\"module-actions\" style=\"min-width: 50px; align-items: start;\">" +
+                "<a href=\"\" data-hystmodal='#edit_text" + id + "'><img src=\"/images/settings.svg\" alt=\"edit\" title=\"Редактировать\"></a>\n" +
+                "<a href=\"\" data-hystmodal='#delete_text" + id + "'><img src=\"/images/delete.svg\" alt=\"delete\"></a>" +
+                "</div>" +
+                "</div>";
     }
 }
