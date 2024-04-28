@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Entity
+@Table(name = "chapters")
 @Getter
 @Setter
 @AllArgsConstructor

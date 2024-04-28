@@ -9,6 +9,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.TitleMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,8 @@ public class TitleController {
     private final TitleMapper titleMapper;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@chapterServiceImpl.getById(#chapterId).theoreticalContent.lesson.module.course.author.id == authentication.principal.id")
     public String create(@Validated(OnCreate.class) TitleDto titleDto, Long chapterId) {
         Title title = titleMapper.toEntity(titleDto);
         Chapter chapter = chapterService.getById(chapterId);
@@ -34,6 +37,8 @@ public class TitleController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@titleServiceImpl.getById(#titleDto.id).chapter.theoreticalContent.lesson.module.course.author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) TitleDto titleDto) {
         Title title = titleMapper.toEntity(titleDto);
         Title editedTitle = titleService.update(title, title.getId());
@@ -41,6 +46,8 @@ public class TitleController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@titleServiceImpl.getById(#id).chapter.theoreticalContent.lesson.module.course.author.id == authentication.principal.id")
     public String delete(Long id) {
         Long lessonId = titleService.getById(id).getChapter().getTheoreticalContent().getId();
         titleService.delete(id);

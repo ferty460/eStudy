@@ -34,7 +34,7 @@ public class TextServiceImpl implements TextService {
         text.setChapter(chapterRepository.findById(chapterId)
                 .orElseThrow(() -> new RuntimeException("Chapter not found")));
 
-        log.info("Saving new Text: chapterId = {}, value = {}", chapterId, text.getValue());
+        log.info("Saving new Text: chapterId = {}", chapterId);
         return textRepository.save(text);
     }
 

@@ -12,6 +12,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.CourseMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -105,6 +106,8 @@ public class CourseController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@courseServiceImpl.getById(#courseDto.id).author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) CourseDto courseDto,
                          @RequestParam("file") MultipartFile file) throws IOException {
         Course course = courseMapper.toEntity(courseDto);
@@ -113,6 +116,8 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@courseServiceImpl.getById(#id).author.id == authentication.principal.id")
     public String deleteById(@PathVariable Long id) {
         courseService.delete(id);
         return "redirect:/profile";

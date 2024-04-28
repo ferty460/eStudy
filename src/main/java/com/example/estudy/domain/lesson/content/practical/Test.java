@@ -1,5 +1,6 @@
 package com.example.estudy.domain.lesson.content.practical;
 
+import com.example.estudy.domain.lesson.content.PracticalContent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tests")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +21,15 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     // test fields
+
+    @OneToOne(mappedBy = "test")
+    private PracticalContent practicalContent;
 
     private LocalDateTime dateOfCreated;
 

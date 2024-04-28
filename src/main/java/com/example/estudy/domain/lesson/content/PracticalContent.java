@@ -1,6 +1,6 @@
 package com.example.estudy.domain.lesson.content;
 
-import com.example.estudy.domain.lesson.content.practical.GapFillingTask;
+import com.example.estudy.domain.lesson.content.practical.GapsTask;
 import com.example.estudy.domain.lesson.content.practical.SortingTask;
 import com.example.estudy.domain.lesson.content.practical.Test;
 import com.example.estudy.domain.lesson.content.practical.TextTask;
@@ -10,9 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -21,20 +18,50 @@ import java.util.List;
 @DiscriminatorValue("Practical")
 public class PracticalContent extends Content {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "practical_content_id")
-    private List<Test> tests = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "test_id")
+    private Test test;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "practical_content_id")
-    private List<GapFillingTask> gapFillingTasks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gaps_task_id")
+    private GapsTask gapsTask;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "practical_content_id")
-    private List<TextTask> textTasks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "text_task_id")
+    private TextTask textTask;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "practical_content_id")
-    private List<SortingTask> sortingTasks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sorting_task_id")
+    private SortingTask sortingTask;
+
+    private String practicalType;
+
+    public void setTest(Test test) {
+        this.test = test;
+        this.gapsTask = null;
+        this.textTask = null;
+        this.sortingTask = null;
+    }
+
+    public void setGapsTask(GapsTask gapsTask) {
+        this.test = null;
+        this.gapsTask = gapsTask;
+        this.textTask = null;
+        this.sortingTask = null;
+    }
+
+    public void setTextTask(TextTask textTask) {
+        this.test = null;
+        this.gapsTask = null;
+        this.textTask = textTask;
+        this.sortingTask = null;
+    }
+
+    public void setSortingTask(SortingTask sortingTask) {
+        this.test = null;
+        this.gapsTask = null;
+        this.textTask = null;
+        this.sortingTask = sortingTask;
+    }
 
 }

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <title>Новое | Практический урок | eStudy</title>
+</head>
+
+<body>
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+
+        <div class="header__inner-item">
+            <a th:href="@{/profile}">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
+
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
+                        </a>
+                    </li>
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
+                            </div>
+                            <span th:text="${course.getTitle()}"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <div id="content" class="content sidebar-show__content">
+        <section class="theory-lesson">
+            <div class="practice-lesson-block">
+                <div class="practice-lesson-main">
+
+                    <!-- Задача на сортировку -->
+                    <div class="theory-lesson-content" id="sort">
+                        <div class="lesson-inputs">
+                            <div class="module-inputs">
+                                <div class="news-title__block">
+                                    <label class="label">Заголовок</label>
+                                    <input type="text" name="news_title"
+                                           class="search-bar news-input" th:value="${content.getTitle()}">
+                                </div>
+                                <div class="news-description__block">
+                                    <label class="label">Условие задачи</label>
+                                    <textarea name="news_description" th:text="${content.getDescription()}"
+                                              class="search-bar news-input" style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sort-list">
+                            <div class="sort-head">
+                                <span>Элемент</span>
+                                <span>Порядок</span>
+                            </div>
+                            <div class="sort-item">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                </svg>
+                            </div>
+                            <div class="sort-item">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                </svg>
+                            </div>
+                            <div class="sort-item">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                </svg>
+                            </div>
+                            <div class="sort-item">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <input type="text" name="news_title" class="search-bar news-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="spaces-btns" style="justify-content: center;">
+                            <form action="" method="post">
+                                <button type="submit" class="ok">Добавить элемент</button>
+                            </form>
+                        </div>
+                        <div class="text-btns">
+                            <form action="" method="post">
+                                <button type="submit" class="cancel">Перейти к просмотру</button>
+                            </form>
+                            <form action="" method="post">
+                                <button type="submit" class="ok">Сохранить</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer sidebar-show__content">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/tab.js}"></script>
+</body>
+
+</html>

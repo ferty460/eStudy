@@ -10,6 +10,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.ModuleMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class ModuleController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') || @moduleServiceImpl.getById(#id).course.author.id == authentication.principal.id")
     public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getByUsername(userDetails.getUsername());
         Module module = moduleService.getById(id);
@@ -51,6 +53,7 @@ public class ModuleController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || @moduleServiceImpl.getById(#moduleDto.id).course.author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) ModuleDto moduleDto) {
         Module module = moduleMapper.toEntity(moduleDto);
         moduleService.update(module, module.getId());
@@ -58,6 +61,7 @@ public class ModuleController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || @moduleServiceImpl.getById(#id).course.author.id == authentication.principal.id")
     public String delete(Long id) {
         Long courseId = moduleService.getById(id).getCourse().getId();
         moduleService.delete(id);

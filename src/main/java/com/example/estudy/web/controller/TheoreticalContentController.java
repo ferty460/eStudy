@@ -9,6 +9,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.TheoreticalContentMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class TheoreticalContentController {
     private final TheoreticalContentMapper contentMapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@theoreticalContentServiceImpl.getById(#id).lesson.module.course.author.id == authentication.principal.id")
     public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getByUsername(userDetails.getUsername());
         TheoreticalContent content = contentService.getById(id);
@@ -42,7 +45,8 @@ public class TheoreticalContentController {
         return "theory_lesson";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create")@PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@lessonServiceImpl.getById(#lessonId).module.course.author.id == authentication.principal.id")
     public String create(@Validated(OnCreate.class) TheoreticalContentDto contentDto, Long lessonId) {
         TheoreticalContent content = contentMapper.toEntity(contentDto);
         contentService.create(content, lessonId);
@@ -50,20 +54,26 @@ public class TheoreticalContentController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@theoreticalContentServiceImpl.getById(#contentDto.id).lesson.module.course.author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) TheoreticalContentDto contentDto) {
-        TheoreticalContent editedContent = contentMapper.toEntity(contentDto);
-        contentService.update(editedContent, editedContent.getId());
+        TheoreticalContent content = contentMapper.toEntity(contentDto);
+        TheoreticalContent editedContent = contentService.update(content, content.getId());
         return "redirect:/theoretical?id=" + editedContent.getId();
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@theoreticalContentServiceImpl.getById(#contentDto.id).lesson.module.course.author.id == authentication.principal.id")
     public String edit(@Validated(OnUpdate.class) TheoreticalContentDto contentDto) {
-        TheoreticalContent editedContent = contentMapper.toEntity(contentDto);
-        contentService.update(editedContent, editedContent.getId());
+        TheoreticalContent content = contentMapper.toEntity(contentDto);
+        TheoreticalContent editedContent = contentService.update(content, content.getId());
         return "redirect:/lessons?id=" + editedContent.getLesson().getId();
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@theoreticalContentServiceImpl.getById(#id).lesson.module.course.author.id == authentication.principal.id")
     public String delete(Long id) {
         Long lessonId = contentService.getById(id).getLesson().getId();
         contentService.delete(id);

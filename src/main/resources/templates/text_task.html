@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/flash.min.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Практическое занятие | eStudy</title>
+</head>
+
+<body>
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+
+        <div class="header__inner-item">
+            <a th:href="@{/profile}">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
+
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
+                        </a>
+                    </li>
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
+                            </div>
+                            <span th:text="${course.getTitle()}"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <div id="content" class="content sidebar-show__content">
+        <section class="theory-lesson">
+            <div class="bread-crumbs">
+                <a th:href="@{/courses(id=__${content.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
+                   th:text="${content.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/modules(id=__${content.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
+                   th:text="${content.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/lessons(id=__${content.getPracticalContent().getLesson().getId()}__)}" title="урок"
+                   th:text="${content.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <span th:text="${content.getPracticalContent().getTitle()}" title="урок" class="best-courses__title" style="text-decoration: underline;"></span>
+            </div>
+
+            <div class="practice-lesson-block">
+                <div class="practice-lesson-main">
+
+                    <!-- Текстовая задача -->
+                    <div class="theory-lesson-content">
+                        <form th:action="@{/practical/text/update}" method="post">
+                            <div class="lesson-inputs">
+                                <div class="module-inputs">
+                                    <div class="news-title__block">
+                                        <label class="label">Заголовок</label>
+                                        <input type="text" name="title"
+                                               class="search-bar news-input" th:value="${content.getTitle()}">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label class="label">Условие задачи (вопрос)</label>
+                                        <textarea name="description" th:text="${content.getDescription()}"
+                                                  class="search-bar news-input" style="height: 100px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="answer">
+                                <div class="news-title__block">
+                                    <label class="label">Верный ответ</label>
+                                    <input type="text" name="correctAnswer" th:value="${content.getCorrectAnswer()}" class="search-bar news-input">
+                                </div>
+                            </div>
+                            <div class="text-btns">
+                                <input type="hidden" name="id" th:value="${content.getId()}">
+                                <button type="button" class="cancel" data-hystmodal="#text">Перейти к просмотру</button>
+                                <button type="submit" class="ok">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ЗАДАЧА СО СТОРОНЫ ПОЛЬЗОВАТЕЛЯ -->
+                    <div class="hystmodal" id="text" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="practice-lesson-block">
+                                    <div class="practice-lesson-main">
+                                        <div class="theory-lesson-content">
+                                            <div class="lesson-inputs">
+                                                <div class="module-inputs">
+                                                    <div class="news-title__block">
+                                                        <h3 class="best-courses__title" th:text="${content.getTitle()}"></h3>
+                                                    </div>
+                                                    <div class="news-description__block">
+                                                        <p class="label" th:text="${content.getDescription()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="answer">
+                                                <div class="news-title__block">
+                                                    <label class="label">Ответ</label>
+                                                    <input type="text" name="answer" class="search-bar news-input" required>
+                                                </div>
+                                            </div>
+                                            <div class="text-btns">
+                                                <input type="hidden" name="id" th:value="${content.getId()}">
+                                                <button type="submit" class="ok" id="customOk">Ответить</button>
+                                                <div id="result"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer sidebar-show__content">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/flash.min.js}"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script>
+    const new_note = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+
+    $(document).ready(function() {
+        $('#customOk').click(function(e) {
+            e.preventDefault();
+
+            let id = $('input[name="id"]').val();
+            let answer = $('input[name="answer"]').val();
+
+            $.ajax({
+                url: '/practical/text/findTextTask',
+                type: 'GET',
+                data: { id: id },
+                success: function(data) {
+                    if (data === answer) {
+                        window.FlashMessage.success('Верно!');
+                        $('#customOk').hide();
+                        $('#result').append('<span class="correct">' + data + '</span>');
+                    } else {
+                        window.FlashMessage.error('Неверно!');
+                        $('#customOk').hide();
+                        $('#result').append('<span class="wrong">' + answer + '</span> <span class="correct">' + data + '</span>');
+                    }
+                },
+                error: function() {
+                    alert('Произошла ошибка при запросе textTask');
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

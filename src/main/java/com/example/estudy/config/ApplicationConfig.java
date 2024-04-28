@@ -34,7 +34,7 @@ public class ApplicationConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/news/img/**", "/course/img/**").permitAll()
-                        .requestMatchers("/auth/**", "/", "/courses/catalog", "/news", "/news/**", "/about").permitAll()
+                        .requestMatchers("/auth/**", "/", "/courses/catalog", "/news", "/news/**", "/about", "/oops").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -44,7 +44,8 @@ public class ApplicationConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/auth/login")
-                );
+                )
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(new Http403ForbiddenEntryPoint("/oops")));
 
         return http.build();
     }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <title>403 | eStudy</title>
+</head>
+
+<body>
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+    <div id="content" class="content">
+        <div class="registration-block">
+            <h1 class="error-code">403</h1>
+            <h3 class="error-desc">Отказано в доступе</h3>
+            <p class="error-sorry">У вас недостаточно прав для доступа к этой странице.</p>
+
+            <div class="course-btns1" style="margin-top: 2rem;">
+                <a th:href="@{/}" class="ok">На главную</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

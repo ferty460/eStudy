@@ -7,6 +7,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.NewsItemMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,8 @@ public class NewsItemController {
     private final NewsItemMapper newsItemMapper;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@newsItemServiceImpl.getById(#itemDto.id).news.author.id == authentication.principal.id")
     public String create(@Validated(OnCreate.class) NewsItemDto itemDto, Long newsId) {
         NewsItem item = newsItemMapper.toEntity(itemDto);
         newsItemService.create(item, newsId);
@@ -29,6 +32,8 @@ public class NewsItemController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@newsItemServiceImpl.getById(#itemDto.id).news.author.id == authentication.principal.id")
     public String edit(@Validated(OnUpdate.class) NewsItemDto itemDto, Long id) {
         NewsItem item = newsItemMapper.toEntity(itemDto);
         NewsItem editedItem = newsItemService.update(item, id);
@@ -36,6 +41,8 @@ public class NewsItemController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@newsItemServiceImpl.getById(#id).news.author.id == authentication.principal.id")
     public String edit(Long id) {
         Long newsId = newsItemService.getById(id).getNews().getId();
         newsItemService.delete(id);

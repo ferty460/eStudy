@@ -321,6 +321,24 @@
                             <div class="best-courses__details news__details">
                                 <h2 class="best-courses__title">Практическое занятие</h2>
                             </div>
+                            <div class="lesson-tools practice-tools">
+                                <div class="lesson-tools-item active-tools-item">
+                                    <span>Тест (задача)</span>
+                                    <input type="radio" name="practicalType" value="test" checked />
+                                </div>
+                                <div class="lesson-tools-item">
+                                    <span>Пропуски</span>
+                                    <input type="radio" name="practicalType" value="gaps" />
+                                </div>
+                                <div class="lesson-tools-item">
+                                    <span>Текстовая задача</span>
+                                    <input type="radio" name="practicalType" value="text" />
+                                </div>
+                                <div class="lesson-tools-item">
+                                    <span>Задача на сортировку</span>
+                                    <input type="radio" name="practicalType" value="sort" />
+                                </div>
+                            </div>
 
                             <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
                                 <div class="news-inputs__block">
@@ -329,7 +347,7 @@
                                         <input type="text" id="pr_title" name="title" class="search-bar news-input" required>
                                     </div>
                                     <div class="news-description__block">
-                                        <label for="pr_description" class="label">Описание</label>
+                                        <label for="pr_description" class="label">Описание (условие) задачи</label>
                                         <textarea name="description" id="pr_description"
                                                   class="search-bar news-input"></textarea>
                                     </div>
@@ -376,10 +394,10 @@
                                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
 
                                         <!-- Форма редактирования урока -->
-                                        <form th:action="@{/theoretical/edit}" method="post">
+                                        <form th:action="@{${content.getType() == 'Practical' ? '/practical/edit' : '/theoretical/edit'}}" method="post">
                                             <div class="add-news__block">
                                                 <div class="best-courses__details news__details">
-                                                    <h2 class="best-courses__title">Теоретическое занятие</h2>
+                                                    <h2 class="best-courses__title" th:text="${content.getType() == 'Practical' ? 'Практическое занятие' : 'Теоретическое занятие'}"></h2>
                                                 </div>
 
                                                 <div class="news-details__block" style="display: block; margin-bottom: 1rem;">
@@ -409,7 +427,7 @@
                                 <div class="hystmodal__wrap">
                                     <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
                                         <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
-                                            <form th:action="@{/theoretical/delete}" method="post">
+                                            <form th:action="@{${content.getType() == 'Practical' ? '/practical/delete' : '/theoretical/delete'}}" method="post">
                                                 <div class="news-inputs__block new-note">
                                                     <div class="news-title__block">
                                                         <h2 class="best-courses__title">Вы уверены?</h2>
@@ -455,6 +473,23 @@
     const new_note = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
+    });
+
+    const lessonToolsItems = document.querySelectorAll('.lesson-tools-item');
+
+    lessonToolsItems.forEach(item => {
+        const radioInput = item.querySelector('input[type="radio"]');
+        radioInput.style.visibility = 'hidden'; // Скрыть radio button
+        radioInput.style.position = 'absolute'; // Убрать из потока
+
+        item.addEventListener('click', () => {
+            // Сбросить класс active-tools-item для всех элементов
+            lessonToolsItems.forEach(otherItem => otherItem.classList.remove('active-tools-item'));
+
+            // Добавить класс active-tools-item и обновить checked для текущего элемента
+            item.classList.add('active-tools-item');
+            radioInput.checked = true;
+        });
     });
 </script>
 </body>

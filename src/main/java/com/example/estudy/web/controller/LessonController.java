@@ -9,6 +9,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.LessonMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class LessonController {
     private final LessonMapper lessonMapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@lessonServiceImpl.getById(#id).module.course.author.id == authentication.principal.id")
     public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getByUsername(userDetails.getUsername());
         Lesson lesson = lessonService.getById(id);
@@ -43,6 +46,8 @@ public class LessonController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@moduleServiceImpl.getById(#moduleId).course.author.id == authentication.principal.id")
     public String create(@Validated(OnCreate.class) LessonDto lessonDto, Long moduleId) {
         Lesson lesson = lessonMapper.toEntity(lessonDto);
         lessonService.create(lesson, moduleId);
@@ -50,6 +55,8 @@ public class LessonController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@lessonServiceImpl.getById(#lessonDto.id).module.course.author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) LessonDto lessonDto) {
         Lesson lesson = lessonMapper.toEntity(lessonDto);
         lessonService.update(lesson, lesson.getId());
@@ -57,6 +64,8 @@ public class LessonController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@lessonServiceImpl.getById(#id).module.course.author.id == authentication.principal.id")
     public String delete(Long id) {
         Long moduleId = lessonService.getById(id).getModule().getId();
         lessonService.delete(id);

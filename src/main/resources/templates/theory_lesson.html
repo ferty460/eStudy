@@ -434,31 +434,6 @@
                         </div>
                     </div>
 
-                    <!-- ДОБАВЛЕНИЕ РАЗДЕЛА -->
-                    <div class="hystmodal" id="new_chapter" aria-hidden="true">
-                        <div class="hystmodal__wrap">
-                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
-                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
-
-                                    <!-- Форма Добавления раздела  -->
-                                    <form th:action="@{/chapters/create}" method="post">
-                                        <div class="news-inputs__block new-note">
-                                            <div class="news-title__block" style="align-items: center">
-                                                <label for="news_title1" class="label" style="margin-bottom: .5rem">Название раздела</label>
-                                                <input type="text" id="news_title1" name="name" class="search-bar news-input">
-                                            </div>
-                                            <div class="news-buttons" style="justify-content: center">
-                                                <input type="hidden" name="contentId" th:value="${content.getId()}">
-                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- ДОБАВЛЕНИЕ ЗАГОЛОВКА -->
                     <div class="hystmodal" th:id="${'new_title' + chapter.getId()}" aria-hidden="true">
                         <div class="hystmodal__wrap">
@@ -535,6 +510,31 @@
                     </div>
                 </div>
 
+                <!-- ДОБАВЛЕНИЕ РАЗДЕЛА -->
+                <div class="hystmodal" id="new_chapter" aria-hidden="true">
+                    <div class="hystmodal__wrap">
+                        <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                            <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                <!-- Форма Добавления раздела  -->
+                                <form th:action="@{/chapters/create}" method="post">
+                                    <div class="news-inputs__block new-note">
+                                        <div class="news-title__block" style="align-items: center">
+                                            <label for="news_title1" class="label" style="margin-bottom: .5rem">Название раздела</label>
+                                            <input type="text" id="news_title1" name="name" class="search-bar news-input">
+                                        </div>
+                                        <div class="news-buttons" style="justify-content: center">
+                                            <input type="hidden" name="contentId" th:value="${content.getId()}">
+                                            <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- РАЗДЕЛЫ -->
                 <div class="theory-lesson-chapters">
                     <h3 class="chapters-title">Разделы</h3>
@@ -566,14 +566,12 @@
 </footer>
 
 <script th:src="@{/js/header.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script>
     const new_chapter = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
     });
-</script>
-<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
-<script>
     $(document).ready(function() {
         $('.chapters-list a').click(function(e) {
             e.preventDefault();

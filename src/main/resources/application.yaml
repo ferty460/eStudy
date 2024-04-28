@@ -10,3 +10,8 @@ spring:
     multipart:
       max-file-size: 128MB
       max-request-size: 128MB
+
+server:
+  error:
+    whitelabel:
+      enabled: false

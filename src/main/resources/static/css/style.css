@@ -489,8 +489,12 @@ body {
     font-weight: 700;
 }
 
-.pointer, .module-head {
+.pointer {
     cursor: pointer;
+}
+
+.module-head {
+    cursor: help;
 }
 
 .course-progress {
@@ -1089,17 +1093,14 @@ body {
     cursor: pointer;
 }
 
-.lesson-tools-item:first-child, .lesson-tools {
-    border-top-left-radius: 10px;
-}
-
-.pratice-lesson-tools-item, .practice-tools {
-    border-top-right-radius: 10px;
-}
-
 .lesson-tools-item span {
     font-weight: 700;
     color: #6C7293;
+}
+
+.hidden-radio {
+    visibility: hidden;
+    position: absolute;
 }
 
 .lesson-tools-item:hover {
@@ -1271,7 +1272,7 @@ body {
     margin-top: 20px;
     display: flex;
     gap: 20px;
-    justify-content: end;
+    justify-content: center;
 }
 
 .lesson-actions {
@@ -1449,4 +1450,39 @@ body {
 
 .empty-link:hover {
     text-decoration: underline;
+}
+
+.wrong {
+    color: #ff4136;
+    text-decoration: line-through;
+}
+
+.correct {
+    color: #4caf50;
+}
+
+.flash-container {
+    right: 0 !important;
+    left: 25px !important;
+}
+
+.error-code {
+    font-size: 64px;
+    text-align: center;
+    color: #c5c5c5;
+    font-weight: bold;
+}
+
+.error-desc {
+    text-align: center;
+    color: #c5c5c5;
+    font-size: 24px;
+    margin: .5rem 0;
+}
+
+.error-sorry {
+    text-align: center;
+    color: #6C7293;
+    font-size: 18px;
+    margin: .5rem 0;
 }

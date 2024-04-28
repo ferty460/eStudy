@@ -10,6 +10,7 @@ import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.NewsMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -81,6 +82,8 @@ public class NewsController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@newsServiceImpl.getById(#newsDto.id).author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) NewsDto newsDto, Long id,
                          @RequestParam("file") MultipartFile file) throws IOException {
         News news = newsMapper.toEntity(newsDto);
@@ -89,6 +92,8 @@ public class NewsController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
+            "@newsServiceImpl.getById(#id).author.id == authentication.principal.id")
     public String delete(@RequestParam("id") Long id) {
         newsItemService.deleteAllByNewsId(id);
         newsService.delete(id);

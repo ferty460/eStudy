@@ -294,9 +294,10 @@
                                     <div class="lesson-img">
                                         <img th:src="@{/images/learning.svg}" alt="lesson">
                                     </div>
-                                    <h5><a th:href="@{/lessons(id=__${lesson.getId()}__)}" th:text="${lesson.getTitle()}"></a></h5>
+                                    <h5 th:if="${isCourseOwner}"><a th:href="@{/lessons(id=__${lesson.getId()}__)}" th:text="${lesson.getTitle()}"></a></h5>
+                                    <h5 th:if="${!isCourseOwner}"><span class="label" th:text="${lesson.getTitle()}"></span></h5>
                                 </div>
-                                <div class="module-actions">
+                                <div class="module-actions" th:if="${isCourseOwner}">
                                     <a href=""><img th:src="@{/images/settings.svg}" alt="edit"></a>
                                     <a href=""><img th:src="@{/images/delete.svg}" alt="delete"></a>
                                 </div>
