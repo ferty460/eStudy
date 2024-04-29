@@ -25,7 +25,7 @@ public class TextTaskController {
 
     private final TextTaskMapper textTaskMapper;
 
-    @PostMapping("/practical/text/update")
+    @PostMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN') || " +
             "@textTaskServiceImpl.getById(#textTaskDto.id).practicalContent.lesson.module.course.author.id == authentication.principal.id")
     public String update(@Validated(OnUpdate.class) TextTaskDto textTaskDto) {

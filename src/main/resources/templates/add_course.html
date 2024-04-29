@@ -179,8 +179,8 @@
                             <h4>Выберите необходимый тэг, с которым вы ассоциируете ваш учебный курс:</h4>
 
                             <div class="tags mt10">
-                                <label class="tag-label" th:each="tag : ${tags}">
-                                    <input type="radio" name="tag" checked th:value="${tag.getId()}">
+                                <label class="tag-label" th:each="tag, statItem : ${tags}">
+                                    <input type="radio" name="tag" th:checked="${statItem.index == 0}" th:value="${tag.getId()}">
                                     <div class="tag tags__item tag-course">
                                         <span class="tag__link" th:text="${tag.getName()}"></span>
                                     </div>

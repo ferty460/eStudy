@@ -2,7 +2,6 @@ package com.example.estudy.service.impl;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import com.example.estudy.domain.lesson.content.practical.TextTask;
-import com.example.estudy.repository.practical.PracticalContentRepository;
 import com.example.estudy.repository.practical.TextTaskRepository;
 import com.example.estudy.service.TextTaskService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,6 @@ import java.util.List;
 public class TextTaskServiceImpl implements TextTaskService {
 
     private final TextTaskRepository textTaskRepository;
-    private final PracticalContentRepository contentRepository;
 
     @Override
     public TextTask getById(Long id) {

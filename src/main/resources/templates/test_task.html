@@ -10,7 +10,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Новое | Практический урок | eStudy</title>
+    <link rel="stylesheet" th:href="@{/css/flash.min.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Практическое занятие | eStudy</title>
 </head>
 
 <body>
@@ -144,76 +147,156 @@
 <main class="main">
     <div id="content" class="content sidebar-show__content">
         <section class="theory-lesson">
+            <div class="bread-crumbs">
+                <a th:href="@{/courses(id=__${test.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
+                   th:text="${test.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/modules(id=__${test.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
+                   th:text="${test.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/lessons(id=__${test.getPracticalContent().getLesson().getId()}__)}" title="урок"
+                   th:text="${test.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <span th:text="${test.getPracticalContent().getTitle()}" title="занятие" class="best-courses__title" style="text-decoration: underline;"></span>
+            </div>
+
             <div class="practice-lesson-block">
                 <div class="practice-lesson-main">
 
                     <!-- Тест -->
-                    <div class="theory-lesson-content" id="test">
-                        <div class="lesson-inputs">
-                            <div class="module-inputs">
-                                <div class="news-title__block">
-                                    <label class="label">Заголовок</label>
-                                    <input type="text" name="news_title"
-                                           class="search-bar news-input" th:value="${content.getTitle()}">
+                    <div class="theory-lesson-content">
+                        <form th:action="@{/practical/test/update}" method="post" id="myForm">
+                            <input type="hidden" name="flag" th:value="${flag}">
+                            <div class="lesson-inputs">
+                                <div class="module-inputs">
+                                    <div class="news-title__block">
+                                        <label class="label">Заголовок</label>
+                                        <input type="text" name="title"
+                                               class="search-bar news-input" th:value="${test.getTitle()}">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label class="label">Условие задачи</label>
+                                        <textarea name="description" th:text="${test.getDescription()}"
+                                                  class="search-bar news-input" style="height: 100px;"></textarea>
+                                    </div>
                                 </div>
-                                <div class="news-description__block">
-                                    <label class="label">Условие задачи</label>
-                                    <textarea name="news_description" th:text="${content.getDescription()}"
-                                              class="search-bar news-input" style="height: 100px;"></textarea>
+                            </div>
+                            <h4 class="test-title">Варианты ответа</h4>
+                            <div class="test-list">
+                                <div class="test-item" style="justify-content: space-between" th:each="item, statItem : ${test.getItems()}">
+                                    <div class="test-item1">
+                                        <input class="custom-radio" name="answer" type="radio" th:id="${'answer' + item.getId()}" th:value="${item.getId()}" th:checked="${flag ? item.isRight : statItem.index == 0}" required>
+                                        <label th:for="${'answer' + item.getId()}"></label>
+                                        <div class="news-description__block">
+                                            <p class="label" th:text="${item.getValue()}"></p>
+                                        </div>
+                                    </div>
+                                    <button th:attr="data-hystmodal='#delete_item' + ${item.getId()}" type="button" class="delete_item">
+                                        <input type="hidden" name="item_id" th:value="${item.getId()}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                            <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                        </svg>
+                                    </button>
                                 </div>
+                                <button class="ok" data-hystmodal="#add_item">Добавить вариант ответа</button>
                             </div>
-                        </div>
-                        <h4 class="test-title">Варианты ответа</h4>
-                        <div class="test-list">
-                            <div class="test-item">
-                                <input class="custom-radio" name="answer" type="radio" id="answer1" value="1"
-                                       checked>
-                                <label for="answer1"></label>
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="test-item">
-                                <input class="custom-radio" name="answer" type="radio" id="answer2" value="1">
-                                <label for="answer2"></label>
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="test-item">
-                                <input class="custom-radio" name="answer" type="radio" id="answer3" value="1">
-                                <label for="answer3"></label>
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="test-item">
-                                <input class="custom-radio" name="answer" type="radio" id="answer4" value="1">
-                                <label for="answer4"></label>
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <button class="ok">Добавить вариант ответа</button>
-                        </div>
-                        <div class="text-btns">
-                            <form action="" method="post">
-                                <button type="submit" class="cancel">Перейти к просмотру</button>
-                            </form>
-                            <form action="" method="post">
+                            <div class="text-btns">
+                                <input type="hidden" name="id" th:value="${test.getId()}">
+                                <button type="button" class="cancel" data-hystmodal="#show">Перейти к просмотру</button>
                                 <button type="submit" class="ok">Сохранить</button>
-                            </form>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- УДАЛЕНИЕ ITEM -->
+                    <div th:each="item : ${test.getItems()}">
+                        <div class="hystmodal" th:id="delete_item + ${item.getId()}" aria-hidden="true">
+                            <div class="hystmodal__wrap">
+                                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                        <!-- Форма удаления урока  -->
+                                        <form th:action="@{/practical/test/item/delete}" method="post">
+                                            <div class="news-inputs__block new-note">
+                                                <div class="news-title__block">
+                                                    <h2 class="best-courses__title">Вы уверены?</h2>
+                                                </div>
+                                                <div class="news-buttons" style="justify-content: center;">
+                                                    <input type="hidden" name="item_id" th:value="${item.getId()}">
+                                                    <button type="submit" class="ok">Удалить</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- ДОБАВЛЕНИЕ ITEM -->
+                    <div class="hystmodal" id="add_item" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <form th:action="@{/practical/test/item/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label for="news_title2" class="label" style="margin-bottom: .5rem">Значение</label>
+                                                <input type="text" id="news_title2" name="value" class="search-bar news-input">
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="testId" th:value="${test.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ТЕСТ СО СТОРОНЫ ПОЛЬЗОВАТЕЛЯ -->
+                    <div class="hystmodal" id="show" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="practice-lesson-block">
+                                    <div class="practice-lesson-main">
+                                        <div class="theory-lesson-content">
+                                            <div class="lesson-inputs">
+                                                <div class="module-inputs">
+                                                    <div class="news-title__block">
+                                                        <h3 class="best-courses__title" th:text="${test.getTitle()}"></h3>
+                                                    </div>
+                                                    <div class="news-description__block">
+                                                        <p class="label" th:text="${test.getDescription()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="test-title">Варианты ответа</h4>
+                                            <div class="test-list">
+                                                <div class="test-item" th:each="item, statItem : ${test.getItems()}">
+                                                    <input class="custom-radio" name="answer1" type="radio" th:id="${'answer1' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
+                                                    <label th:for="${'answer1' + item.getId()}"></label>
+                                                    <div class="news-description__block" th:id="${'answer2' + item.getId()}">
+                                                        <p class="label" th:text="${item.getValue()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-btns">
+                                                <input type="hidden" name="test_id" th:value="${test.getId()}">
+                                                <button type="submit" class="ok" id="customOk">Ответить</button>
+                                                <div id="result"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -237,7 +320,47 @@
 </footer>
 
 <script th:src="@{/js/header.js}"></script>
-<script th:src="@{/js/tab.js}"></script>
+<script th:src="@{/js/flash.min.js}"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script>
+    const new_note = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+
+    $(document).ready(function() {
+        if ($('input[name="flag"]').val() === 'false') {
+            document.getElementById('myForm').submit();
+        }
+        $('#customOk').click(function(e) {
+            e.preventDefault();
+
+            let id = $('input[name="test_id"]').val();
+            let answer = $('input[name="answer1"]:checked').val();
+            let value = $('input[name="answer1"]:checked').closest('.test-item').find('.label').text();
+
+            $.ajax({
+                url: '/practical/test/findTestItem',
+                type: 'GET',
+                data: { id: id },
+                success: function(data) {
+                    if (data === parseInt(answer)) {
+                        window.FlashMessage.success('Верно!');
+                        $('#customOk').hide();
+                        $('#result').append('<span class="correct">' + value + '</span>');
+                    } else {
+                        window.FlashMessage.error('Неверно!');
+                        $('#customOk').hide();
+                        $('#result').append('<span class="wrong">' + value + '</span> | <span class="correct">' + $('#answer2' + data).find('.label').text() + '</span>');
+                    }
+                },
+                error: function() {
+                    alert('Произошла ошибка при запросе test');
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

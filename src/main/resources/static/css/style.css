@@ -1263,6 +1263,12 @@ body {
     border-radius: 10px;
 }
 
+.test-item1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .test-item svg, .sort-item svg {
     cursor: pointer;
     height: 20px;

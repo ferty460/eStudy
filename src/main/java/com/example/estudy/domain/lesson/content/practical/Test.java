@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tests")
@@ -26,7 +28,8 @@ public class Test {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // test fields
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "test")
+    private List<TestItem> items = new ArrayList<>();
 
     @OneToOne(mappedBy = "test")
     private PracticalContent practicalContent;

@@ -148,16 +148,16 @@
     <div id="content" class="content sidebar-show__content">
         <section class="theory-lesson">
             <div class="bread-crumbs">
-                <a th:href="@{/courses(id=__${content.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
-                   th:text="${content.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <a th:href="@{/courses(id=__${text.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
+                   th:text="${text.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
                 <span class="best-courses__title"> -> </span>
-                <a th:href="@{/modules(id=__${content.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
-                   th:text="${content.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <a th:href="@{/modules(id=__${text.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
+                   th:text="${text.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
                 <span class="best-courses__title"> -> </span>
-                <a th:href="@{/lessons(id=__${content.getPracticalContent().getLesson().getId()}__)}" title="урок"
-                   th:text="${content.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <a th:href="@{/lessons(id=__${text.getPracticalContent().getLesson().getId()}__)}" title="урок"
+                   th:text="${text.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
                 <span class="best-courses__title"> -> </span>
-                <span th:text="${content.getPracticalContent().getTitle()}" title="урок" class="best-courses__title" style="text-decoration: underline;"></span>
+                <span th:text="${text.getPracticalContent().getTitle()}" title="занятие" class="best-courses__title" style="text-decoration: underline;"></span>
             </div>
 
             <div class="practice-lesson-block">
@@ -171,11 +171,11 @@
                                     <div class="news-title__block">
                                         <label class="label">Заголовок</label>
                                         <input type="text" name="title"
-                                               class="search-bar news-input" th:value="${content.getTitle()}">
+                                               class="search-bar news-input" th:value="${text.getTitle()}">
                                     </div>
                                     <div class="news-description__block">
                                         <label class="label">Условие задачи (вопрос)</label>
-                                        <textarea name="description" th:text="${content.getDescription()}"
+                                        <textarea name="description" th:text="${text.getDescription()}"
                                                   class="search-bar news-input" style="height: 100px;"></textarea>
                                     </div>
                                 </div>
@@ -183,11 +183,11 @@
                             <div class="answer">
                                 <div class="news-title__block">
                                     <label class="label">Верный ответ</label>
-                                    <input type="text" name="correctAnswer" th:value="${content.getCorrectAnswer()}" class="search-bar news-input">
+                                    <input type="text" name="correctAnswer" th:value="${text.getCorrectAnswer()}" class="search-bar news-input">
                                 </div>
                             </div>
                             <div class="text-btns">
-                                <input type="hidden" name="id" th:value="${content.getId()}">
+                                <input type="hidden" name="id" th:value="${text.getId()}">
                                 <button type="button" class="cancel" data-hystmodal="#text">Перейти к просмотру</button>
                                 <button type="submit" class="ok">Сохранить</button>
                             </div>
@@ -204,10 +204,10 @@
                                             <div class="lesson-inputs">
                                                 <div class="module-inputs">
                                                     <div class="news-title__block">
-                                                        <h3 class="best-courses__title" th:text="${content.getTitle()}"></h3>
+                                                        <h3 class="best-courses__title" th:text="${text.getTitle()}"></h3>
                                                     </div>
                                                     <div class="news-description__block">
-                                                        <p class="label" th:text="${content.getDescription()}"></p>
+                                                        <p class="label" th:text="${text.getDescription()}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,7 +218,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-btns">
-                                                <input type="hidden" name="id" th:value="${content.getId()}">
+                                                <input type="hidden" name="id" th:value="${text.getId()}">
                                                 <button type="submit" class="ok" id="customOk">Ответить</button>
                                                 <div id="result"></div>
                                             </div>
@@ -278,7 +278,7 @@
                     } else {
                         window.FlashMessage.error('Неверно!');
                         $('#customOk').hide();
-                        $('#result').append('<span class="wrong">' + answer + '</span> <span class="correct">' + data + '</span>');
+                        $('#result').append('<span class="wrong">' + answer + '</span> | <span class="correct">' + data + '</span>');
                     }
                 },
                 error: function() {

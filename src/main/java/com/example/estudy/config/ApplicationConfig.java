@@ -44,8 +44,7 @@ public class ApplicationConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/auth/login")
-                )
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(new Http403ForbiddenEntryPoint("/oops")));
+                );
 
         return http.build();
     }

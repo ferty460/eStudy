@@ -1,12 +1,10 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
-import com.example.estudy.domain.lesson.content.practical.GapsTask;
-import com.example.estudy.domain.lesson.content.practical.SortingTask;
-import com.example.estudy.domain.lesson.content.practical.Test;
-import com.example.estudy.domain.lesson.content.practical.TextTask;
+import com.example.estudy.domain.lesson.content.practical.*;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.PracticalContentServiceImpl;
+import com.example.estudy.service.impl.TestServiceImpl;
 import com.example.estudy.service.impl.TextTaskServiceImpl;
 import com.example.estudy.service.impl.UserServiceImpl;
 import com.example.estudy.web.dto.lesson.PracticalContentDto;
@@ -34,6 +32,7 @@ public class PracticalContentController {
     private final PracticalContentServiceImpl contentService;
     private final UserServiceImpl userService;
     private final TextTaskServiceImpl textTaskService;
+    private final TestServiceImpl testService;
 
     private final PracticalContentMapper contentMapper;
 
@@ -45,24 +44,24 @@ public class PracticalContentController {
         PracticalContent content = contentService.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
-        model.addAttribute("isCourseOwner",
-                userService.isCourseOwner(user.getId(), content.getLesson().getModule().getCourse().getId()));
 
         switch (content.getPracticalType()) {
             case "test" -> {
-                model.addAttribute("content", content.getTest());
+                model.addAttribute("test", content.getTest());
+                boolean flag = content.getTest().getItems().stream().anyMatch(TestItem::isRight);
+                model.addAttribute("flag", flag);
                 return "test_task";
             }
             case "gaps" -> {
-                model.addAttribute("content", content.getGapsTask());
+                model.addAttribute("gaps", content.getGapsTask());
                 return "gaps_task";
             }
             case "text" -> {
-                model.addAttribute("content", content.getTextTask());
+                model.addAttribute("text", content.getTextTask());
                 return "text_task";
             }
             case "sort" -> {
-                model.addAttribute("content", content.getSortingTask());
+                model.addAttribute("sort", content.getSortingTask());
                 return "sort_task";
             }
             default -> {
@@ -81,13 +80,7 @@ public class PracticalContentController {
 
         /* TODO: переделать */
         switch (content.getPracticalType()) {
-            case "test" -> {
-                Test test = new Test();
-                content.setTest(test);
-                test.setTitle(content.getTitle());
-                test.setDescription(content.getDescription());
-                test.setPracticalContent(content);
-            }
+            case "test" -> testService.create(content);
             case "gaps" -> {
                 GapsTask gapsTask = new GapsTask();
                 content.setGapsTask(gapsTask);
@@ -118,7 +111,10 @@ public class PracticalContentController {
         /* TODO: переделать */
         switch (editedContent.getPracticalType()) {
             case "test" -> {
-                System.out.println("later");
+                Test editedTest = testService.getById(editedContent.getTest().getId());
+                editedTest.setTitle(editedContent.getTitle());
+                editedTest.setDescription(editedContent.getDescription());
+                testService.update(editedTest, editedContent.getTest().getId());
             }
             case "gaps" -> {
                 System.out.println("maybe later");
