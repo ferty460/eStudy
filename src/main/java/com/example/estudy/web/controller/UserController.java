@@ -34,11 +34,11 @@ public class UserController {
         return userMapper.toDto(user);
     }
 
-    @PutMapping
-    public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto, Long userId) {
+    @PostMapping("/update")
+    public String update(@Validated(OnUpdate.class) UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-        User updatedUser = userService.update(user, userId);
-        return userMapper.toDto(updatedUser);
+        userService.update(user, user.getId());
+        return "redirect:/profile";
     }
 
     @DeleteMapping("/{id}")

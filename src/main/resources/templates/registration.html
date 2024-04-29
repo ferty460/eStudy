@@ -28,6 +28,11 @@
             <div class="registration-block">
                 <h2 class="best-courses__title" style="text-align: center;">Регистрация</h2>
                 <p class="auth-link">Уже есть аккаунт? <a th:href="@{/auth/login}">Войти</a></p>
+
+                <div th:if="${error}" class="reg-error">
+                    <p th:text="${error}"></p>
+                </div>
+
                 <form th:action="@{/auth/registration}" th:method="post" class="registration-form">
                     <div class="registration-item" id="step1">
                         <input type="text" name="username" class="search-bar news-input"
@@ -76,6 +81,11 @@
                         </div>
                     </div>
                 </form>
+                <div style="display: flex; justify-content: center; margin-top: 1rem;">
+                    <a class="oauth-link" th:href="@{/oauth2/authorization/google}">
+                        <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Login with Google
+                    </a>
+                </div>
             </div>
         </div>
     </main>

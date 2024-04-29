@@ -1,5 +1,6 @@
 package com.example.estudy.config;
 
+import com.example.estudy.service.details.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
+    private final CustomOAuth2UserService customOAuth2UserService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -34,12 +37,18 @@ public class ApplicationConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/news/img/**", "/course/img/**").permitAll()
-                        .requestMatchers("/auth/**", "/", "/courses/catalog", "/news", "/news/**", "/about", "/oops").permitAll()
+                        .requestMatchers("/auth/**", "/oauth2/**", "/", "/courses/catalog", "/news", "/news/**", "/about", "/oops").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/auth/login").permitAll()
                         .defaultSuccessUrl("/")
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/auth/login")
+                        .defaultSuccessUrl("/")
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(customOAuth2UserService))
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

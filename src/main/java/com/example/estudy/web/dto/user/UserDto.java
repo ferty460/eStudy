@@ -2,7 +2,6 @@ package com.example.estudy.web.dto.user;
 
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -28,17 +27,15 @@ public class UserDto {
     @Length(max = 33, message = "Username must be smaller than 33 symbols", groups = {OnCreate.class, OnUpdate.class})
     private String username;
 
-    @NotNull(message = "Gender must be not null", groups = {OnCreate.class, OnUpdate.class})
     private String gender;
 
-    @NotNull(message = "Age must be not null", groups = {OnCreate.class, OnUpdate.class})
     private Integer age;
 
     @NotNull(message = "Email must be not null", groups = {OnCreate.class, OnUpdate.class})
     private String email;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    /*@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "Password must be not null", groups = {OnCreate.class, OnUpdate.class})
-    private String password;
+    private String password;*/
 
 }

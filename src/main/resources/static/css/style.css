@@ -1459,7 +1459,7 @@ body {
 }
 
 .wrong {
-    color: #ff4136;
+        color: #ff4136;
     text-decoration: line-through;
 }
 
@@ -1491,4 +1491,17 @@ body {
     color: #6C7293;
     font-size: 18px;
     margin: .5rem 0;
+}
+
+.reg-error {
+    margin-top: 1rem;
+    text-align: center;
+    color: #ff4136;
+}
+
+.oauth-link {
+    color: #c5c5c5;
+}
+.oauth-link:hover {
+    text-decoration: underline;
 }

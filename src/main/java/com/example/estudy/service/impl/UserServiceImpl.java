@@ -10,6 +10,7 @@ import com.example.estudy.repository.UserRepository;
 import com.example.estudy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final NewsRepository newsRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -31,8 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User with username " + username + " not found"));
+        User user = userRepository.findByUsername(username);
+        if (user == null) throw new UsernameNotFoundException("No User Found");
+
+        return user;
     }
 
     @Override
@@ -44,13 +48,17 @@ public class UserServiceImpl implements UserService {
         editedUser.setPatronymic(user.getPatronymic());
         editedUser.setUsername(user.getUsername());
         editedUser.setEmail(user.getEmail());
+        if (user.getGender() != null) editedUser.setGender(user.getGender());
+        if (user.getAge() != null) editedUser.setAge(user.getAge());
 
         log.info("Editing User with id {}", id);
-        return editedUser;
+        return userRepository.save(editedUser);
     }
 
     @Override
     public User create(User user) {
+        if (userRepository.findByUsername(user.getUsername()) != null
+                || userRepository.findByEmail(user.getEmail()) != null) return null;
         user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

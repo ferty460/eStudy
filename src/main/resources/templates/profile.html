@@ -153,17 +153,17 @@
 
                     <div class="profile-details__block">
                         <div class="profile-username__block">
-                            <h2 class="profile-username" th:text="${user.getSurname() + ' ' + user.getName() + ' ' + user.getPatronymic()}"></h2>
+                            <h2 class="profile-username" th:text="${user.toFullName()}"></h2>
                             <div class="profile-settings">
-                                <a href="#" class="profile-settings__link">
+                                <a href="#" class="profile-settings__link" data-hystmodal="#edit_profile">
                                     <img th:src="@{/images/settings.svg}" alt="settings" class="settings-image">
                                     <p>Настройки</p>
                                 </a>
                             </div>
                         </div>
                         <div class="profile-additional">
-                            <p class="gender">Пол: <span th:text="${user.getGender().getName()}"></span></p>
-                            <p class="age">Возраст: <span th:text="${user.getAge()}"></span></p>
+                            <p class="gender">Пол: <span th:text="${user.getGender() != null ? user.getGender().getName() : 'Неопределено'}"></span></p>
+                            <p class="age">Возраст: <span th:text="${user.getAge() != null ? user.getAge() : 'Неопределено'}"></span></p>
                         </div>
                     </div>
                 </div>
@@ -376,6 +376,58 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hystmodal" aria-hidden="true" id="edit_profile">
+                <div class="hystmodal__wrap">
+                    <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                        <div class="registration-block">
+                            <h2 class="best-courses__title" style="text-align: center;">Редактирование</h2>
+
+                            <form th:action="@{/users/update}" th:method="post" class="registration-form">
+                                <div class="registration-item">
+                                    <input type="text" name="username" class="search-bar news-input"
+                                           th:value="${user.getUsername()}" placeholder="Имя пользователя">
+                                    <input type="text" name="surname" class="search-bar news-input"
+                                           th:value="${user.getSurname()}" placeholder="Фамилия">
+                                    <input type="text" name="name" class="search-bar news-input"
+                                           th:value="${user.getName()}" placeholder="Имя">
+                                    <input type="text" name="patronymic" class="search-bar news-input"
+                                           th:value="${user.getPatronymic()}" placeholder="Отчество">
+                                    <input type="number" name="age" class="search-bar news-input"
+                                           th:value="${user.getAge()}" placeholder="Возраст">
+                                    <p style="color: #c5c5c5;">Пол:</p>
+                                    <div class="availability-block" style="border: none; padding: 0;">
+                                        <label class="availability-label">
+                                            <input type="radio" name="gender" value="MALE" th:checked="${user.getGender() != null && user.getGender().getName() == 'Мужской'}">
+                                            <div class="availability">
+                                                <img th:src="@{/images/male.svg}" alt="male">
+                                                <div class="availability-details">
+                                                    <h4 class="availability-title" style="color: #6C7293;">Мужской</h4>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="availability-label">
+                                            <input type="radio" name="gender" value="FEMALE" th:checked="${user.getGender() != null && user.getGender().getName() == 'Женский'}">
+                                            <div class="availability">
+                                                <img th:src="@{/images/female.svg}" alt="female">
+                                                <div class="availability-details">
+                                                    <h4 class="availability-title" style="color: #6C7293;">Женский</h4>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <input type="email" name="email" class="search-bar news-input"
+                                           th:value="${user.getEmail()}" placeholder="Электронная почта">
+                                    <div class="registration-buttons" style="justify-content: center;">
+                                        <input type="hidden" name="id" th:value="${user.getId()}">
+                                        <button type="submit" class="ok">Изменить</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

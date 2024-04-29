@@ -35,13 +35,11 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private Gender gender;
 
-    @Column(nullable = false)
     private Integer age;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -66,11 +64,11 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return surname + " " + name.charAt(0) + ". " + (patronymic.isEmpty() ? "" : patronymic.charAt(0) + '.');
+        return surname + " " + name.charAt(0) + ". " + (patronymic == null ? "" : patronymic.charAt(0) + '.');
     }
 
     public String toFullName() {
-        return surname + " " + name + " " + (patronymic.isEmpty() ? "" : patronymic);
+        return surname + " " + name + " " + (patronymic == null ? "" : patronymic);
     }
 
     /* --------- SECURITY --------- */
