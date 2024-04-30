@@ -1,4 +1,4 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.news;
 
 import com.example.estudy.domain.news.NewsItem;
 import com.example.estudy.service.impl.NewsItemServiceImpl;

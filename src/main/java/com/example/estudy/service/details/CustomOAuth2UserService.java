@@ -42,7 +42,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             String password = UUID.randomUUID().toString();
             user.setPassword(password);
 
-            userRepository.save(user);
+            user = userRepository.save(user);
+            customOauth2User.setId(user.getId());
+        } else {
+            customOauth2User.setId(user.getId());
         }
 
         return customOauth2User;

@@ -1,4 +1,4 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.news;
 
 import com.example.estudy.domain.news.News;
 import com.example.estudy.domain.user.User;

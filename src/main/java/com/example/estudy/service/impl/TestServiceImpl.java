@@ -62,7 +62,7 @@ public class TestServiceImpl implements TestService {
         item.setRight(true);
         itemRepository.save(item);
 
-        log.info("Editing Text task with id {}", editedTest.getId());
+        log.info("Editing Test with id {}", editedTest.getId());
         return testRepository.save(editedTest);
     }
 
@@ -72,7 +72,7 @@ public class TestServiceImpl implements TestService {
         editedTest.setTitle(test.getTitle());
         editedTest.setDescription(test.getDescription());
 
-        log.info("Editing Text task with id {}", editedTest.getId());
+        log.info("Editing Test with id {}", editedTest.getId());
         return testRepository.save(editedTest);
     }
 

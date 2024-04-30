@@ -1,6 +1,8 @@
 package com.example.estudy.domain.user;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,6 +14,10 @@ import java.util.Map;
 public class CustomOAuth2User implements OAuth2User, UserDetails {
 
     private final OAuth2User oauth2User;
+
+    @Getter
+    @Setter
+    private Long id;
 
     @Override
     public Map<String, Object> getAttributes() {
@@ -64,10 +70,6 @@ public class CustomOAuth2User implements OAuth2User, UserDetails {
 
     public String getEmail() {
         return oauth2User.getAttribute("email");
-    }
-
-    public String getGender() {
-        return oauth2User.getAttribute("gender");
     }
 
 }

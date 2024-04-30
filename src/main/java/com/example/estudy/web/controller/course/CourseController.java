@@ -1,4 +1,4 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.course;
 
 import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.course.Course;

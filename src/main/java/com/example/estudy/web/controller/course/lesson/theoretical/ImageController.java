@@ -1,4 +1,4 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.course.lesson.theoretical;
 
 import com.example.estudy.domain.lesson.content.theoretical.Chapter;
 import com.example.estudy.domain.lesson.content.theoretical.Image;

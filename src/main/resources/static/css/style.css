@@ -1315,20 +1315,21 @@ body {
     border-bottom: 1px solid #6C7293;
 }
 
-.sort-list {
+.sort-list, .sort-elements, .sort-elements1 {
     margin-top: 25px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.sort-item {
+.sort-item, .sort-item1 {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px;
     border: 1px solid #6C7293;
     border-radius: 10px;
+    cursor: move;
 }
 
 .sort-title {

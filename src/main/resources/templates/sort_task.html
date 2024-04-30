@@ -10,7 +10,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Новое | Практический урок | eStudy</title>
+    <link rel="stylesheet" th:href="@{/css/flash.min.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Практическое занятие | eStudy</title>
 </head>
 
 <body>
@@ -144,78 +147,165 @@
 <main class="main">
     <div id="content" class="content sidebar-show__content">
         <section class="theory-lesson">
+            <div class="bread-crumbs">
+                <a th:href="@{/courses(id=__${sort.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
+                   th:text="${sort.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/modules(id=__${sort.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
+                   th:text="${sort.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/lessons(id=__${sort.getPracticalContent().getLesson().getId()}__)}" title="урок"
+                   th:text="${sort.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <span th:text="${sort.getPracticalContent().getTitle()}" title="занятие" class="best-courses__title" style="text-decoration: underline;"></span>
+            </div>
+
             <div class="practice-lesson-block">
                 <div class="practice-lesson-main">
 
                     <!-- Задача на сортировку -->
                     <div class="theory-lesson-content" id="sort">
-                        <div class="lesson-inputs">
-                            <div class="module-inputs">
-                                <div class="news-title__block">
-                                    <label class="label">Заголовок</label>
-                                    <input type="text" name="news_title"
-                                           class="search-bar news-input" th:value="${content.getTitle()}">
+                        <form th:action="@{/practical/sort/update}" method="post">
+                            <div class="lesson-inputs">
+                                <div class="module-inputs">
+                                    <div class="news-title__block">
+                                        <label class="label">Заголовок</label>
+                                        <input type="text" name="title"
+                                               class="search-bar news-input" th:value="${sort.getTitle()}">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label class="label">Условие задачи</label>
+                                        <textarea name="description" th:text="${sort.getDescription()}"
+                                                  class="search-bar news-input" style="height: 100px;"></textarea>
+                                    </div>
                                 </div>
-                                <div class="news-description__block">
-                                    <label class="label">Условие задачи</label>
-                                    <textarea name="news_description" th:text="${content.getDescription()}"
-                                              class="search-bar news-input" style="height: 100px;"></textarea>
+                            </div>
+                            <div class="sort-list">
+                                <div class="sort-head">
+                                    <span>Элемент</span>
+                                </div>
+                                <div class="sort-elements" style="align-items: center; margin-top: 0;">
+                                    <div class="sort-item" style="justify-content: space-between; width: 40%;" th:each="element : ${sort.getElements()}">
+                                        <div class="news-description__block">
+                                            <span class="label" th:text="${element.getContent()}"></span>
+                                        </div>
+                                        <input type="hidden" name="position" th:value="${element.getPosition()}">
+                                        <input type="hidden" name="elementId" th:value="${element.getId()}">
+                                        <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="sort-list">
-                            <div class="sort-head">
-                                <span>Элемент</span>
-                                <span>Порядок</span>
+                            <div class="spaces-btns" style="justify-content: center;">
+                                <button type="button" class="ok" data-hystmodal="#add_item">Добавить элемент</button>
                             </div>
-                            <div class="sort-item">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="sort-item">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="sort-item">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                            <div class="sort-item">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <input type="text" name="news_title" class="search-bar news-input">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                    <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="spaces-btns" style="justify-content: center;">
-                            <form action="" method="post">
-                                <button type="submit" class="ok">Добавить элемент</button>
-                            </form>
-                        </div>
-                        <div class="text-btns">
-                            <form action="" method="post">
-                                <button type="submit" class="cancel">Перейти к просмотру</button>
-                            </form>
-                            <form action="" method="post">
+                            <div class="text-btns">
+                                <input type="hidden" name="id" th:value="${sort.getId()}">
+                                <button type="button" class="cancel" data-hystmodal="#show">Перейти к просмотру</button>
                                 <button type="submit" class="ok">Сохранить</button>
-                            </form>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ДОБАВЛЕНИЕ НОВОГО ЭЛЕМЕНТА -->
+                    <div class="hystmodal" id="add_item" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <form th:action="@{/practical/sort/element/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label for="news_title2" class="label" style="margin-bottom: .5rem">Значение</label>
+                                                <input type="text" id="news_title2" name="content" class="search-bar news-input">
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="taskId" th:value="${sort.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- УДАЛЕНИЕ ЭЛЕМЕНТА -->
+                    <div class="hystmodal" th:each="element : ${sort.getElements()}" th:id="delete_element + ${element.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма удаления урока  -->
+                                    <form th:action="@{/practical/sort/element/delete}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block">
+                                                <h2 class="best-courses__title">Вы уверены?</h2>
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center;">
+                                                <input type="hidden" name="item_id" th:value="${element.getId()}">
+                                                <button type="submit" class="ok">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ЗАДАЧА СО СТОРОНЫ ПОЛЬЗОВАТЕЛЯ -->
+                    <div class="hystmodal" id="show" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 100%; height: 100%; display: flex;">
+                                <div class="practice-lesson-block" style="width: 800px; margin: auto;">
+                                    <div class="practice-lesson-main">
+                                        <div class="theory-lesson-content">
+                                            <div class="lesson-inputs">
+                                                <div class="module-inputs">
+                                                    <div class="news-title__block">
+                                                        <h3 class="best-courses__title" th:text="${sort.getTitle()}"></h3>
+                                                    </div>
+                                                    <div class="news-description__block">
+                                                        <p class="label" th:text="${sort.getDescription()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sort-list">
+                                                <div class="sort-head">
+                                                    <span>Элементы</span>
+                                                </div>
+                                                <div class="sort-elements1" style="align-items: center; margin-top: 0; z-index: 100;">
+                                                    <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${shuffle_elements}">
+                                                        <div class="news-description__block">
+                                                            <span class="label" th:text="${element.getContent()}"></span>
+                                                        </div>
+                                                        <input type="hidden" name="elementId" th:value="${element.getId()}">
+                                                        <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                                <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-btns">
+                                                <input type="hidden" name="sort_id" th:value="${sort.getId()}">
+                                                <button type="submit" class="ok" id="check">Ответить</button>
+                                                <div id="result"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -240,6 +330,77 @@
 
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/tab.js}"></script>
+<script th:src="@{/js/flash.min.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
+<script th:src="@{https://code.jquery.com/ui/1.13.3/jquery-ui.js}"></script>
+<script>
+    const new_note = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+
+    $('.sort-elements1').sortable();
+    $('.sort-elements').sortable({
+        update: function(event, ui) {
+            // Обновление значения позиции для каждого элемента
+            $('.sort-elements .sort-item').each(function(index) {
+                let elementId = $(this).find('input[name="elementId"]').val();
+                // Отправка AJAX-запроса на сервер для обновления позиции
+                $.ajax({
+                    url: '/practical/sort/update-position',
+                    type: 'POST',
+                    data: {
+                        elementId: elementId,
+                        position: index
+                    },
+                    success: function(response) {
+                        console.log(response)
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Произошла ошибка при запросе textTask');
+                    }
+                });
+            });
+        }
+    });
+
+    $(document).ready(function() {
+        let taskId = $('input[name="sort_id"]').val();
+        let correctOrderUrl = '/sorting-tasks/' + taskId + '/correct-order';
+
+        // Отправляем запрос на сервер для получения правильного порядка элементов
+        $.getJSON(correctOrderUrl, function(correctOrder) {
+            // Обработка кнопки "Ответить"
+            $('#check').click(function() {
+                // Получаем элементы сортировки
+                let sortItems = $('.sort-item1');
+
+                // Получаем содержимое элементов сортировки
+                let itemContents = sortItems.map(function() {
+                    return $(this).find('.label').text();
+                }).get();
+
+                // Сравниваем порядок элементов на странице с правильным порядком
+                let isInCorrectOrder = itemContents.every(function(content, index) {
+                    return content === correctOrder[index];
+                });
+
+                // Выводим результат в консоль
+                if (isInCorrectOrder) {
+                    window.FlashMessage.success('Верно!');
+                    $('#check').hide();
+                    $('#result').append('<span class="correct">Верно!</span>');
+                } else {
+                    window.FlashMessage.error('Неверно!');
+                    $('#check').hide();
+                    $('#result').append('<span class="wrong">Неверно!</span>');
+                }
+            });
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('Ошибка при получении правильного порядка элементов:', errorThrown);
+        });
+    });
+</script>
 </body>
 
 </html>

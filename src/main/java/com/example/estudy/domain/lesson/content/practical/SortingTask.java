@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sorting_tasks")
@@ -26,7 +28,9 @@ public class SortingTask {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // sorting task fields
+    @OneToMany(mappedBy = "task")
+    @OrderBy("position")
+    private List<SortingTaskElement> elements = new ArrayList<>();
 
     @OneToOne(mappedBy = "sortingTask")
     private PracticalContent practicalContent;

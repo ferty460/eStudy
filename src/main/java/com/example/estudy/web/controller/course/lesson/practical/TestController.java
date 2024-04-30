@@ -1,4 +1,4 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import com.example.estudy.domain.lesson.content.practical.Test;

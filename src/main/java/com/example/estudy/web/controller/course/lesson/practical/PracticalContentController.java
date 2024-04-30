@@ -1,12 +1,9 @@
-package com.example.estudy.web.controller;
+package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import com.example.estudy.domain.lesson.content.practical.*;
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.impl.PracticalContentServiceImpl;
-import com.example.estudy.service.impl.TestServiceImpl;
-import com.example.estudy.service.impl.TextTaskServiceImpl;
-import com.example.estudy.service.impl.UserServiceImpl;
+import com.example.estudy.service.impl.*;
 import com.example.estudy.web.dto.lesson.PracticalContentDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
@@ -23,6 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @RequestMapping("/practical")
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class PracticalContentController {
     private final UserServiceImpl userService;
     private final TextTaskServiceImpl textTaskService;
     private final TestServiceImpl testService;
+    private final SortingTaskServiceImpl sortingTaskService;
 
     private final PracticalContentMapper contentMapper;
 
@@ -61,7 +63,12 @@ public class PracticalContentController {
                 return "text_task";
             }
             case "sort" -> {
-                model.addAttribute("sort", content.getSortingTask());
+                SortingTask originalSortingTask = content.getSortingTask();
+                List<SortingTaskElement> shuffledElements = new ArrayList<>(originalSortingTask.getElements());
+                Collections.shuffle(shuffledElements);
+
+                model.addAttribute("sort", originalSortingTask);
+                model.addAttribute("shuffle_elements", shuffledElements);
                 return "sort_task";
             }
             default -> {
@@ -89,13 +96,7 @@ public class PracticalContentController {
                 gapsTask.setPracticalContent(content);
             }
             case "text" -> textTaskService.create(content);
-            case "sort" -> {
-                SortingTask sortingTask = new SortingTask();
-                content.setSortingTask(sortingTask);
-                sortingTask.setTitle(content.getTitle());
-                sortingTask.setDescription(content.getDescription());
-                sortingTask.setPracticalContent(content);
-            }
+            case "sort" -> sortingTaskService.create(content);
         }
 
         return "redirect:/practical?id=" + content.getId();
@@ -126,7 +127,10 @@ public class PracticalContentController {
                 textTaskService.update(editedTextTask, editedContent.getTextTask().getId());
             }
             case "sort" -> {
-                System.out.println("definitely later");
+                SortingTask editedSortingTask = sortingTaskService.getById(editedContent.getSortingTask().getId());
+                editedSortingTask.setTitle(editedContent.getTitle());
+                editedSortingTask.setDescription(editedSortingTask.getDescription());
+                sortingTaskService.update(editedSortingTask, editedContent.getSortingTask().getId());
             }
         }
 
