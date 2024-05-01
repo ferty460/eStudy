@@ -401,7 +401,7 @@ body {
     border-bottom: 2px solid #6C7293;
 }
 
-.search-bar {
+.search-bar, .search-bar1 {
     background-color: #4F5968;
     border: 1px solid #6C7293;
     border-radius: 5px;
@@ -412,11 +412,11 @@ body {
     transition: .3s;
 }
 
-.search-bar::placeholder {
+.search-bar::placeholder, .search-bar1::placeholder {
     color: #a0a0a0;
 }
 
-.search-bar:focus {
+.search-bar:focus, .search-bar1:focus {
     border: 1px solid #6FB963;
 }
 
@@ -1295,13 +1295,11 @@ body {
 .text-spaces-elements {
     margin: 25px 0;
     display: flex;
-    flex-direction: column;
     gap: 20px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #6C7293;
 }
 
 .text-spaces-item {
+    width: 100%;
     padding: 20px;
     border: 1px solid #6C7293;
     border-radius: 10px;

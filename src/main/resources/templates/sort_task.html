@@ -280,7 +280,7 @@
                                                 <div class="sort-head">
                                                     <span>Элементы</span>
                                                 </div>
-                                                <div class="sort-elements1" style="align-items: center; margin-top: 0; z-index: 100;">
+                                                <div class="sort-elements1" style="align-items: center; margin-top: 0;">
                                                     <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${shuffle_elements}">
                                                         <div class="news-description__block">
                                                             <span class="label" th:text="${element.getContent()}"></span>
@@ -354,7 +354,8 @@
                         position: index
                     },
                     success: function(response) {
-                        console.log(response)
+                        console.log(response);
+                        location.reload();
                     },
                     error: function(xhr, status, error) {
                         alert('Произошла ошибка при запросе textTask');

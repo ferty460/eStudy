@@ -35,6 +35,7 @@ public class PracticalContentController {
     private final TextTaskServiceImpl textTaskService;
     private final TestServiceImpl testService;
     private final SortingTaskServiceImpl sortingTaskService;
+    private final GapsTaskServiceImpl gapsTaskService;
 
     private final PracticalContentMapper contentMapper;
 
@@ -85,16 +86,9 @@ public class PracticalContentController {
 
         contentService.create(content, lessonId);
 
-        /* TODO: переделать */
         switch (content.getPracticalType()) {
             case "test" -> testService.create(content);
-            case "gaps" -> {
-                GapsTask gapsTask = new GapsTask();
-                content.setGapsTask(gapsTask);
-                gapsTask.setTitle(content.getTitle());
-                gapsTask.setDescription(content.getDescription());
-                gapsTask.setPracticalContent(content);
-            }
+            case "gaps" -> gapsTaskService.create(content);
             case "text" -> textTaskService.create(content);
             case "sort" -> sortingTaskService.create(content);
         }
@@ -118,7 +112,10 @@ public class PracticalContentController {
                 testService.update(editedTest, editedContent.getTest().getId());
             }
             case "gaps" -> {
-                System.out.println("maybe later");
+                GapsTask editedGapsTask = gapsTaskService.getById(editedContent.getGapsTask().getId());
+                editedGapsTask.setTitle(editedContent.getTitle());
+                editedGapsTask.setDescription(editedContent.getDescription());
+                gapsTaskService.update(editedGapsTask, editedContent.getGapsTask().getId());
             }
             case "text" -> {
                 TextTask editedTextTask = textTaskService.getById(editedContent.getTextTask().getId());

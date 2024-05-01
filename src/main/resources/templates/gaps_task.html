@@ -10,7 +10,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Новое | Практический урок | eStudy</title>
+    <link rel="stylesheet" th:href="@{/css/flash.min.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Практическое занятие | eStudy</title>
 </head>
 
 <body>
@@ -144,59 +147,181 @@
 <main class="main">
     <div id="content" class="content sidebar-show__content">
         <section class="theory-lesson">
+            <div class="bread-crumbs">
+                <a th:href="@{/courses(id=__${gaps.getPracticalContent().getLesson().getModule().getCourse().getId()}__)}" title="курс"
+                   th:text="${gaps.getPracticalContent().getLesson().getModule().getCourse().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/modules(id=__${gaps.getPracticalContent().getLesson().getModule().getId()}__)}" title="модуль"
+                   th:text="${gaps.getPracticalContent().getLesson().getModule().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <a th:href="@{/lessons(id=__${gaps.getPracticalContent().getLesson().getId()}__)}" title="урок"
+                   th:text="${gaps.getPracticalContent().getLesson().getTitle()}" class="best-courses__title uline"></a>
+                <span class="best-courses__title"> -> </span>
+                <span th:text="${gaps.getPracticalContent().getTitle()}" title="занятие" class="best-courses__title" style="text-decoration: underline;"></span>
+            </div>
+
             <div class="practice-lesson-block">
                 <div class="practice-lesson-main">
 
                     <!-- Задача с пропусками -->
                     <div class="theory-lesson-content" id="spaces">
-                        <div class="lesson-inputs">
-                            <div class="module-inputs">
-                                <div class="news-title__block">
-                                    <label class="label">Заголовок</label>
-                                    <input type="text" name="news_title"
-                                           class="search-bar news-input" th:value="${content.getTitle()}">
-                                </div>
-                                <div class="news-description__block">
-                                    <label class="label">Условие задачи</label>
-                                    <textarea name="news_description" th:text="${content.getDescription()}"
-                                              class="search-bar news-input" style="height: 100px;"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-spaces-elements">
-                            <div class="text-spaces-item">
-                                <div class="news-description__block">
-                                    <label class="label">Текст</label>
-                                    <textarea name="news_description"
-                                              class="search-bar news-input" style="height: 100px;"></textarea>
+                        <form th:action="@{/practical/gaps/update}" method="post">
+                            <div class="lesson-inputs">
+                                <div class="module-inputs">
+                                    <div class="news-title__block">
+                                        <label class="label">Заголовок</label>
+                                        <input type="text" name="title"
+                                               class="search-bar news-input" th:value="${gaps.getTitle()}">
+                                    </div>
+                                    <div class="news-description__block">
+                                        <label class="label">Условие задачи</label>
+                                        <textarea name="description" th:text="${gaps.getDescription()}"
+                                                  class="search-bar news-input" style="height: 100px;"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="text-spaces-item">
-                                <div class="news-title__block">
-                                    <label class="label">Пропуск</label>
-                                    <input type="text" name="news_title"
-                                           class="search-bar news-input">
-                                </div>
+                            <div class="text-spaces-elements" th:each="item : ${gaps.getCombinedContent()}" th:utext="${item.getContent()}">
+
                             </div>
-                        </div>
-                        <div class="spaces-btns">
-                            <form action="" method="post">
-                                <button type="submit" class="ok">Добавить текст</button>
-                            </form>
-                            <form action="" method="post">
-                                <button type="submit" class="ok">Добавить пропуск</button>
-                            </form>
-                        </div>
-                        <div class="text-btns">
-                            <form action="" method="post">
-                                <button type="submit" class="cancel">Перейти к просмотру</button>
-                            </form>
-                            <form action="" method="post">
+                            <div class="spaces-btns">
+                                <button type="button" class="ok" data-hystmodal="#add_text">Добавить текст</button>
+                                <button type="button" class="ok" data-hystmodal="#add_gap">Добавить пропуск</button>
+                            </div>
+                            <div class="text-btns">
+                                <input type="hidden" name="id" th:value="${gaps.getId()}">
+                                <button type="button" class="cancel" data-hystmodal="#show">Перейти к просмотру</button>
                                 <button type="submit" class="ok">Сохранить</button>
-                            </form>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ДОБАВЛЕНИЕ ТЕКСТОВОГО ЭЛЕМЕНТА -->
+                    <div class="hystmodal" id="add_text" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <form th:action="@{/practical/gaps/text/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label class="label" style="margin-bottom: .5rem">Текст</label>
+                                                <textarea name="text" class="search-bar news-input" style="height: 100px;"></textarea>
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="taskId" th:value="${gaps.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- ДОБАВЛЕНИЕ ПРОПУСКА -->
+                    <div class="hystmodal" id="add_gap" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <form th:action="@{/practical/gaps/value/create}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block" style="align-items: center">
+                                                <label class="label" style="margin-bottom: .5rem">Пропуск</label>
+                                                <input type="text" name="value" class="search-bar news-input">
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center">
+                                                <input type="hidden" name="taskId" th:value="${gaps.getId()}">
+                                                <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- УДАЛЕНИЕ ТЕКСТА -->
+                    <div class="hystmodal" th:each="element : ${gaps.getTexts()}" th:id="delete_text + ${element.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма удаления урока  -->
+                                    <form th:action="@{/practical/gaps/text/delete}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block">
+                                                <h2 class="best-courses__title">Вы уверены?</h2>
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center;">
+                                                <input type="hidden" name="item_id" th:value="${element.getId()}">
+                                                <button type="submit" class="ok">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- УДАЛЕНИЕ ПРОПУСКА -->
+                    <div class="hystmodal" th:each="item : ${gaps.getValues()}" th:id="delete_value + ${item.getId()}" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+
+                                    <!-- Форма удаления урока  -->
+                                    <form th:action="@{/practical/gaps/value/delete}" method="post">
+                                        <div class="news-inputs__block new-note">
+                                            <div class="news-title__block">
+                                                <h2 class="best-courses__title">Вы уверены?</h2>
+                                            </div>
+                                            <div class="news-buttons" style="justify-content: center;">
+                                                <input type="hidden" name="item_id" th:value="${item.getId()}">
+                                                <button type="submit" class="ok">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ЗАДАЧА СО СТОРОНЫ ПОЛЬЗОВАТЕЛЯ -->
+                    <div class="hystmodal" id="show" aria-hidden="true">
+                        <div class="hystmodal__wrap">
+                            <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                                <div class="practice-lesson-block">
+                                    <div class="practice-lesson-main">
+                                        <div class="theory-lesson-content">
+                                            <div class="lesson-inputs">
+                                                <div class="module-inputs">
+                                                    <div class="news-title__block">
+                                                        <h3 class="best-courses__title" th:text="${gaps.getTitle()}"></h3>
+                                                    </div>
+                                                    <div class="news-description__block">
+                                                        <p class="label" th:text="${gaps.getDescription()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-spaces-elements" style="align-items: center; gap: 5px;">
+                                                <div th:each="item : ${gaps.getBlocksToUser()}" th:utext="${item.getContent()}"></div>
+                                            </div>
+                                            <div class="text-btns">
+                                                <input type="hidden" name="task_id" th:value="${gaps.getId()}">
+                                                <button type="submit" class="ok" id="check">Ответить</button>
+                                                <div id="result"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -221,6 +346,41 @@
 
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/tab.js}"></script>
+<script th:src="@{/js/flash.min.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
+<script>
+    const new_note = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+
+    $(document).ready(function() {
+        $("#check").click(function(e) {
+            e.preventDefault();
+
+            let gaps = {};
+            $(".search-bar1.news-input1").each(function() {
+                gaps[this.id] = $(this).val();
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/check-gaps",
+                data: JSON.stringify(gaps),
+                contentType: "application/json",
+                success: function(response) {
+                    $('#check').hide();
+                    $('#result').append('<span class="correct">Верно!</span>');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    $('#check').hide();
+                    $('#result').append('<span class="wrong">Неверно!</span>');
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>
