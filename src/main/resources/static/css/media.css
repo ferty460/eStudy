@@ -130,7 +130,7 @@
         font-size: 24px;
     }
 
-    .course__title-link, .news-note__title {
+    .course__title-link, .news-note__title, .learning-process-course-name {
         font-size: 18px;
     }
 
@@ -213,7 +213,7 @@
         font-size: 16px;
     }
 
-    .module-description, .lesson-title, .chapters-item, .lesson-tools-item {
+    .module-description, .lesson-title, .chapters-item, .lesson-tools-item, .learning-process-module-name, .learning-process-lesson {
         font-size: 14px;
     }
 
@@ -276,6 +276,14 @@
 
     .availability-description {
         font-size: 8px;
+    }
+
+    .learning-process-course, .learning-process-module-name {
+        padding-left: 15px;
+    }
+
+    .learning-process-lesson {
+        padding-left: 25px;
     }
 
     .theory-lesson-content, .theory-lesson-chapters, .text-spaces-item {
@@ -347,8 +355,12 @@
     .advantages__title {font-size: 24px;}
 
     .advantages__item-title {font-size: 18px;}
+
+    .learning-process-course-name {
+        font-size: 16px;
+    }
     
-    .advantages__item-description {font-size: 12px;}
+    .advantages__item-description, .learning-process-module-name, .learning-process-lesson {font-size: 12px;}
 
     .course__title-link, .course-author__link, .rating, .news-date {font-size: 10px;}
     

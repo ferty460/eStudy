@@ -204,8 +204,8 @@
                 </div>
                 <div class="theory-lesson-main" th:each="chapter, iterStat : ${content.getChapters()}"
                      th:id="${'chapter' + chapter.getId()}" th:style="${!iterStat.first ? 'display: none; width: 100%;' : 'width: 100%;'}">
-                    <div class="lesson-tools">
-                        <div class="lesson-tools-item" data-hystmodal='#new_chapter'>
+                    <div class="lesson-tools" style="border-top-left-radius: 10px;">
+                        <div class="lesson-tools-item" style="border-top-left-radius: 10px;" data-hystmodal='#new_chapter'>
                             <span>Добавить раздел</span>
                         </div>
                         <div class="lesson-tools-item" th:attr="data-hystmodal='#new_title' + ${chapter.getId()}">
@@ -565,28 +565,13 @@
     </div>
 </footer>
 
-<script th:src="@{/js/header.js}"></script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/theory_lesson.js}"></script>
 <script>
     const new_chapter = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
-    });
-    $(document).ready(function() {
-        $('.chapters-list a').click(function(e) {
-            e.preventDefault();
-            let chapterId = $(this).attr('href').substring(1);
-
-            // Удаляем класс active-chapter у всех элементов списка
-            $('.chapters-list li').removeClass('active-chapter');
-
-            // Добавляем класс active-chapter к элементу списка, соответствующему открытому разделу
-            $(this).parent().addClass('active-chapter');
-
-            // Скрываем все блоки разделов, кроме того, на который указывает ссылка, и показываем его
-            $('.theory-lesson-main').hide();
-            $('#' + chapterId).show();
-        });
     });
 </script>
 </body>

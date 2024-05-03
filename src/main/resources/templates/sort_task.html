@@ -169,12 +169,12 @@
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
                                     <div class="news-title__block">
-                                        <label class="label">Заголовок</label>
+                                        <label class="label sort_label">Заголовок</label>
                                         <input type="text" name="title"
                                                class="search-bar news-input" th:value="${sort.getTitle()}">
                                     </div>
                                     <div class="news-description__block">
-                                        <label class="label">Условие задачи</label>
+                                        <label class="label sort_label">Условие задачи</label>
                                         <textarea name="description" th:text="${sort.getDescription()}"
                                                   class="search-bar news-input" style="height: 100px;"></textarea>
                                     </div>
@@ -187,7 +187,7 @@
                                 <div class="sort-elements" style="align-items: center; margin-top: 0;">
                                     <div class="sort-item" style="justify-content: space-between; width: 40%;" th:each="element : ${sort.getElements()}">
                                         <div class="news-description__block">
-                                            <span class="label" th:text="${element.getContent()}"></span>
+                                            <span class="label sort_label" th:text="${element.getContent()}"></span>
                                         </div>
                                         <input type="hidden" name="position" th:value="${element.getPosition()}">
                                         <input type="hidden" name="elementId" th:value="${element.getId()}">
@@ -220,7 +220,7 @@
                                     <form th:action="@{/practical/sort/element/create}" method="post">
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
-                                                <label for="news_title2" class="label" style="margin-bottom: .5rem">Значение</label>
+                                                <label for="news_title2" class="label sort_label" style="margin-bottom: .5rem">Значение</label>
                                                 <input type="text" id="news_title2" name="content" class="search-bar news-input">
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
@@ -272,7 +272,7 @@
                                                         <h3 class="best-courses__title" th:text="${sort.getTitle()}"></h3>
                                                     </div>
                                                     <div class="news-description__block">
-                                                        <p class="label" th:text="${sort.getDescription()}"></p>
+                                                        <p class="label sort_label" th:text="${sort.getDescription()}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,9 +281,9 @@
                                                     <span>Элементы</span>
                                                 </div>
                                                 <div class="sort-elements1" style="align-items: center; margin-top: 0;">
-                                                    <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${shuffle_elements}">
+                                                    <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${sort.getShuffledElements()}">
                                                         <div class="news-description__block">
-                                                            <span class="label" th:text="${element.getContent()}"></span>
+                                                            <span class="label sort_label" th:text="${element.getContent()}"></span>
                                                         </div>
                                                         <input type="hidden" name="elementId" th:value="${element.getId()}">
                                                         <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
@@ -297,8 +297,8 @@
                                             </div>
                                             <div class="text-btns">
                                                 <input type="hidden" name="sort_id" th:value="${sort.getId()}">
-                                                <button type="submit" class="ok" id="check">Ответить</button>
-                                                <div id="result"></div>
+                                                <button type="submit" class="ok" id="sort_check">Ответить</button>
+                                                <div id="sort_result"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -328,78 +328,16 @@
     </div>
 </footer>
 
+<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
+<script th:src="@{https://code.jquery.com/ui/1.13.3/jquery-ui.js}"></script>
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/tab.js}"></script>
 <script th:src="@{/js/flash.min.js}"></script>
-<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
-<script th:src="@{https://code.jquery.com/ui/1.13.3/jquery-ui.js}"></script>
+<script th:src="@{/js/sort_task.js}"></script>
 <script>
     const new_note = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
-    });
-
-    $('.sort-elements1').sortable();
-    $('.sort-elements').sortable({
-        update: function(event, ui) {
-            // Обновление значения позиции для каждого элемента
-            $('.sort-elements .sort-item').each(function(index) {
-                let elementId = $(this).find('input[name="elementId"]').val();
-                // Отправка AJAX-запроса на сервер для обновления позиции
-                $.ajax({
-                    url: '/practical/sort/update-position',
-                    type: 'POST',
-                    data: {
-                        elementId: elementId,
-                        position: index
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Произошла ошибка при запросе textTask');
-                    }
-                });
-            });
-        }
-    });
-
-    $(document).ready(function() {
-        let taskId = $('input[name="sort_id"]').val();
-        let correctOrderUrl = '/sorting-tasks/' + taskId + '/correct-order';
-
-        // Отправляем запрос на сервер для получения правильного порядка элементов
-        $.getJSON(correctOrderUrl, function(correctOrder) {
-            // Обработка кнопки "Ответить"
-            $('#check').click(function() {
-                // Получаем элементы сортировки
-                let sortItems = $('.sort-item1');
-
-                // Получаем содержимое элементов сортировки
-                let itemContents = sortItems.map(function() {
-                    return $(this).find('.label').text();
-                }).get();
-
-                // Сравниваем порядок элементов на странице с правильным порядком
-                let isInCorrectOrder = itemContents.every(function(content, index) {
-                    return content === correctOrder[index];
-                });
-
-                // Выводим результат в консоль
-                if (isInCorrectOrder) {
-                    window.FlashMessage.success('Верно!');
-                    $('#check').hide();
-                    $('#result').append('<span class="correct">Верно!</span>');
-                } else {
-                    window.FlashMessage.error('Неверно!');
-                    $('#check').hide();
-                    $('#result').append('<span class="wrong">Неверно!</span>');
-                }
-            });
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Ошибка при получении правильного порядка элементов:', errorThrown);
-        });
     });
 </script>
 </body>

@@ -69,6 +69,20 @@ public class CourseController {
         return "course";
     }
 
+    @GetMapping("/l")
+    @PreAuthorize("@userServiceImpl.isCourseFollower(authentication.principal.id, @courseServiceImpl.getById(#id)) " +
+            "|| @userServiceImpl.isCourseOwner(authentication.principal.id, #id)")
+    public String learning_process(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Course course = courseService.getById(id);
+        User user = userService.getByUsername(userDetails.getUsername());
+        model.addAttribute("course", course);
+        model.addAttribute("modules", course.getModules());
+        model.addAttribute("user", user);
+        model.addAttribute("isCourseOwner", userService.isCourseOwner(user.getId(), course.getId()));
+        model.addAttribute("followed_courses", user.getFollowedCourses());
+        return "learning_process";
+    }
+
     @PostMapping("/follow")
     public String follow(@AuthenticationPrincipal UserDetails userDetails, Long courseId) {
         User user = userService.getByUsername(userDetails.getUsername());

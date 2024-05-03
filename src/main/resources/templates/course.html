@@ -321,6 +321,15 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="invite-block" th:if="${!isCourseOwner && isCourseFollower}">
+                    <div class="module-btns">
+                        <div class="welcome__description" style="margin-top: 0;">
+                            <p>Вы поступили на курс!</p>
+                        </div>
+                        <a th:href="@{/courses/l(id=__${course.getId()}__)}" class="ok">Начать</a>
+                    </div>
+                </div>
             </section>
         </div>
     </main>

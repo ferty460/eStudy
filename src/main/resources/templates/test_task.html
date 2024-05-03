@@ -165,7 +165,7 @@
 
                     <!-- Тест -->
                     <div class="theory-lesson-content">
-                        <form th:action="@{/practical/test/update}" method="post" id="myForm">
+                        <form th:action="@{/practical/test/update}" method="post" id="test_update">
                             <input type="hidden" name="flag" th:value="${flag}">
                             <div class="lesson-inputs">
                                 <div class="module-inputs">
@@ -279,8 +279,8 @@
                                             <h4 class="test-title">Варианты ответа</h4>
                                             <div class="test-list">
                                                 <div class="test-item" th:each="item, statItem : ${test.getItems()}">
-                                                    <input class="custom-radio" name="answer1" type="radio" th:id="${'answer1' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
-                                                    <label th:for="${'answer1' + item.getId()}"></label>
+                                                    <input class="custom-radio" name="test_answer" type="radio" th:id="${'test_answer' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
+                                                    <label th:for="${'test_answer' + item.getId()}"></label>
                                                     <div class="news-description__block" th:id="${'answer2' + item.getId()}">
                                                         <p class="label" th:text="${item.getValue()}"></p>
                                                     </div>
@@ -288,8 +288,8 @@
                                             </div>
                                             <div class="text-btns">
                                                 <input type="hidden" name="test_id" th:value="${test.getId()}">
-                                                <button type="submit" class="ok" id="customOk">Ответить</button>
-                                                <div id="result"></div>
+                                                <button type="submit" class="ok" id="test_customOk">Ответить</button>
+                                                <div id="test_result"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -319,46 +319,14 @@
     </div>
 </footer>
 
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/flash.min.js}"></script>
-<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/js/test_task.js}"></script>
 <script>
     const new_note = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
-    });
-
-    $(document).ready(function() {
-        if ($('input[name="flag"]').val() === 'false') {
-            document.getElementById('myForm').submit();
-        }
-        $('#customOk').click(function(e) {
-            e.preventDefault();
-
-            let id = $('input[name="test_id"]').val();
-            let answer = $('input[name="answer1"]:checked').val();
-            let value = $('input[name="answer1"]:checked').closest('.test-item').find('.label').text();
-
-            $.ajax({
-                url: '/practical/test/findTestItem',
-                type: 'GET',
-                data: { id: id },
-                success: function(data) {
-                    if (data === parseInt(answer)) {
-                        window.FlashMessage.success('Верно!');
-                        $('#customOk').hide();
-                        $('#result').append('<span class="correct">' + value + '</span>');
-                    } else {
-                        window.FlashMessage.error('Неверно!');
-                        $('#customOk').hide();
-                        $('#result').append('<span class="wrong">' + value + '</span> | <span class="correct">' + $('#answer2' + data).find('.label').text() + '</span>');
-                    }
-                },
-                error: function() {
-                    alert('Произошла ошибка при запросе test');
-                }
-            });
-        });
     });
 </script>
 </body>

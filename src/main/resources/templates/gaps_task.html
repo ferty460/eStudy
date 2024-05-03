@@ -308,13 +308,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="text-spaces-elements" style="align-items: center; gap: 5px;">
+                                            <div class="text-spaces-elements" style="align-items: center; gap: 5px; flex-wrap: wrap;">
                                                 <div th:each="item : ${gaps.getBlocksToUser()}" th:utext="${item.getContent()}"></div>
                                             </div>
                                             <div class="text-btns">
                                                 <input type="hidden" name="task_id" th:value="${gaps.getId()}">
-                                                <button type="submit" class="ok" id="check">Ответить</button>
-                                                <div id="result"></div>
+                                                <button type="submit" class="ok" id="gaps_check">Ответить</button>
+                                                <div id="gaps_result"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -344,41 +344,15 @@
     </div>
 </footer>
 
+<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/tab.js}"></script>
 <script th:src="@{/js/flash.min.js}"></script>
-<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
+<script th:src="@{/js/gaps_task.js}"></script>
 <script>
     const new_note = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
-    });
-
-    $(document).ready(function() {
-        $("#check").click(function(e) {
-            e.preventDefault();
-
-            let gaps = {};
-            $(".search-bar1.news-input1").each(function() {
-                gaps[this.id] = $(this).val();
-            });
-
-            $.ajax({
-                type: "POST",
-                url: "/check-gaps",
-                data: JSON.stringify(gaps),
-                contentType: "application/json",
-                success: function(response) {
-                    $('#check').hide();
-                    $('#result').append('<span class="correct">Верно!</span>');
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    $('#check').hide();
-                    $('#result').append('<span class="wrong">Неверно!</span>');
-                }
-            });
-        });
     });
 </script>
 </body>

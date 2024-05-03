@@ -35,7 +35,7 @@ public class GapsValueItem {
     }
 
     public String getBlockToUser() {
-        return "<span><input class=\"search-bar1 news-input1\" name=\"gaps\" id=\"gap" + id + "\" type=\"text\"></span>";
+        return "<span><input class=\"gaps-bar1 gaps-input1\" name=\"gaps\" id=\"gap" + id + "\" type=\"text\"></span>";
     }
 
     @Override

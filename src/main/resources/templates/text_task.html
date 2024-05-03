@@ -219,8 +219,8 @@
                                             </div>
                                             <div class="text-btns">
                                                 <input type="hidden" name="id" th:value="${text.getId()}">
-                                                <button type="submit" class="ok" id="customOk">Ответить</button>
-                                                <div id="result"></div>
+                                                <button type="submit" class="ok" id="text_customOk">Ответить</button>
+                                                <div id="text_result"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -250,42 +250,14 @@
     </div>
 </footer>
 
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
 <script th:src="@{/js/header.js}"></script>
 <script th:src="@{/js/flash.min.js}"></script>
-<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/js/text_task.js}"></script>
 <script>
     const new_note = new HystModal({
         linkAttributeName: "data-hystmodal",
         // настройки (не обязательно), см. API
-    });
-
-    $(document).ready(function() {
-        $('#customOk').click(function(e) {
-            e.preventDefault();
-
-            let id = $('input[name="id"]').val();
-            let answer = $('input[name="answer"]').val();
-
-            $.ajax({
-                url: '/practical/text/findTextTask',
-                type: 'GET',
-                data: { id: id },
-                success: function(data) {
-                    if (data === answer) {
-                        window.FlashMessage.success('Верно!');
-                        $('#customOk').hide();
-                        $('#result').append('<span class="correct">' + data + '</span>');
-                    } else {
-                        window.FlashMessage.error('Неверно!');
-                        $('#customOk').hide();
-                        $('#result').append('<span class="wrong">' + answer + '</span> | <span class="correct">' + data + '</span>');
-                    }
-                },
-                error: function() {
-                    alert('Произошла ошибка при запросе textTask');
-                }
-            });
-        });
     });
 </script>
 </body>

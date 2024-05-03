@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -40,6 +41,12 @@ public class SortingTask {
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
+    }
+
+    public List<SortingTaskElement> getShuffledElements() {
+        List<SortingTaskElement> shuffledElements = new ArrayList<>(elements);
+        Collections.shuffle(shuffledElements);
+        return shuffledElements;
     }
 
 }

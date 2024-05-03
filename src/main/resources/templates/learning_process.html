@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/flash.min.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Обучение | eStudy</title>
+</head>
+
+<body>
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+
+        <div class="header__inner-item">
+            <a th:href="@{/profile}">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
+
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
+                        </a>
+                    </li>
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
+                            </div>
+                            <span th:text="${course.getTitle()}"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
+                        </div>
+                        <span>Календарь</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <div id="content" class="content sidebar-show__content">
+        <section class="learning-process">
+            <div class="learning-process-block">
+                <div class="learning-process-sidebar">
+                    <div class="learning-process-course">
+                        <h3 class="learning-process-course-name" th:text="${course.getTitle()}"></h3>
+                    </div>
+                    <div class="learning-process-module" th:each="module1, moduleIter : ${course.getModules()}">
+                        <span class="learning-process-module-name" th:text="${moduleIter.index+1 + ' ' + module1.getTitle()}"></span>
+                        <ul class="learning-process-lessons-list">
+                            <li class="learning-process-lessons-item" th:each="lesson, lessonIter : ${module1.getLessons()}">
+                                <a href="#" th:class="${lessonIter.index == 0 && moduleIter.index == 0 ? 'learning-process-lesson learning-process-lesson-active' : 'learning-process-lesson'}"
+                                   th:id="${'lesson-link' + lesson.getId()}" th:text="${moduleIter.index+1 + '.' + __${lessonIter.index+1}__ + ' ' + lesson.getTitle()}">lesson 1</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="learning-process-content" th:each="module1 : ${modules}">
+                    <div th:each="lesson : ${module1.lessons}" class="learning-process-content-lesson" th:id="${'content-lesson' + lesson.getId()}" style="display: none;">
+                        <div class="learning-process-content-items-list">
+                            <div th:if="${lesson.getContents().isEmpty()}">
+                                <h4 class="label" style="line-height: 24px;">Обучающих материалов нет!</h4>
+                            </div>
+                            <th:block th:each="content, contentStat : ${lesson.getContents()}" th:with="isFirst=${contentStat.index == 0}, isTheoretical=${content.getType() == 'Theoretical'}, isPractical=${content.getType() == 'Practical'}">
+                                <th:block th:if="${isFirst}">
+                                    <div th:if="${isFirst && isTheoretical}" class="learning-process-item-first learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
+                                    <div th:if="${isFirst && isPractical}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                </th:block>
+                                <th:block th:if="${!isFirst}">
+                                    <div th:if="${isTheoretical}" class="learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
+                                    <div th:if="${isPractical}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                </th:block>
+                            </th:block>
+                        </div>
+
+                        <div class="learning-process-content-block" th:each="content, contentStat : ${lesson.getContents()}" th:id="${'content' + content.getId()}" style="display: none;">
+
+                            <!-- ПРАКТИЧЕСКОЕ ЗАНЯТИЕ -->
+                            <th:block th:if="${content.getType() == 'Practical'}">
+                                <th:block th:with="pr_content=${@practicalContentServiceImpl.getById(content.getId())}" th:switch="${pr_content.getPracticalType()}">
+
+                                    <!-- ЗАДАЧА С ТЕСТИРОВАНИЕМ -->
+                                    <th:block th:case="'test'">
+                                        <div class="practice-lesson-block">
+                                            <div class="practice-lesson-main">
+                                                <div class="theory-lesson-content">
+                                                    <div class="lesson-inputs">
+                                                        <div class="module-inputs">
+                                                            <div class="news-title__block">
+                                                                <h3 class="best-courses__title" th:text="${pr_content.getTest().getTitle()}"></h3>
+                                                            </div>
+                                                            <div class="news-description__block">
+                                                                <p class="label" th:text="${pr_content.getTest().getDescription()}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="test-title">Варианты ответа</h4>
+                                                    <div class="test-list">
+                                                        <div class="test-item" th:each="item, statItem : ${pr_content.getTest().getItems()}">
+                                                            <input class="custom-radio" name="test_answer" type="radio" th:id="${'test_answer' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
+                                                            <label th:for="${'test_answer' + item.getId()}"></label>
+                                                            <div class="news-description__block" th:id="${'answer2' + item.getId()}">
+                                                                <p class="label" th:text="${item.getValue()}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-btns">
+                                                        <input type="hidden" name="test_id" th:value="${pr_content.getTest().getId()}">
+                                                        <button type="submit" class="ok" id="test_customOk">Ответить</button>
+                                                        <div id="test_result"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+
+                                    <!-- ТЕКСТОВАЯ ЗАДАЧА -->
+                                    <th:block th:case="'text'">
+                                        <div class="practice-lesson-block">
+                                            <div class="practice-lesson-main">
+                                                <div class="theory-lesson-content">
+                                                    <div class="lesson-inputs">
+                                                        <div class="module-inputs">
+                                                            <div class="news-title__block">
+                                                                <h3 class="best-courses__title" th:text="${pr_content.getTextTask().getTitle()}"></h3>
+                                                            </div>
+                                                            <div class="news-description__block">
+                                                                <p class="label" th:text="${pr_content.getTextTask().getDescription()}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer">
+                                                        <div class="news-title__block">
+                                                            <label class="label">Ответ</label>
+                                                            <input type="text" name="test_answer" class="search-bar news-input" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-btns">
+                                                        <input type="hidden" name="text_id" th:value="${pr_content.getTextTask().getId()}">
+                                                        <button type="submit" class="ok" id="text_customOk">Ответить</button>
+                                                        <div id="text_result"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+
+                                    <!-- ЗАДАЧА НА СОРТИРОВКУ -->
+                                    <th:block th:case="'sort'">
+                                        <div class="practice-lesson-block">
+                                            <div class="practice-lesson-main">
+                                                <div class="theory-lesson-content">
+                                                    <div class="lesson-inputs">
+                                                        <div class="module-inputs">
+                                                            <div class="news-title__block">
+                                                                <h3 class="best-courses__title" th:text="${pr_content.getSortingTask().getTitle()}"></h3>
+                                                            </div>
+                                                            <div class="news-description__block">
+                                                                <p class="label sort_label" th:text="${pr_content.getSortingTask().getDescription()}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sort-list">
+                                                        <div class="sort-head">
+                                                            <span>Элементы</span>
+                                                        </div>
+                                                        <div class="sort-elements1" style="align-items: center; margin-top: 0;">
+                                                            <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${pr_content.getSortingTask().getShuffledElements()}">
+                                                                <div class="news-description__block">
+                                                                    <span class="label sort_label" th:text="${element.getContent()}"></span>
+                                                                </div>
+                                                                <input type="hidden" name="elementId" th:value="${element.getId()}">
+                                                                <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-btns">
+                                                        <input type="hidden" name="sort_id" th:value="${pr_content.getSortingTask().getId()}">
+                                                        <button type="submit" class="ok" id="sort_check">Ответить</button>
+                                                        <div id="sort_result"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+
+                                    <!-- ЗАДАЧА НА ПРОПУСКИ -->
+                                    <th:block th:case="'gaps'">
+                                        <div class="practice-lesson-block">
+                                            <div class="practice-lesson-main">
+                                                <div class="theory-lesson-content">
+                                                    <div class="lesson-inputs">
+                                                        <div class="module-inputs">
+                                                            <div class="news-title__block">
+                                                                <h3 class="best-courses__title" th:text="${pr_content.getGapsTask().getTitle()}"></h3>
+                                                            </div>
+                                                            <div class="news-description__block">
+                                                                <p class="label" th:text="${pr_content.getGapsTask().getDescription()}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-spaces-elements" style="align-items: center; gap: 5px; flex-wrap: wrap;">
+                                                        <div th:each="item : ${pr_content.getGapsTask().getBlocksToUser()}" th:utext="${item.getContent()}"></div>
+                                                    </div>
+                                                    <div class="text-btns">
+                                                        <input type="hidden" name="task_id" th:value="${pr_content.getGapsTask().getId()}">
+                                                        <button type="submit" class="ok" id="gaps_check">Ответить</button>
+                                                        <div id="gaps_result"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!-- ТЕОРЕТИЧЕСКОЕ ЗАНЯТИЕ -->
+                            <th:block th:if="${content.getType() == 'Theoretical'}">
+                                <th:block th:with="th_content=${@theoreticalContentServiceImpl.getById(content.getId())}">
+                                    <div class="theory-lesson-block">
+                                        <div class="theory-lesson-main" style="width: 100%;" th:if="${th_content.getChapters().isEmpty()}">
+                                            <div class="theory-lesson-content">
+                                                <div class="empty-block">
+                                                    <p>В уроке пока нет обучающих материалов.</p>
+                                                    <p>Подождите, пока преподаватель не заполнит его!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="theory-lesson-main" th:each="chapter, iterStat : ${th_content.getChapters()}"
+                                             th:id="${'chapter' + chapter.getId()}" th:style="${!iterStat.first ? 'display: none; width: 100%;' : 'width: 100%;'}">
+
+                                            <!-- СОДЕРЖИМОЕ ЗАНЯТИЯ -->
+                                            <div class="theory-lesson-content">
+                                                <div class="lesson-actions">
+                                                    <h3 class="lesson-chapter" style="text-decoration: underline;" th:text="${chapter.getName()}"></h3>
+                                                </div>
+                                                <div th:each="item : ${chapter.getUserBlocks()}" th:utext="${item.getContent()}"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- РАЗДЕЛЫ -->
+                                        <div class="theory-lesson-chapters">
+                                            <h3 class="chapters-title">Разделы</h3>
+                                            <ol class="chapters-list" id="chapters-list">
+                                                <li th:each="chapter, iterStat : ${th_content.getChapters()}" th:class="${iterStat.first ? 'active-chapter chapters-item' : 'chapters-item'}">
+                                                    <a th:href="@{${'#chapter' + chapter.getId()}}" th:text="${chapter.getName()}"></a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer sidebar-show__content">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{https://code.jquery.com/ui/1.13.3/jquery-ui.js}"></script>
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/theory_lesson.js}"></script>
+<script th:src="@{/js/learning_process.js}"></script>
+<script th:src="@{/js/flash.min.js}"></script>
+<script th:src="@{/js/test_task.js}"></script>
+<script th:src="@{/js/text_task.js}"></script>
+<script th:src="@{/js/sort_task.js}"></script>
+<script th:src="@{/js/gaps_task.js}"></script>
+<script>
+    const lesson_type = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+</script>
+</body>
+
+</html>

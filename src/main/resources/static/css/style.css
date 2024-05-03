@@ -401,7 +401,7 @@ body {
     border-bottom: 2px solid #6C7293;
 }
 
-.search-bar, .search-bar1 {
+.search-bar, .gaps-bar1 {
     background-color: #4F5968;
     border: 1px solid #6C7293;
     border-radius: 5px;
@@ -412,11 +412,15 @@ body {
     transition: .3s;
 }
 
-.search-bar::placeholder, .search-bar1::placeholder {
+.gaps-bar1 {
+    width: 60px !important;
+}
+
+.search-bar::placeholder, .gaps-bar1::placeholder {
     color: #a0a0a0;
 }
 
-.search-bar:focus, .search-bar1:focus {
+.search-bar:focus, .gaps-bar1:focus {
     border: 1px solid #6FB963;
 }
 
@@ -717,7 +721,7 @@ body {
     gap: 10px;
 }
 
-.news-input {
+.news-input, .gaps-input1 {
     width: 100%;
     padding: 5px 10px;
 }
@@ -1503,4 +1507,139 @@ body {
 }
 .oauth-link:hover {
     text-decoration: underline;
+}
+
+.learning-process-block {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.learning-process-sidebar::-webkit-scrollbar {
+    width: 10px; /* Ширина скроллбара */
+}
+.learning-process-sidebar::-webkit-scrollbar-track {
+    background: #282C37; /* Цвет трека скроллбара */
+}
+.learning-process-sidebar::-webkit-scrollbar-thumb {
+    background: #6C7293; /* Цвет ползунка скроллбара */
+}
+.learning-process-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #535a73; /* Цвет ползунка скроллбара при наведении */
+}
+
+.learning-process-sidebar {
+    width: 250px;
+    max-width: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+    min-height: 600px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.learning-process-course {
+    padding: 25px 25px 10px 25px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: #c5c5c5;
+    word-wrap: break-word;
+}
+
+.learning-process-content {
+    width: 100%;
+}
+
+.learning-process-module:first-child {
+    margin-top: 10px;
+}
+
+.learning-process-module-name {
+    display: block;
+    padding: 10px 25px;
+    font-weight: bold;
+    color: #6c7293;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-left: 5px solid #282C37;
+    transition: .3s;
+}
+
+.learning-process-module-name:hover {
+    background-color: #1D2027;
+    border-left: 5px solid #6c7293;
+}
+
+.learning-process-lessons-list {
+    padding-bottom: 10px;
+}
+
+.learning-process-lesson {
+    display: block;
+    padding: 5px 25px 5px 35px;
+    color: #6c7293;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-left: 5px solid #282C37;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.learning-process-lesson:hover {
+    background-color: #1D2027;
+    border-left: 5px solid #6c7293;
+}
+
+.learning-process-lesson-active {
+    background-color: #1D2027;
+    border-left: 5px solid #6c7293;
+}
+
+.learning-process-content-items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 25px;
+    margin-bottom: 25px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+}
+
+.learning-process-item-th {
+    width: 24px;
+    height: 24px;
+    background-color: #c5c5c5;
+    background-image: url("../images/lesson-theory.svg");
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: 2px solid #c5c5c5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learning-process-item-pr {
+    width: 24px;
+    height: 24px;
+    background-color: #c5c5c5;
+    background-image: url("../images/lesson-practice.svg");
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: 2px solid #c5c5c5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.learning-process-item-first {
+    border: 2px solid #6c7293;
+}
+
+.learning-process-content-block {
+    margin-top: 25px;
 }

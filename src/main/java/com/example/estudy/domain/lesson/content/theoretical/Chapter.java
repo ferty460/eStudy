@@ -64,4 +64,19 @@ public class Chapter {
         return combinedList;
     }
 
+    public List<CombinedItem> getUserBlocks() {
+        List<CombinedItem> combinedList = new ArrayList<>();
+        for (Title title : titles) {
+            combinedList.add(new CombinedItem(title.toUser(), title.getDateOfCreated()));
+        }
+        for (Text text : texts) {
+            combinedList.add(new CombinedItem(text.toUser(), text.getDateOfCreated()));
+        }
+        for (Image image : images) {
+            combinedList.add(new CombinedItem(image.toUser(), image.getDateOfCreated()));
+        }
+        combinedList.sort(Comparator.comparing(CombinedItem::getDateOfCreated));
+        return combinedList;
+    }
+
 }

@@ -50,6 +50,12 @@ public class Image {
         dateOfCreated = LocalDateTime.now();
     }
 
+    public String toUser() {
+        return "<div class=\"lesson-actions\"><div></div>" +
+                "<img src=\"/theoretical/img/" + id + "\" alt=\"lesson image\" class=\"lesson-image\">" +
+                "</div>";
+    }
+
     @Override
     public String toString() {
         return "<div class=\"lesson-actions\"><div></div>" +

@@ -34,6 +34,12 @@ public class Text {
         dateOfCreated = LocalDateTime.now();
     }
 
+    public String toUser() {
+        return "<div class=\"lesson-actions\">" +
+                "<p class=\"lesson-text\">" + value + "</p>" +
+                "</div>";
+    }
+
     @Override
     public String toString() {
         return "<div class=\"lesson-actions\">" +

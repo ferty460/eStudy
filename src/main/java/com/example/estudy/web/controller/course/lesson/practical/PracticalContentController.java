@@ -20,10 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 @Controller
 @RequestMapping("/practical")
 @RequiredArgsConstructor
@@ -64,12 +60,7 @@ public class PracticalContentController {
                 return "text_task";
             }
             case "sort" -> {
-                SortingTask originalSortingTask = content.getSortingTask();
-                List<SortingTaskElement> shuffledElements = new ArrayList<>(originalSortingTask.getElements());
-                Collections.shuffle(shuffledElements);
-
-                model.addAttribute("sort", originalSortingTask);
-                model.addAttribute("shuffle_elements", shuffledElements);
+                model.addAttribute("sort", content.getSortingTask());
                 return "sort_task";
             }
             default -> {
