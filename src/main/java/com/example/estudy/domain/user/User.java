@@ -1,5 +1,6 @@
 package com.example.estudy.domain.user;
 
+import com.example.estudy.domain.answer.TextTaskAnswer;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.news.News;
 import jakarta.persistence.*;
@@ -61,6 +62,9 @@ public class User implements UserDetails {
 
     @ManyToMany(mappedBy = "users")
     private Set<Course> favoriteCourses = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<TextTaskAnswer> userAnswers = new ArrayList<>();
 
     @Override
     public String toString() {

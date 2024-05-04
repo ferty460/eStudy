@@ -21,7 +21,7 @@ $(document).ready(function() {
                 } else {
                     window.FlashMessage.error('Неверно!');
                     $('#test_customOk').hide();
-                    $('#test_result').append('<span class="wrong">' + value + '</span> | <span class="correct">' + $('#answer2' + data).find('.label').text() + '</span>');
+                    $('#test_result').append('<span class="wrong">' + value + '</span>');
                 }
             },
             error: function() {

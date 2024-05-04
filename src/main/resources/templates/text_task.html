@@ -214,11 +214,12 @@
                                             <div class="answer">
                                                 <div class="news-title__block">
                                                     <label class="label">Ответ</label>
-                                                    <input type="text" name="answer" class="search-bar news-input" required>
+                                                    <input type="text" name="textUserAnswer" class="search-bar news-input" required>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="text_flag" value="false">
                                             <div class="text-btns">
-                                                <input type="hidden" name="id" th:value="${text.getId()}">
+                                                <input type="hidden" name="text_id" th:value="${text.getId()}">
                                                 <button type="submit" class="ok" id="text_customOk">Ответить</button>
                                                 <div id="text_result"></div>
                                             </div>

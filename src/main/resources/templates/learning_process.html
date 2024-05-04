@@ -169,14 +169,35 @@
                                 <h4 class="label" style="line-height: 24px;">Обучающих материалов нет!</h4>
                             </div>
                             <th:block th:each="content, contentStat : ${lesson.getContents()}" th:with="isFirst=${contentStat.index == 0}, isTheoretical=${content.getType() == 'Theoretical'}, isPractical=${content.getType() == 'Practical'}">
-                                <th:block th:if="${isFirst}">
-                                    <div th:if="${isFirst && isTheoretical}" class="learning-process-item-first learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
-                                    <div th:if="${isFirst && isPractical}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                <th:block th:if="${isPractical}" th:with="pr_content=${@practicalContentServiceImpl.getById(content.getId())}" th:switch="${pr_content.getPracticalType()}">
+                                    <th:block th:case="'text'" th:with="isTried=${@textTaskAnswerServiceImpl.taskIsComplete(pr_content.getTextTask().getId(), user.getId())}">
+                                        <th:block th:if="${isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
+                                        <th:block th:if="${!isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:case="'test'">
+                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    </th:block>
+                                    <th:block th:case="'gaps'">
+                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    </th:block>
+                                    <th:block th:case="'sort'">
+                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    </th:block>
                                 </th:block>
-                                <th:block th:if="${!isFirst}">
-                                    <div th:if="${isTheoretical}" class="learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
-                                    <div th:if="${isPractical}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                <th:block th:if="${isTheoretical}">
+                                    <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
+                                    <div th:if="${!isFirst}" class="learning-process-item-th" th:attr="data-index=${content.getId()}"></div>
                                 </th:block>
+
                             </th:block>
                         </div>
 
@@ -236,16 +257,23 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="answer">
-                                                        <div class="news-title__block">
-                                                            <label class="label">Ответ</label>
-                                                            <input type="text" name="test_answer" class="search-bar news-input" required>
+                                                    <div th:with="isTried=${@textTaskAnswerServiceImpl.taskIsTried(pr_content.getTextTask().getId(), user.getId())}">
+                                                        <div class="answer">
+                                                            <div class="news-title__block">
+                                                                <label class="label">Ответ</label>
+                                                                <input type="text" th:name="${'textUserAnswer' + pr_content.getTextTask().getId()}" th:value="${isTried ? @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getUserAnswer() : ''}" class="search-bar news-input" required>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="text-btns">
-                                                        <input type="hidden" name="text_id" th:value="${pr_content.getTextTask().getId()}">
-                                                        <button type="submit" class="ok" id="text_customOk">Ответить</button>
-                                                        <div id="text_result"></div>
+                                                        <input type="hidden" th:name="${'text_flag' + pr_content.getTextTask().getId()}" th:value="${isTried ? 'isTried' : 'true'}">
+                                                        <div class="text-btns">
+                                                            <input type="hidden" th:name="${'text_id' + pr_content.getTextTask().getId()}" th:value="${pr_content.getTextTask().getId()}">
+                                                            <button type="submit" class="ok" th:id="${'text_customOk' + pr_content.getTextTask().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}"></button>
+                                                            <div th:id="${'text_result' + pr_content.getTextTask().getId()}" th:class="${isTried && @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getUserAnswer() == @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getCorrectAnswer() ? 'correct' : 'wrong'}"
+                                                                 th:text="${isTried ? @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getUserAnswer() : ''}"></div>
+                                                        </div>
+                                                        <!--<div class="text-btns" style="align-items: end;">
+                                                            <button type="button" class="ok next-step">Следующий шаг</button>
+                                                        </div>-->
                                                     </div>
                                                 </div>
                                             </div>
