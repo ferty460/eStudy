@@ -1,5 +1,6 @@
 package com.example.estudy.domain.lesson.content.practical;
 
+import com.example.estudy.domain.answer.SortTaskAnswer;
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,9 @@ public class SortingTask {
     @OneToMany(mappedBy = "task")
     @OrderBy("position")
     private List<SortingTaskElement> elements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sortTask")
+    private List<SortTaskAnswer> taskAnswers = new ArrayList<>();
 
     @OneToOne(mappedBy = "sortingTask")
     private PracticalContent practicalContent;

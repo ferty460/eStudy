@@ -20,7 +20,6 @@ $(document).ready(function() {
                 resultDiv.empty();
                 if (data === parseInt(answerId)) {
                     window.FlashMessage.success('Верно!');
-                    $(this).hide();
                     resultDiv.append('<span class="correct">' + value + '</span>');
                     if (flag === 'true') {
                         $.ajax({
@@ -49,7 +48,6 @@ $(document).ready(function() {
                     }
                 } else {
                     window.FlashMessage.error('Неверно!');
-                    $(this).hide();
                     resultDiv.append('<span class="wrong">' + value + '</span>');
                     if (flag === 'true') {
                         $.ajax({

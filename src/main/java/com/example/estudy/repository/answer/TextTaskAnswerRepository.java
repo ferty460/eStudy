@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface TextTaskAnswerRepository extends JpaRepository<TextTaskAnswer, Long> {
 
-    List<TextTaskAnswer> findAllByTextTaskIdAndUserId(Long taskId, Long userId);
-
     TextTaskAnswer findByTextTaskIdAndUserId(Long taskId, Long userId);
 
 }

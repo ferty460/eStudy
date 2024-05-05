@@ -25,38 +25,97 @@ $('.sort-elements').sortable({
 });
 
 $(document).ready(function() {
-    let taskId = $('input[name="sort_id"]').val();
-    let correctOrderUrl = '/sorting-tasks/' + taskId + '/correct-order';
 
-    // Отправляем запрос на сервер для получения правильного порядка элементов
-    $.getJSON(correctOrderUrl, function(correctOrder) {
-        // Обработка кнопки "Ответить"
-        $('.sortOk').click(function() {
-            // Получаем элементы сортировки
-            let sortItems = $('.sort-item1');
+    $('.sortOk').click(function() {
+        let $this = $(this);
 
-            // Получаем содержимое элементов сортировки
+        let taskId = $this.closest('.text-btns').find('input[name^="sort_id"]').val();
+        let correctOrderUrl = '/sorting-tasks/' + taskId + '/correct-order';
+        let resultDiv = $this.closest('.text-btns').find('div[id^="sort_result"]');
+        let flag = $this.closest('.theory-lesson-content').find('input[name^="sort_flag"]').val();
+        let sortItems = $this.closest('.theory-lesson-content').find('.sort-item1');
+
+        console.log(taskId);
+        console.log(correctOrderUrl);
+        console.log(resultDiv);
+        console.log(flag);
+        console.log(sortItems);
+
+        $.getJSON(correctOrderUrl, function(correctOrder) {
+
             let itemContents = sortItems.map(function() {
                 return $(this).find('.sort_label').text();
             }).get();
 
-            // Сравниваем порядок элементов на странице с правильным порядком
+            console.log(itemContents);
+
             let isInCorrectOrder = itemContents.every(function(content, index) {
                 return content === correctOrder[index];
             });
 
-            // Выводим результат в консоль
             if (isInCorrectOrder) {
                 window.FlashMessage.success('Верно!');
-                $('#sort_check').hide();
-                $('#sort_result').append('<span class="correct">Верно!</span>');
+                resultDiv.html('');
+                resultDiv.empty();
+                resultDiv.append('<span class="correct">' + itemContents + '</span>');
+                if (flag === 'true') {
+                    $.ajax({
+                        url: '/practical/sort/answer/create',
+                        type: 'POST',
+                        data: {userAnswer: JSON.stringify(itemContents), sort_id: taskId},
+                        success: function (response) {
+                            console.log('Ответ успешно отправлен!');
+                        },
+                        error: function () {
+                            console.log('Произошла ошибка при отправке ответа!');
+                        }
+                    });
+                } else if (flag === 'isTried') {
+                    $.ajax({
+                        url: '/practical/sort/answer/update',
+                        type: 'POST',
+                        data: {userAnswer: JSON.stringify(itemContents), sort_id: taskId},
+                        success: function (response) {
+                            console.log('Ответ успешно отправлен!');
+                        },
+                        error: function () {
+                            console.log('Произошла ошибка при отправке ответа!');
+                        }
+                    });
+                }
             } else {
                 window.FlashMessage.error('Неверно!');
-                $('#sort_check').hide();
-                $('#sort_result').append('<span class="wrong">Неверно!</span>');
+                resultDiv.html('');
+                resultDiv.empty();
+                resultDiv.append('<span class="wrong">' + itemContents + '</span>');
+                if (flag === 'true') {
+                    $.ajax({
+                        url: '/practical/sort/answer/create',
+                        type: 'POST',
+                        data: {userAnswer: JSON.stringify(itemContents), sort_id: taskId},
+                        success: function (response) {
+                            console.log('Ответ успешно отправлен!');
+                        },
+                        error: function () {
+                            console.log('Произошла ошибка при отправке ответа!');
+                        }
+                    });
+                } else if (flag === 'isTried') {
+                    $.ajax({
+                        url: '/practical/sort/answer/update',
+                        type: 'POST',
+                        data: {userAnswer: JSON.stringify(itemContents), sort_id: taskId},
+                        success: function (response) {
+                            console.log('Ответ успешно отправлен!');
+                        },
+                        error: function () {
+                            console.log('Произошла ошибка при отправке ответа!');
+                        }
+                    });
+                }
             }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('Ошибка при получении правильного порядка элементов:', errorThrown);
         });
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Ошибка при получении правильного порядка элементов:', errorThrown);
     });
 });

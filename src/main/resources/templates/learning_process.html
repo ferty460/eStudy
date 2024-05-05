@@ -194,9 +194,15 @@
                                         <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
                                         <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
                                     </th:block>
-                                    <th:block th:case="'sort'">
-                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
-                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    <th:block th:case="'sort'" th:with="isTried=${@sortTaskAnswerServiceImpl.taskIsComplete(pr_content.getSortingTask().getId(), user.getId())}">
+                                        <th:block th:if="${isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
+                                        <th:block th:if="${!isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
                                     </th:block>
                                 </th:block>
                                 <th:block th:if="${isTheoretical}">
@@ -307,29 +313,33 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="sort-list">
-                                                        <div class="sort-head">
-                                                            <span>Элементы</span>
-                                                        </div>
-                                                        <div class="sort-elements1" style="align-items: center; margin-top: 0;">
-                                                            <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${pr_content.getSortingTask().getShuffledElements()}">
-                                                                <div class="news-description__block">
-                                                                    <span class="label sort_label" th:text="${element.getContent()}"></span>
+                                                    <div th:with="isTried=${@sortTaskAnswerServiceImpl.taskIsTried(pr_content.getSortingTask().getId(), user.getId())}">
+                                                        <div class="sort-list">
+                                                            <div class="sort-head">
+                                                                <span>Элементы</span>
+                                                            </div>
+                                                            <div class="sort-elements1" style="align-items: center; margin-top: 0;">
+                                                                <div class="sort-item1" style="justify-content: space-between; width: 40%;" th:each="element : ${pr_content.getSortingTask().getShuffledElements()}">
+                                                                    <div class="news-description__block">
+                                                                        <span class="label sort_label" th:text="${element.getContent()}"></span>
+                                                                    </div>
+                                                                    <input type="hidden" name="elementId" th:value="${element.getId()}">
+                                                                    <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                            <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                                            <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
+                                                                        </svg>
+                                                                    </button>
                                                                 </div>
-                                                                <input type="hidden" name="elementId" th:value="${element.getId()}">
-                                                                <button th:attr="data-hystmodal='#delete_element' + ${element.getId()}" type="button">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                                        <line x1="0" y1="0" x2="20" y2="20" stroke="#6C7293" stroke-width="3" />
-                                                                        <line x1="20" y1="0" x2="0" y2="20" stroke="#6C7293" stroke-width="3" />
-                                                                    </svg>
-                                                                </button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="text-btns">
-                                                        <input type="hidden" name="sort_id" th:value="${pr_content.getSortingTask().getId()}">
-                                                        <button type="submit" class="ok sortOk" id="sort_check">Ответить</button>
-                                                        <div id="sort_result"></div>
+                                                        <input type="hidden" th:name="${'sort_flag' + pr_content.getSortingTask().getId()}" th:value="${isTried ? 'isTried' : 'true'}">
+                                                        <div class="text-btns">
+                                                            <input type="hidden" th:name="${'sort_id' + pr_content.getSortingTask().getId()}" th:value="${pr_content.getSortingTask().getId()}">
+                                                            <button type="submit" class="ok sortOk" th:id="${'sort_customOk' + pr_content.getSortingTask().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}"></button>
+                                                            <div th:id="${'sort_result' + pr_content.getSortingTask().getId()}" th:class="${isTried && @sortTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getSortingTask().getId(), user.getId()).isCorrect() ? 'correct' : 'wrong'}"
+                                                                 th:text="${isTried ? @sortTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getSortingTask().getId(), user.getId()).getUserAnswer() : ''}"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
