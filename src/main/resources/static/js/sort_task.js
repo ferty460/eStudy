@@ -31,7 +31,7 @@ $(document).ready(function() {
     // Отправляем запрос на сервер для получения правильного порядка элементов
     $.getJSON(correctOrderUrl, function(correctOrder) {
         // Обработка кнопки "Ответить"
-        $('#sort_check').click(function() {
+        $('.sortOk').click(function() {
             // Получаем элементы сортировки
             let sortItems = $('.sort-item1');
 

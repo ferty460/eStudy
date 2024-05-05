@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#gaps_check").click(function(e) {
+    $(".gapsOk").click(function(e) {
         e.preventDefault();
 
         let gaps = {};

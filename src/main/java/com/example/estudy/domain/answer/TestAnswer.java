@@ -1,6 +1,6 @@
 package com.example.estudy.domain.answer;
 
-import com.example.estudy.domain.lesson.content.practical.TextTask;
+import com.example.estudy.domain.lesson.content.practical.Test;
 import com.example.estudy.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,12 +11,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "text_task_answers")
+@Table(name = "test_answers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TextTaskAnswer {
+public class TestAnswer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +28,13 @@ public class TextTaskAnswer {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
-    private TextTask textTask;
+    private Test test;
 
     @Column(name = "user_answer")
-    private String userAnswer;
+    private Long userAnswer;
 
     @Column(name = "correct_answer")
-    private String correctAnswer;
+    private Long correctAnswer;
 
     @Column(name = "is_correct")
     private boolean isCorrect;

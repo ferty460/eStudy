@@ -180,9 +180,15 @@
                                             <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
                                         </th:block>
                                     </th:block>
-                                    <th:block th:case="'test'">
-                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
-                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    <th:block th:case="'test'" th:with="isTried=${@testAnswerServiceImpl.taskIsComplete(pr_content.getTest().getId(), user.getId())}">
+                                        <th:block th:if="${isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
+                                        <th:block th:if="${!isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
                                     </th:block>
                                     <th:block th:case="'gaps'">
                                         <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
@@ -223,19 +229,25 @@
                                                         </div>
                                                     </div>
                                                     <h4 class="test-title">Варианты ответа</h4>
-                                                    <div class="test-list">
-                                                        <div class="test-item" th:each="item, statItem : ${pr_content.getTest().getItems()}">
-                                                            <input class="custom-radio" name="test_answer" type="radio" th:id="${'test_answer' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
-                                                            <label th:for="${'test_answer' + item.getId()}"></label>
-                                                            <div class="news-description__block" th:id="${'answer2' + item.getId()}">
-                                                                <p class="label" th:text="${item.getValue()}"></p>
+                                                    <div th:with="isTried=${@testAnswerServiceImpl.taskIsTried(pr_content.getTest().getId(), user.getId())}">
+                                                        <div class="test-list">
+                                                            <div class="test-item" th:each="item, statItem : ${pr_content.getTest().getItems()}">
+                                                                <input class="custom-radio" th:if="${!isTried}" th:name="${'test_answer' + pr_content.getTest().getId()}" type="radio" th:id="${'test_answer' + item.getId()}" th:value="${item.getId()}" th:checked="${statItem.index == 0}">
+                                                                <input class="custom-radio" th:if="${isTried}" th:name="${'test_answer' + pr_content.getTest().getId()}"
+                                                                       type="radio" th:id="${'test_answer' + item.getId()}" th:value="${item.getId()}" th:checked="${@testAnswerServiceImpl.getByTestIdAndUserId(pr_content.getTest().getId(), user.getId()).getUserAnswer().equals(item.getId())}">
+                                                                <label th:for="${'test_answer' + item.getId()}"></label>
+                                                                <div class="news-description__block" th:id="${'answer2' + item.getId()}">
+                                                                    <p class="label" th:text="${item.getValue()}"></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="text-btns">
-                                                        <input type="hidden" name="test_id" th:value="${pr_content.getTest().getId()}">
-                                                        <button type="submit" class="ok" id="test_customOk">Ответить</button>
-                                                        <div id="test_result"></div>
+                                                        <input type="hidden" th:name="${'test_flag' + pr_content.getTest().getId()}" th:value="${isTried ? 'isTried' : 'true'}">
+                                                        <div class="text-btns">
+                                                            <input type="hidden" th:name="${'test_id' + pr_content.getTest().getId()}" th:value="${pr_content.getTest().getId()}">
+                                                            <button type="submit" class="ok testOk" th:id="${'test_customOk' + pr_content.getTest().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}">Ответить</button>
+                                                            <div th:id="${'test_result' + pr_content.getTest().getId()}" th:class="${isTried && @testAnswerServiceImpl.getByTestIdAndUserId(pr_content.getTest().getId(), user.getId()).getUserAnswer() == @testAnswerServiceImpl.getByTestIdAndUserId(pr_content.getTest().getId(), user.getId()).getCorrectAnswer() ? 'correct' : 'wrong'}"
+                                                                 th:text="${isTried ? @testItemServiceImpl.getById(@testAnswerServiceImpl.getByTestIdAndUserId(pr_content.getTest().getId(), user.getId()).getUserAnswer()).getValue() : ''}"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,7 +279,7 @@
                                                         <input type="hidden" th:name="${'text_flag' + pr_content.getTextTask().getId()}" th:value="${isTried ? 'isTried' : 'true'}">
                                                         <div class="text-btns">
                                                             <input type="hidden" th:name="${'text_id' + pr_content.getTextTask().getId()}" th:value="${pr_content.getTextTask().getId()}">
-                                                            <button type="submit" class="ok" th:id="${'text_customOk' + pr_content.getTextTask().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}"></button>
+                                                            <button type="submit" class="ok textOk" th:id="${'text_customOk' + pr_content.getTextTask().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}"></button>
                                                             <div th:id="${'text_result' + pr_content.getTextTask().getId()}" th:class="${isTried && @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getUserAnswer() == @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getCorrectAnswer() ? 'correct' : 'wrong'}"
                                                                  th:text="${isTried ? @textTaskAnswerServiceImpl.getByTaskIdAndUserId(pr_content.getTextTask().getId(), user.getId()).getUserAnswer() : ''}"></div>
                                                         </div>
@@ -316,7 +328,7 @@
                                                     </div>
                                                     <div class="text-btns">
                                                         <input type="hidden" name="sort_id" th:value="${pr_content.getSortingTask().getId()}">
-                                                        <button type="submit" class="ok" id="sort_check">Ответить</button>
+                                                        <button type="submit" class="ok sortOk" id="sort_check">Ответить</button>
                                                         <div id="sort_result"></div>
                                                     </div>
                                                 </div>
@@ -344,7 +356,7 @@
                                                     </div>
                                                     <div class="text-btns">
                                                         <input type="hidden" name="task_id" th:value="${pr_content.getGapsTask().getId()}">
-                                                        <button type="submit" class="ok" id="gaps_check">Ответить</button>
+                                                        <button type="submit" class="ok gapsOk" id="gaps_check">Ответить</button>
                                                         <div id="gaps_result"></div>
                                                     </div>
                                                 </div>

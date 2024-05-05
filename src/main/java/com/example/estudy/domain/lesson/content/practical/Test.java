@@ -1,5 +1,6 @@
 package com.example.estudy.domain.lesson.content.practical;
 
+import com.example.estudy.domain.answer.TestAnswer;
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,9 @@ public class Test {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "test")
     private List<TestItem> items = new ArrayList<>();
+
+    @OneToMany(mappedBy = "test")
+    private List<TestAnswer> answers = new ArrayList<>();
 
     @OneToOne(mappedBy = "test")
     private PracticalContent practicalContent;

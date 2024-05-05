@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('.ok').click(function(e) {
+    $('.textOk').click(function(e) {
         e.preventDefault();
 
         let $this = $(this);

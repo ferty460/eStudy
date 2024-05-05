@@ -1,31 +1,85 @@
 $(document).ready(function() {
-    if ($('input[name="flag"]').val() === 'false') {
-        document.getElementById('test_update').submit();
-    }
-    $('#test_customOk').click(function(e) {
+    $(document).on('click', '.testOk   ', function(e) {
         e.preventDefault();
 
-        let id = $('input[name="test_id"]').val();
-        let answer = $('input[name="test_answer"]:checked').val();
-        let value = $('input[name="test_answer"]:checked').closest('.test-item').find('.label').text();
+        let $this = $(this);
+
+        let testId = parseInt($this.closest('.text-btns').find('input[name^="test_id"]').val());
+        let answerInput = $this.closest('.theory-lesson-content').find('input[name^="test_answer"]:checked');
+        let answerId = answerInput.val();
+        let value = answerInput.closest('.test-item').find('.label').text();
+        let flag = $this.closest('.theory-lesson-content').find('input[name^="test_flag"]').val();
 
         $.ajax({
             url: '/practical/test/findTestItem',
             type: 'GET',
-            data: { id: id },
+            data: { id: testId },
             success: function(data) {
-                if (data === parseInt(answer)) {
+                let resultDiv = $this.closest('.text-btns').find('div[id^="test_result"]');
+                resultDiv.html('');
+                resultDiv.empty();
+                if (data === parseInt(answerId)) {
                     window.FlashMessage.success('Верно!');
-                    $('#test_customOk').hide();
-                    $('#test_result').append('<span class="correct">' + value + '</span>');
+                    $(this).hide();
+                    resultDiv.append('<span class="correct">' + value + '</span>');
+                    if (flag === 'true') {
+                        $.ajax({
+                            url: '/practical/test/answer/create',
+                            type: 'POST',
+                            data: {userAnswer: answerId, test_id: testId},
+                            success: function (response) {
+                                console.log('Ответ успешно отправлен!');
+                            },
+                            error: function () {
+                                console.log('Произошла ошибка при отправке ответа!');
+                            }
+                        });
+                    } else if (flag === 'isTried') {
+                        $.ajax({
+                            url: '/practical/test/answer/update',
+                            type: 'POST',
+                            data: {userAnswer: answerId, test_id: testId},
+                            success: function (response) {
+                                console.log('Ответ успешно отправлен!');
+                            },
+                            error: function () {
+                                console.log('Произошла ошибка при отправке ответа!');
+                            }
+                        });
+                    }
                 } else {
                     window.FlashMessage.error('Неверно!');
-                    $('#test_customOk').hide();
-                    $('#test_result').append('<span class="wrong">' + value + '</span>');
+                    $(this).hide();
+                    resultDiv.append('<span class="wrong">' + value + '</span>');
+                    if (flag === 'true') {
+                        $.ajax({
+                            url: '/practical/test/answer/create',
+                            type: 'POST',
+                            data: {userAnswer: answerId, test_id: testId},
+                            success: function (response) {
+                                console.log('Ответ успешно отправлен!');
+                            },
+                            error: function () {
+                                console.log('Произошла ошибка при отправке ответа!');
+                            }
+                        });
+                    } else if (flag === 'isTried') {
+                        $.ajax({
+                            url: '/practical/test/answer/update',
+                            type: 'POST',
+                            data: {userAnswer: answerId, test_id: testId},
+                            success: function (response) {
+                                console.log('Ответ успешно отправлен!');
+                            },
+                            error: function () {
+                                console.log('Произошла ошибка при отправке ответа!');
+                            }
+                        });
+                    }
                 }
             },
             error: function() {
-                alert('Произошла ошибка при запросе test');
+                console.log('Произошла ошибка при запросе test');
             }
         });
     });

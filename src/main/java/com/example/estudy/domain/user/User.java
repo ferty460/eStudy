@@ -1,5 +1,6 @@
 package com.example.estudy.domain.user;
 
+import com.example.estudy.domain.answer.TestAnswer;
 import com.example.estudy.domain.answer.TextTaskAnswer;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.news.News;
@@ -64,7 +65,10 @@ public class User implements UserDetails {
     private Set<Course> favoriteCourses = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private List<TextTaskAnswer> userAnswers = new ArrayList<>();
+    private List<TextTaskAnswer> textAnswers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<TestAnswer> testAnswers = new ArrayList<>();
 
     @Override
     public String toString() {
