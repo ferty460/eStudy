@@ -100,14 +100,6 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a href="#" class="sidebar-menu__link">
-                        <div class="sidebar-menu__img-block">
-                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                        </div>
-                        <span>Календарь</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
                     <a th:href="@{/news}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -171,7 +163,7 @@
                                 <div class="module-inputs">
                                     <div class="news-title__block">
                                         <label class="label">Заголовок</label>
-                                        <input type="text" name="title"
+                                        <input type="text" name="title" required
                                                class="search-bar news-input" th:value="${test.getTitle()}">
                                     </div>
                                     <div class="news-description__block">
@@ -245,7 +237,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label for="news_title2" class="label" style="margin-bottom: .5rem">Значение</label>
-                                                <input type="text" id="news_title2" name="value" class="search-bar news-input">
+                                                <input type="text" id="news_title2" name="value" class="search-bar news-input" required>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="testId" th:value="${test.getId()}">

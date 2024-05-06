@@ -100,14 +100,6 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a href="#" class="sidebar-menu__link">
-                        <div class="sidebar-menu__img-block">
-                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                        </div>
-                        <span>Календарь</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
                     <a th:href="@{/news}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -170,7 +162,7 @@
                                 <div class="module-inputs">
                                     <div class="news-title__block">
                                         <label class="label">Заголовок</label>
-                                        <input type="text" name="title"
+                                        <input type="text" name="title" required
                                                class="search-bar news-input" th:value="${gaps.getTitle()}">
                                     </div>
                                     <div class="news-description__block">
@@ -205,7 +197,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label class="label" style="margin-bottom: .5rem">Текст</label>
-                                                <textarea name="text" class="search-bar news-input" style="height: 100px;"></textarea>
+                                                <textarea name="text" class="search-bar news-input" style="height: 100px;" required></textarea>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="taskId" th:value="${gaps.getId()}">
@@ -229,7 +221,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label class="label" style="margin-bottom: .5rem">Пропуск</label>
-                                                <input type="text" name="value" class="search-bar news-input">
+                                                <input type="text" name="value" class="search-bar news-input" required>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="taskId" th:value="${gaps.getId()}">

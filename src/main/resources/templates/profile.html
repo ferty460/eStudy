@@ -99,14 +99,6 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                            </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
                         <a th:href="@{/news}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -263,10 +255,6 @@
                                                 <p class="rating" th:text="${course.getRating()}"></p>
                                             </div>
                                         </div>
-                                        <div class="course-progress">
-                                            <progress max="100" value="50" class="progress-scale"></progress>
-                                            <p class="progress-value">50% материалов пройдено</p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,10 +357,6 @@
                                                 <p class="rating" th:text="${course.getRating()}"></p>
                                             </div>
                                         </div>
-                                        <div class="course-progress">
-                                            <progress max="100" value="50" class="progress-scale"></progress>
-                                            <p class="progress-value">50% материалов пройдено</p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -387,18 +371,22 @@
                         <div class="registration-block">
                             <h2 class="best-courses__title" style="text-align: center;">Редактирование</h2>
 
+                            <div th:if="${error}" class="reg-error">
+                                <p th:text="${error}"></p>
+                            </div>
+
                             <form th:action="@{/users/update}" th:method="post" class="registration-form">
                                 <div class="registration-item">
                                     <input type="text" name="username" class="search-bar news-input"
-                                           th:value="${user.getUsername()}" placeholder="Имя пользователя">
+                                           th:value="${user.getUsername()}" placeholder="Имя пользователя" required>
                                     <input type="text" name="surname" class="search-bar news-input"
-                                           th:value="${user.getSurname()}" placeholder="Фамилия">
+                                           th:value="${user.getSurname()}" placeholder="Фамилия" required>
                                     <input type="text" name="name" class="search-bar news-input"
-                                           th:value="${user.getName()}" placeholder="Имя">
+                                           th:value="${user.getName()}" placeholder="Имя" required>
                                     <input type="text" name="patronymic" class="search-bar news-input"
                                            th:value="${user.getPatronymic()}" placeholder="Отчество">
-                                    <input type="number" name="age" class="search-bar news-input"
-                                           th:value="${user.getAge()}" placeholder="Возраст">
+                                    <input type="date" name="birthDate" class="search-bar news-input"
+                                           th:value="${user.getBirthDate()}" placeholder="Возраст" required>
                                     <p style="color: #c5c5c5;">Пол:</p>
                                     <div class="availability-block" style="border: none; padding: 0;">
                                         <label class="availability-label">
@@ -421,7 +409,7 @@
                                         </label>
                                     </div>
                                     <input type="email" name="email" class="search-bar news-input"
-                                           th:value="${user.getEmail()}" placeholder="Электронная почта">
+                                           th:value="${user.getEmail()}" placeholder="Электронная почта" required>
                                     <div class="registration-buttons" style="justify-content: center;">
                                         <input type="hidden" name="id" th:value="${user.getId()}">
                                         <button type="submit" class="ok">Изменить</button>

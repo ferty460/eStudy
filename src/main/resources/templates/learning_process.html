@@ -100,14 +100,6 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a href="#" class="sidebar-menu__link">
-                        <div class="sidebar-menu__img-block">
-                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                        </div>
-                        <span>Календарь</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
                     <a th:href="@{/news}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -157,12 +149,12 @@
                         <ul class="learning-process-lessons-list">
                             <li class="learning-process-lessons-item" th:each="lesson, lessonIter : ${module1.getLessons()}">
                                 <a href="#" th:class="${lessonIter.index == 0 && moduleIter.index == 0 ? 'learning-process-lesson learning-process-lesson-active' : 'learning-process-lesson'}"
-                                   th:id="${'lesson-link' + lesson.getId()}" th:text="${moduleIter.index+1 + '.' + __${lessonIter.index+1}__ + ' ' + lesson.getTitle()}">lesson 1</a>
+                                   th:id="${'lesson-link' + lesson.getId()}" th:attr="data-module-id=${module1.getId()}" th:text="${moduleIter.index+1 + '.' + __${lessonIter.index+1}__ + ' ' + lesson.getTitle()}">lesson 1</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="learning-process-content" th:each="module1 : ${modules}">
+                <div class="learning-process-content" th:each="module1, moduleItem : ${modules}" th:style="${moduleItem.index != 0 ? 'display: none;' : ''}" th:id="${'content-' + module1.getId()}">
                     <div th:each="lesson : ${module1.lessons}" class="learning-process-content-lesson" th:id="${'content-lesson' + lesson.getId()}" style="display: none;">
                         <div class="learning-process-content-items-list">
                             <div th:if="${lesson.getContents().isEmpty()}">

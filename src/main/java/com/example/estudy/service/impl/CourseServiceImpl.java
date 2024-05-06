@@ -3,8 +3,10 @@ package com.example.estudy.service.impl;
 import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.course.CourseImage;
+import com.example.estudy.domain.course.CourseRating;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.repository.CourseImageRepository;
+import com.example.estudy.repository.CourseRatingRepository;
 import com.example.estudy.repository.CourseRepository;
 import com.example.estudy.repository.UserRepository;
 import com.example.estudy.service.CourseService;
@@ -25,6 +27,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final CourseImageRepository imageRepository;
+    private final CourseRatingRepository ratingRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -49,6 +52,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(readOnly = true)
     public List<Course> getAllByTagName(String tagName, Availability availability) {
         return courseRepository.findAllByTagNameAndAvailability(tagName, availability);
+    }
+    @Transactional(readOnly = true)
+    public List<Course> getAllByTagNameOrAuthorUsername(String query, Availability availability) {
+        return courseRepository.findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(query, query, availability);
     }
 
     //     Добавление поступивших пользователей на курс
@@ -101,6 +108,31 @@ public class CourseServiceImpl implements CourseService {
     public void delete(Long id) {
         log.info("Deleting course with id {}", id);
         courseRepository.deleteById(id);
+    }
+
+    public boolean isRated(Long courseId, Long userId) {
+        return !ratingRepository.findAllByCourseIdAndUserId(courseId, userId).isEmpty();
+    }
+
+    public void rate(Float value, Long courseId, Long userId) {
+        Course ratedCourse = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+        User ratedUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        CourseRating rating = new CourseRating();
+        rating.setCourse(ratedCourse);
+        rating.setUser(ratedUser);
+        rating.setRating(value);
+
+        ratingRepository.save(rating);
+
+        Float newRating = ratingRepository.findAllByCourseId(courseId).stream()
+                .map(CourseRating::getRating)
+                .reduce(0f, Float::sum) / ratingRepository.findAllByCourseId(courseId).size();
+
+        ratedCourse.setRating(newRating);
+        courseRepository.save(ratedCourse);
     }
 
     /* --------- IMAGE --------- */

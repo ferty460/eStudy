@@ -100,14 +100,6 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a href="#" class="sidebar-menu__link">
-                        <div class="sidebar-menu__img-block">
-                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                        </div>
-                        <span>Календарь</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
                     <a th:href="@{/news}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -170,7 +162,7 @@
                                 <div class="module-inputs">
                                     <div class="news-title__block">
                                         <label class="label">Заголовок</label>
-                                        <input type="text" name="title"
+                                        <input type="text" name="title" required
                                                class="search-bar news-input" th:value="${text.getTitle()}">
                                     </div>
                                     <div class="news-description__block">
@@ -183,7 +175,7 @@
                             <div class="answer">
                                 <div class="news-title__block">
                                     <label class="label">Верный ответ</label>
-                                    <input type="text" name="correctAnswer" th:value="${text.getCorrectAnswer()}" class="search-bar news-input">
+                                    <input type="text" name="correctAnswer" th:value="${text.getCorrectAnswer()}" class="search-bar news-input" required>
                                 </div>
                             </div>
                             <div class="text-btns">

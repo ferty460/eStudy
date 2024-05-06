@@ -1651,3 +1651,42 @@ body {
 .learning-process-content-block {
     margin-top: 25px;
 }
+
+.rating1 {
+    font-size: 0;
+    direction: rtl;
+}
+
+.rating1 input {
+    display: none;
+}
+
+.rating1 label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    color: #ccc;
+    transform: rotateY(180deg);
+}
+
+.rating1 label:hover,
+.rating1 label:hover ~ label,
+.rating1 input:checked ~ label {
+    color: #f90;
+}
+
+.rateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #6c7293;
+    margin-bottom: 20px;
+}

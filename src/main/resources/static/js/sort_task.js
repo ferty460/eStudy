@@ -32,7 +32,8 @@ $(document).ready(function() {
         let taskId = $this.closest('.text-btns').find('input[name^="sort_id"]').val();
         let correctOrderUrl = '/sorting-tasks/' + taskId + '/correct-order';
         let resultDiv = $this.closest('.text-btns').find('div[id^="sort_result"]');
-        let flag = $this.closest('.theory-lesson-content').find('input[name^="sort_flag"]').val();
+        let flagInput = $this.closest('.theory-lesson-content').find('input[name^="sort_flag"]');
+        let flag = flagInput.val();
         let sortItems = $this.closest('.theory-lesson-content').find('.sort-item1');
 
         $.getJSON(correctOrderUrl, function(correctOrder) {
@@ -65,6 +66,7 @@ $(document).ready(function() {
                             console.log('Произошла ошибка при отправке ответа!');
                         }
                     });
+                    flagInput.val('isTried');
                 } else if (flag === 'isTried') {
                     $.ajax({
                         url: '/practical/sort/answer/update',
@@ -96,6 +98,7 @@ $(document).ready(function() {
                             console.log('Произошла ошибка при отправке ответа!');
                         }
                     });
+                    flagInput.val('isTried');
                 } else if (flag === 'isTried') {
                     $.ajax({
                         url: '/practical/sort/answer/update',

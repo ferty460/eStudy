@@ -37,7 +37,9 @@ public class UserController {
     @PostMapping("/update")
     public String update(@Validated(OnUpdate.class) UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-        userService.update(user, user.getId());
+        if (userService.update(user, user.getId()) != null) {
+            userService.update(user, user.getId());
+        }
         return "redirect:/profile";
     }
 

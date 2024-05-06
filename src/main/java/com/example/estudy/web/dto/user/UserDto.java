@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
+
 @Data
 public class UserDto {
 
@@ -30,7 +32,7 @@ public class UserDto {
 
     private String gender;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     @NotNull(message = "Email must be not null", groups = {OnCreate.class, OnUpdate.class})
     private String email;

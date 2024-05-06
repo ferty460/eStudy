@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -41,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user, Long id) {
+        if (userRepository.findByUsername(user.getUsername()) != null
+                || userRepository.findByEmail(user.getEmail()) != null) return null;
+
         User editedUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
         editedUser.setName(user.getName());
@@ -59,6 +65,8 @@ public class UserServiceImpl implements UserService {
     public User create(User user) {
         if (userRepository.findByUsername(user.getUsername()) != null
                 || userRepository.findByEmail(user.getEmail()) != null) return null;
+
+        user.setAge(ageToString(user.getBirthDate()));
         user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -97,6 +105,18 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         log.info("Deleting User with id {}", id);
         userRepository.deleteById(id);
+    }
+
+    private String ageToString(LocalDate birthDate) {
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        int lastDigit = age % 10;
+        if (lastDigit == 1 && age != 11) {
+            return age + " год";
+        } else if (lastDigit >= 2 && lastDigit <= 4 && !(age >= 12 && age <= 14)) {
+            return age + " года";
+        } else {
+            return age + " лет";
+        }
     }
 
 }

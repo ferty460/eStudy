@@ -248,6 +248,16 @@
     .test-title {
         margin: 10px 0;
     }
+
+    .learning-process-block {
+        flex-direction: column-reverse;
+    }
+
+    .learning-process-sidebar {
+        width: 100%;
+        max-width: none;
+        min-height: unset;
+    }
 }
 
 @media (max-width: 500px) {

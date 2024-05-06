@@ -105,14 +105,6 @@
                             <span>Каталог</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                            </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
                     <li class="sidebar-menu__item">
                         <a th:href="@{/news}" class="sidebar-menu__link active">
                             <div class="sidebar-menu__img-block">
@@ -169,7 +161,7 @@
                             <div class="news-image__block">
                                 <div class="input-file-row">
                                     <label class="input-file">
-                                        <input id="file" type="file" name="file">
+                                        <input id="file" type="file" name="file" required>
                                         <span>Выберите файл</span>
                                     </label>
                                     <div class="input-file-list"></div>
@@ -178,7 +170,7 @@
                             <div class="news-inputs__block">
                                 <div class="news-title__block">
                                     <label for="news_title" class="label">Заголовок</label>
-                                    <input type="text" id="news_title" name="title" class="search-bar news-input">
+                                    <input type="text" id="news_title" name="title" class="search-bar news-input" required>
                                 </div>
                                 <div class="news-description__block">
                                     <label for="news_description" class="label">Описание</label>

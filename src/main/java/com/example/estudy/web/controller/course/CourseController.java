@@ -38,7 +38,9 @@ public class CourseController {
     private final CourseMapper courseMapper;
 
     @GetMapping("/catalog")
-    public String catalog(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(value = "tag", required = false) String tag, Model model) {
+    public String catalog(@AuthenticationPrincipal UserDetails userDetails,
+                          @RequestParam(value = "tag", required = false) String tag,
+                          @RequestParam(value = "q", required = false) String query, Model model) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
@@ -47,6 +49,8 @@ public class CourseController {
         List<Course> courses;
         if (tag != null && !tag.isEmpty()) {
             courses = courseService.getAllByTagName(tag, Availability.PUBLIC);
+        } else if (query != null && !query.isEmpty()) {
+            courses = courseService.getAllByTagNameOrAuthorUsername(query, Availability.PUBLIC);
         } else {
             courses = courseService.getAllByAvailability(Availability.PUBLIC);
         }
@@ -117,6 +121,14 @@ public class CourseController {
         User user = userService.getByUsername(userDetails.getUsername());
         courseService.create(course, user.getId(), file);
         return "redirect:/profile";
+    }
+
+    @PostMapping("/rate")
+    public String rate(@RequestParam("rating") String ratingStr, @RequestParam("courseId") Long courseId, @AuthenticationPrincipal UserDetails userDetails) {
+        int rating = Integer.parseInt(ratingStr); // Преобразование строки в число
+        User user = userService.getByUsername(userDetails.getUsername());
+        courseService.rate((float) rating, courseId, user.getId());
+        return "redirect:/courses?id=" + courseId;
     }
 
     @PostMapping("/update")

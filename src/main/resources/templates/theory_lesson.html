@@ -99,14 +99,6 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a href="#" class="sidebar-menu__link">
-                        <div class="sidebar-menu__img-block">
-                            <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                        </div>
-                        <span>Календарь</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
                     <a th:href="@{/news}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -225,10 +217,10 @@
                             <h3 class="lesson-chapter" style="text-decoration: underline;" th:text="${chapter.getName()}"></h3>
                             <div class="module-actions" style="min-width: 50px; align-items: start;">
                                 <a href="" th:attr="data-hystmodal='#edit_chapter' + ${chapter.getId()}">
-                                    <img src="/images/settings.svg" alt="edit" title="Редактировать">
+                                    <img th:src="@{/images/settings.svg}" alt="edit" title="Редактировать">
                                 </a>
                                 <a href="" th:attr="data-hystmodal='#delete_chapter' + ${chapter.getId()}">
-                                    <img src="/images/delete.svg" alt="delete">
+                                    <img th:src="@{/images/delete.svg}" alt="delete">
                                 </a>
                             </div>
                         </div>
@@ -247,7 +239,7 @@
                                             <div class="news-inputs__block new-note">
                                                 <div class="news-title__block" style="align-items: center">
                                                     <label class="label" style="margin-bottom: .5rem">Заголовок</label>
-                                                    <input type="text" name="value" class="search-bar news-input" th:value="${item.getValue()}">
+                                                    <input type="text" name="value" class="search-bar news-input" th:value="${item.getValue()}" required>
                                                 </div>
                                                 <div class="news-buttons" style="justify-content: center">
                                                     <input type="hidden" name="id" th:value="${item.getId()}">
@@ -297,7 +289,7 @@
                                             <div class="news-inputs__block new-note">
                                                 <div class="news-title__block" style="align-items: center">
                                                     <label class="label" style="margin-bottom: .5rem">Текст</label>
-                                                    <textarea name="value" class="search-bar news-input" style="height: 100px" th:text="${item.getValue()}"></textarea>
+                                                    <textarea name="value" class="search-bar news-input" style="height: 100px" th:text="${item.getValue()}" required></textarea>
                                                 </div>
                                                 <div class="news-buttons" style="justify-content: center">
                                                     <input type="hidden" name="id" th:value="${item.getId()}">
@@ -346,7 +338,7 @@
                                             <div class="news-inputs__block new-note">
                                                 <div class="news-title__block" style="align-items: center">
                                                     <label class="label" style="margin-bottom: .5rem">Изображение</label>
-                                                    <input type="file" name="image">
+                                                    <input type="file" name="image" required>
                                                 </div>
                                                 <div class="news-buttons" style="justify-content: center">
                                                     <input type="hidden" name="id" th:value="${item.getId()}">
@@ -396,7 +388,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label class="label" style="margin-bottom: .5rem">Название раздела</label>
-                                                <input type="text" name="name" class="search-bar news-input" th:value="${chapter.getName()}">
+                                                <input type="text" name="name" class="search-bar news-input" th:value="${chapter.getName()}" required>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="id" th:value="${chapter.getId()}">
@@ -445,7 +437,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label for="news_title2" class="label" style="margin-bottom: .5rem">Заголовок</label>
-                                                <input type="text" id="news_title2" name="value" class="search-bar news-input">
+                                                <input type="text" id="news_title2" name="value" class="search-bar news-input" required>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
@@ -470,7 +462,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label for="news_title3" class="label" style="margin-bottom: .5rem">Введите текст</label>
-                                                <textarea name="value" id="news_title3" class="search-bar news-input" style="height: 100px"></textarea>
+                                                <textarea name="value" id="news_title3" class="search-bar news-input" style="height: 100px" required></textarea>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
@@ -495,7 +487,7 @@
                                         <div class="news-inputs__block new-note">
                                             <div class="news-title__block" style="align-items: center">
                                                 <label for="news_title4" class="label" style="margin-bottom: .5rem">Выберите изображение</label>
-                                                <input type="file" name="image" id="news_title4">
+                                                <input type="file" name="image" id="news_title4" required>
                                             </div>
                                             <div class="news-buttons" style="justify-content: center">
                                                 <input type="hidden" name="chapterId" th:value="${chapter.getId()}">
@@ -521,7 +513,7 @@
                                     <div class="news-inputs__block new-note">
                                         <div class="news-title__block" style="align-items: center">
                                             <label for="news_title1" class="label" style="margin-bottom: .5rem">Название раздела</label>
-                                            <input type="text" id="news_title1" name="name" class="search-bar news-input">
+                                            <input type="text" id="news_title1" name="name" class="search-bar news-input" required>
                                         </div>
                                         <div class="news-buttons" style="justify-content: center">
                                             <input type="hidden" name="contentId" th:value="${content.getId()}">

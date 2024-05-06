@@ -60,6 +60,9 @@ public class Course {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "course")
     private List<Module> modules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CourseRating> ratings = new ArrayList<>();
+
     private Availability availability;
 
     private Float rating;

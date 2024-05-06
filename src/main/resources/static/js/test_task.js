@@ -8,7 +8,8 @@ $(document).ready(function() {
         let answerInput = $this.closest('.theory-lesson-content').find('input[name^="test_answer"]:checked');
         let answerId = answerInput.val();
         let value = answerInput.closest('.test-item').find('.label').text();
-        let flag = $this.closest('.theory-lesson-content').find('input[name^="test_flag"]').val();
+        let flagInput = $this.closest('.theory-lesson-content').find('input[name^="test_flag"]');
+        let flag = flagInput.val();
 
         $.ajax({
             url: '/practical/test/findTestItem',
@@ -34,6 +35,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/test/answer/update',
@@ -62,6 +64,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/test/answer/update',

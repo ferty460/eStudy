@@ -5,6 +5,7 @@ import com.example.estudy.domain.answer.SortTaskAnswer;
 import com.example.estudy.domain.answer.TestAnswer;
 import com.example.estudy.domain.answer.TextTaskAnswer;
 import com.example.estudy.domain.course.Course;
+import com.example.estudy.domain.course.CourseRating;
 import com.example.estudy.domain.news.News;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -41,7 +43,9 @@ public class User implements UserDetails {
 
     private Gender gender;
 
-    private Integer age;
+    private String age;
+
+    private LocalDate birthDate;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -77,6 +81,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<GapsTaskAnswer> gapsAnswers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CourseRating> ratings = new ArrayList<>();
 
     @Override
     public String toString() {

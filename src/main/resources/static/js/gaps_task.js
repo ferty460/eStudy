@@ -6,7 +6,8 @@ $(document).ready(function() {
 
         let taskId = $this.closest('.text-btns').find('input[name^="gaps_id"]').val();
         let result = $this.closest('.theory-lesson-content').find('div[id^="gaps_result"]');
-        let flag = $this.closest('.theory-lesson-content').find('input[name^="gaps_flag"]').val();
+        let flagInput = $this.closest('.theory-lesson-content').find('input[name^="gaps_flag"]');
+        let flag = flagInput.val();
 
         let gaps = {};
         $this.closest('.theory-lesson-content').find(".gaps-bar1.gaps-input1").each(function() {
@@ -43,6 +44,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/gaps/answer/update',
@@ -83,6 +85,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/gaps/answer/update',

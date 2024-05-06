@@ -106,14 +106,6 @@
                             <span>Каталог</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                            </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
                     <li class="sidebar-menu__item">
                         <a th:href="@{/news}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
@@ -158,8 +150,8 @@
                     <div class="search-bar__block">
 
                         <!-- Форма поиска -->
-                        <form action="#" method="get" class="search-bar__form">
-                            <input type="search" name="course" id="search-bar" placeholder="Название или автор"
+                        <form th:action="@{/courses/catalog}" method="get" class="search-bar__form">
+                            <input type="search" name="q" id="search-bar" placeholder="Название или автор"
                                 class="search-bar">
                             <input type="submit" value="Искать" class="ok">
                         </form>
@@ -176,16 +168,6 @@
                 <div class="courses__block">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Онлайн-курсы</h2>
-
-                        <!-- Форма сортировки курсов в каталоге -->
-                        <form action="#" method="get" class="sort_select-form">
-                            <select name="courses" class="sort__select-form">
-                                <option class="selected__item" value="date">дата обновления &darr;</option>
-                                <option class="selected__item" value="date">дата обновления &uarr;</option>
-                                <option class="selected__item" value="date">рейтинг</option>
-                                <option class="selected__item" value="date">дата обновления &uarr;</option>
-                            </select>
-                        </form>
                     </div>
 
                     <div class="courses__list">

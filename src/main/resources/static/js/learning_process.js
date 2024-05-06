@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     let activeLesson = $('.learning-process-lesson-active');
     if (activeLesson.length > 0) {
@@ -19,6 +18,11 @@ $(document).ready(function() {
         $(this).addClass('learning-process-lesson-active');
         $('.learning-process-content-lesson').hide();
         $('#content-lesson' + lessonId).show();
+
+        let moduleId = $(this).attr('data-module-id');
+        let contentId = 'content-' + moduleId;
+        $('.learning-process-content').hide();
+        $('#' + contentId).show();
     });
     $('[class*="learning-process-item"]').click(function() {
         $(this).closest('.learning-process-content-lesson').find('[class*="learning-process-item"]').removeClass('learning-process-item-first');

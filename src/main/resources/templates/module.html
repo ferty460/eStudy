@@ -99,14 +99,6 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                            </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
                         <a th:href="@{/news}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -156,7 +148,7 @@
                         <div class="module-inputs">
                             <div class="news-title__block">
                                 <label for="module_title" class="label">Заголовок</label>
-                                <input type="text" id="module_title" name="title" class="search-bar news-input" th:value="${module1.getTitle()}">
+                                <input type="text" id="module_title" name="title" class="search-bar news-input" th:value="${module1.getTitle()}" required>
                             </div>
                             <div class="news-description__block">
                                 <label for="module_description" class="label">Описание</label>
@@ -217,7 +209,7 @@
                                                 <div class="news-inputs__block new-note">
                                                     <div class="news-title__block">
                                                         <label class="label">Заголовок</label>
-                                                        <input type="text" name="title" class="search-bar news-input" th:value="${lesson.getTitle()}">
+                                                        <input type="text" name="title" class="search-bar news-input" th:value="${lesson.getTitle()}" required>
                                                     </div>
                                                     <div class="news-description__block">
                                                         <label class="label">Текст</label>
@@ -275,7 +267,7 @@
                                 <div class="news-inputs__block new-note">
                                     <div class="news-title__block">
                                         <label for="news_title1" class="label">Заголовок</label>
-                                        <input type="text" id="news_title1" name="title" class="search-bar news-input">
+                                        <input type="text" id="news_title1" name="title" class="search-bar news-input" required>
                                     </div>
                                     <div class="news-description__block">
                                         <label for="news_description1" class="label">Описание</label>

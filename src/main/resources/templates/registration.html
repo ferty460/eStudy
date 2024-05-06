@@ -36,15 +36,14 @@
                 <form th:action="@{/auth/registration}" th:method="post" class="registration-form">
                     <div class="registration-item" id="step1">
                         <input type="text" name="username" class="search-bar news-input"
-                               placeholder="Имя пользователя*">
+                               placeholder="Имя пользователя*" required>
                         <input type="text" name="surname" class="search-bar news-input"
-                               placeholder="Фамилия*">
+                               placeholder="Фамилия*" required>
                         <input type="text" name="name" class="search-bar news-input"
-                            placeholder="Имя*">
+                            placeholder="Имя*" required>
                         <input type="text" name="patronymic" class="search-bar news-input"
                             placeholder="Отчество">
-                        <input type="number" name="age" class="search-bar news-input"
-                            placeholder="Возраст*">
+                        <input type="date" name="birthDate" class="search-bar news-input" placeholder="Дата рождения*" required>
                         <div class="registration-buttons" style="justify-content: end;">
                             <button type="button" class="ok" id="to_step2" onclick="nextSection()">Далее</button>
                         </div>
@@ -72,9 +71,9 @@
                             </label>
                         </div>
                         <input type="email" name="email" class="search-bar news-input"
-                            placeholder="Электронная почта*">
+                            placeholder="Электронная почта*" required>
                         <input type="password" name="password" class="search-bar news-input"
-                            placeholder="Пароль*">
+                            placeholder="Пароль*" required>
                         <div class="registration-buttons">
                             <button type="button" class="cancel" id="to_step1" onclick="prevSection()">Вернуться</button>
                             <button class="ok" id="registr" onclick="complete()">Зарегистрироваться</button>

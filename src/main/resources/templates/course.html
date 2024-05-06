@@ -99,14 +99,6 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
-                            <div class="sidebar-menu__img-block">
-                                <img th:src="@{/images/sidebar/calendar.svg}" alt="calendar" class="sidebar-menu__img">
-                            </div>
-                            <span>Календарь</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu__item">
                         <a th:href="@{/news}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
@@ -229,7 +221,7 @@
                                         <div class="module-inputs">
                                             <div class="news-title__block">
                                                 <label for="module_title" class="label">Заголовок</label>
-                                                <input type="text" id="module_title" name="title" class="search-bar news-input">
+                                                <input type="text" id="module_title" name="title" class="search-bar news-input" required>
                                             </div>
                                             <div class="news-description__block">
                                                 <label for="module_description" class="label">Описание</label>
@@ -324,9 +316,27 @@
 
                 <div class="invite-block" th:if="${!isCourseOwner && isCourseFollower}">
                     <div class="module-btns">
-                        <div class="welcome__description" style="margin-top: 0;">
-                            <p>Вы поступили на курс!</p>
+                        <div class="welcome__description" style="margin-top: 0; text-align: center;">
+                            <p style="margin-bottom: 10px;">Вы поступили на курс!</p>
+                            <p th:if="${!@courseServiceImpl.isRated(course.getId(), user.getId())}">Оцените его, пожалуйста, по 5-бальной шкале.</p>
+                            <p th:if="${@courseServiceImpl.isRated(course.getId(), user.getId())}">Спасибо, что делитесь своим мнением!</p>
                         </div>
+                        <form th:action="@{/courses/rate}" method="post" class="rateForm" th:if="${!@courseServiceImpl.isRated(course.getId(), user.getId())}">
+                            <div class="rating1">
+                                <input type="radio" name="rating" id="rating-1" value="5" />
+                                <label for="rating-1">★</label>
+                                <input type="radio" name="rating" id="rating-2" value="4" />
+                                <label for="rating-2">★</label>
+                                <input type="radio" name="rating" id="rating-3" value="3" />
+                                <label for="rating-3">★</label>
+                                <input type="radio" name="rating" id="rating-4" value="2" />
+                                <label for="rating-4">★</label>
+                                <input type="radio" name="rating" id="rating-5" value="1" />
+                                <label for="rating-5">★</label>
+                                <input type="hidden" name="courseId" th:value="${course.getId()}">
+                            </div>
+                            <button type="submit" class="ok">Оценить</button>
+                        </form>
                         <a th:href="@{/courses/l(id=__${course.getId()}__)}" class="ok">Начать</a>
                     </div>
                 </div>

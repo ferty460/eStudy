@@ -6,7 +6,8 @@ $(document).ready(function() {
 
         let id = $(this).closest('.theory-lesson-content').find('input[name^="text_id"]').val();
         let answer = $(this).closest('.theory-lesson-content').find('input[name^="textUserAnswer"]').val();
-        let flag = $(this).closest('.theory-lesson-content').find('input[name^="text_flag"]').val();
+        let flagInput = $this.closest('.theory-lesson-content').find('input[name^="text_flag"]');
+        let flag = flagInput.val();
 
         $.ajax({
             url: '/practical/text/findTextTask',
@@ -33,6 +34,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/text/answer/update',
@@ -65,6 +67,7 @@ $(document).ready(function() {
                                 console.log('Произошла ошибка при отправке ответа!');
                             }
                         });
+                        flagInput.val('isTried');
                     } else if (flag === 'isTried') {
                         $.ajax({
                             url: '/practical/text/answer/update',

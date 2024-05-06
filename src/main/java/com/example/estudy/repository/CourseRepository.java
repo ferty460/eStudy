@@ -14,4 +14,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findAllByTagNameAndAvailability(String tagName, Availability availability);
 
+    List<Course> findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(String tag, String username, Availability availability);
+
 }
