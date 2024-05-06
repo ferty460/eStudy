@@ -190,9 +190,15 @@
                                             <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
                                         </th:block>
                                     </th:block>
-                                    <th:block th:case="'gaps'">
-                                        <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
-                                        <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                    <th:block th:case="'gaps'" th:with="isTried=${@gapsTaskAnswerServiceImpl.taskIsComplete(pr_content.getGapsTask().getId(), user.getId())}">
+                                        <th:block th:if="${isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr learning-process-item-active" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
+                                        <th:block th:if="${!isTried}">
+                                            <div th:if="${isFirst}" class="learning-process-item-first learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                            <div th:if="${!isFirst}" class="learning-process-item-pr" th:attr="data-index=${content.getId()}"></div>
+                                        </th:block>
                                     </th:block>
                                     <th:block th:case="'sort'" th:with="isTried=${@sortTaskAnswerServiceImpl.taskIsComplete(pr_content.getSortingTask().getId(), user.getId())}">
                                         <th:block th:if="${isTried}">
@@ -350,7 +356,7 @@
                                     <th:block th:case="'gaps'">
                                         <div class="practice-lesson-block">
                                             <div class="practice-lesson-main">
-                                                <div class="theory-lesson-content">
+                                                <div class="theory-lesson-content" th:with="isTried=${@gapsTaskAnswerServiceImpl.taskIsTried(pr_content.getGapsTask().getId(), user.getId())}">
                                                     <div class="lesson-inputs">
                                                         <div class="module-inputs">
                                                             <div class="news-title__block">
@@ -364,10 +370,12 @@
                                                     <div class="text-spaces-elements" style="align-items: center; gap: 5px; flex-wrap: wrap;">
                                                         <div th:each="item : ${pr_content.getGapsTask().getBlocksToUser()}" th:utext="${item.getContent()}"></div>
                                                     </div>
+                                                    <input type="hidden" th:name="${'gaps_flag' + pr_content.getGapsTask().getId()}" th:value="${isTried ? 'isTried' : 'true'}">
                                                     <div class="text-btns">
-                                                        <input type="hidden" name="task_id" th:value="${pr_content.getGapsTask().getId()}">
-                                                        <button type="submit" class="ok gapsOk" id="gaps_check">Ответить</button>
-                                                        <div id="gaps_result"></div>
+                                                        <input type="hidden" name="gaps_id" th:value="${pr_content.getGapsTask().getId()}">
+                                                        <button type="submit" class="ok gapsOk" th:id="${'gaps_customOk' + pr_content.getGapsTask().getId()}" th:text="${isTried ? 'Ответить еще раз' : 'Ответить'}"></button>
+                                                        <div th:id="${'gaps_result' + pr_content.getGapsTask().getId()}" th:class="${isTried && @gapsTaskAnswerServiceImpl.getByGapsTaskIdAndUserId(pr_content.getGapsTask().getId(), user.getId()).isCorrect() ? 'correct' : 'wrong'}"
+                                                             th:text="${isTried ? @gapsTaskAnswerServiceImpl.getByGapsTaskIdAndUserId(pr_content.getGapsTask().getId(), user.getId()).getUserAnswer() : ''}"></div>
                                                     </div>
                                                 </div>
                                             </div>

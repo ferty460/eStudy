@@ -1,5 +1,6 @@
 package com.example.estudy.domain.user;
 
+import com.example.estudy.domain.answer.GapsTaskAnswer;
 import com.example.estudy.domain.answer.SortTaskAnswer;
 import com.example.estudy.domain.answer.TestAnswer;
 import com.example.estudy.domain.answer.TextTaskAnswer;
@@ -73,6 +74,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<SortTaskAnswer> sortAnswers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<GapsTaskAnswer> gapsAnswers = new ArrayList<>();
 
     @Override
     public String toString() {

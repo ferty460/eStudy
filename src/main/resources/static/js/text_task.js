@@ -17,6 +17,7 @@ $(document).ready(function() {
                 if (data === answer) {
                     $result.html('');
                     $result.empty();
+                    $result.removeClass('wrong');
                     window.FlashMessage.success('Верно!');
                     $result.parent().removeClass('wrong');
                     $result.append('<span class="correct">' + data + '</span>');
@@ -48,6 +49,7 @@ $(document).ready(function() {
                 } else {
                     $result.html('');
                     $result.empty();
+                    $result.removeClass('wrong');
                     window.FlashMessage.error('Неверно!');
                     $result.parent().removeClass('correct');
                     $result.append('<span class="wrong">' + answer + '</span>');

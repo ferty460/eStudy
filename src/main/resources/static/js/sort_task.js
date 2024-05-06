@@ -35,12 +35,6 @@ $(document).ready(function() {
         let flag = $this.closest('.theory-lesson-content').find('input[name^="sort_flag"]').val();
         let sortItems = $this.closest('.theory-lesson-content').find('.sort-item1');
 
-        console.log(taskId);
-        console.log(correctOrderUrl);
-        console.log(resultDiv);
-        console.log(flag);
-        console.log(sortItems);
-
         $.getJSON(correctOrderUrl, function(correctOrder) {
 
             let itemContents = sortItems.map(function() {
@@ -57,6 +51,7 @@ $(document).ready(function() {
                 window.FlashMessage.success('Верно!');
                 resultDiv.html('');
                 resultDiv.empty();
+                resultDiv.removeClass('wrong');
                 resultDiv.append('<span class="correct">' + itemContents + '</span>');
                 if (flag === 'true') {
                     $.ajax({
@@ -87,6 +82,7 @@ $(document).ready(function() {
                 window.FlashMessage.error('Неверно!');
                 resultDiv.html('');
                 resultDiv.empty();
+                resultDiv.removeClass('wrong');
                 resultDiv.append('<span class="wrong">' + itemContents + '</span>');
                 if (flag === 'true') {
                     $.ajax({

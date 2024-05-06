@@ -64,7 +64,7 @@ public class SortTaskAnswerServiceImpl implements SortTaskAnswerService {
     public SortTaskAnswer update(SortTaskAnswer answer, Long answerId, List<String> order) {
         SortTaskAnswer editedAnswer = answerRepository.findById(answerId)
                 .orElseThrow(() -> new RuntimeException("Sort task answer not found"));
-        SortingTask task = taskRepository.findById(editedAnswer.getId())
+        SortingTask task = taskRepository.findById(editedAnswer.getSortTask().getId())
                 .orElseThrow(() -> new RuntimeException("Sort task not found"));
         List<String> positions = task.getElements().stream()
                 .sorted(Comparator.comparingInt(SortingTaskElement::getPosition))

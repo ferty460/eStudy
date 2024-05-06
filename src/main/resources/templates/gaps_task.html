@@ -311,8 +311,9 @@
                                             <div class="text-spaces-elements" style="align-items: center; gap: 5px; flex-wrap: wrap;">
                                                 <div th:each="item : ${gaps.getBlocksToUser()}" th:utext="${item.getContent()}"></div>
                                             </div>
+                                            <input type="hidden" name="gaps_flag" value="false">
                                             <div class="text-btns">
-                                                <input type="hidden" name="task_id" th:value="${gaps.getId()}">
+                                                <input type="hidden" name="gaps_id" th:value="${gaps.getId()}">
                                                 <button type="submit" class="ok gapsOk" id="gaps_check">Ответить</button>
                                                 <div id="gaps_result"></div>
                                             </div>

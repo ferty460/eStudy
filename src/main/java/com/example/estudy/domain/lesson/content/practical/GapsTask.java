@@ -1,5 +1,6 @@
 package com.example.estudy.domain.lesson.content.practical;
 
+import com.example.estudy.domain.answer.GapsTaskAnswer;
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,9 @@ public class GapsTask {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "task_id")
     private List<GapsValueItem> values = new ArrayList<>();
+
+    @OneToMany(mappedBy = "gapsTask")
+    private List<GapsTaskAnswer> taskAnswers = new ArrayList<>();
 
     @OneToOne(mappedBy = "gapsTask")
     private PracticalContent practicalContent;

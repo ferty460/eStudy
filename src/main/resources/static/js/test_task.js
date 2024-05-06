@@ -18,6 +18,7 @@ $(document).ready(function() {
                 let resultDiv = $this.closest('.text-btns').find('div[id^="test_result"]');
                 resultDiv.html('');
                 resultDiv.empty();
+                resultDiv.removeClass('wrong');
                 if (data === parseInt(answerId)) {
                     window.FlashMessage.success('Верно!');
                     resultDiv.append('<span class="correct">' + value + '</span>');
