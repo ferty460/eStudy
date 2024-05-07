@@ -2,8 +2,8 @@ package com.example.estudy.web.controller.course.lesson.theoretical;
 
 import com.example.estudy.domain.lesson.content.theoretical.Chapter;
 import com.example.estudy.domain.lesson.content.theoretical.Title;
-import com.example.estudy.service.impl.ChapterServiceImpl;
-import com.example.estudy.service.impl.TitleServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.ChapterServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.TitleServiceImpl;
 import com.example.estudy.web.dto.lesson.TitleDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;

@@ -2,8 +2,8 @@ package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import com.example.estudy.domain.lesson.content.practical.Test;
-import com.example.estudy.service.impl.PracticalContentServiceImpl;
-import com.example.estudy.service.impl.TestServiceImpl;
+import com.example.estudy.service.impl.course.content.PracticalContentServiceImpl;
+import com.example.estudy.service.impl.course.content.practical.TestServiceImpl;
 import com.example.estudy.web.dto.lesson.TestDto;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.TestMapper;

@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.practical.GapsTextItem;
-import com.example.estudy.service.impl.GapsTextItemServiceImpl;
+import com.example.estudy.service.impl.course.content.practical.GapsTextItemServiceImpl;
 import com.example.estudy.web.dto.lesson.GapsTextItemDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.mappers.GapsTextItemMapper;

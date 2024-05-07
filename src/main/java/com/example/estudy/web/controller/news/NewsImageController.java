@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.news;
 
 import com.example.estudy.domain.news.NewsImage;
-import com.example.estudy.repository.NewsImageRepository;
+import com.example.estudy.repository.news.NewsImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;

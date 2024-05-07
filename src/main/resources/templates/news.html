@@ -114,7 +114,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/faq}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
                             </div>
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="course__by-block">
                                         <h5 class="course-author">
-                                            <a href="#" class="course-author__link" th:text="${new1.getAuthor().getUsername()}"></a>
+                                            <a th:href="@{/courses/catalog(q=${new1.getAuthor().getUsername()})}" th:text="${new1.getAuthor().getUsername()}"></a>
                                         </h5>
                                     </div>
                                 </div>

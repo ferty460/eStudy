@@ -1,7 +1,7 @@
 package com.example.estudy.service.details;
 
 import com.example.estudy.domain.user.User;
-import com.example.estudy.repository.UserRepository;
+import com.example.estudy.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

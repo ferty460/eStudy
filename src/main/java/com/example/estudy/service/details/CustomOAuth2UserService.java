@@ -3,7 +3,7 @@ package com.example.estudy.service.details;
 import com.example.estudy.domain.user.CustomOAuth2User;
 import com.example.estudy.domain.user.Role;
 import com.example.estudy.domain.user.User;
-import com.example.estudy.repository.UserRepository;
+import com.example.estudy.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

@@ -13,7 +13,7 @@ public class SortingTaskElementDto {
     private Long id;
 
     @NotNull(message = "Content must be not null", groups = {OnCreate.class, OnUpdate.class})
-    @Length(max = 33, message = "Content must be smaller than 33 symbols", groups = {OnCreate.class, OnUpdate.class})
+    @Length(max = 256, message = "Content must be smaller than 256 symbols", groups = {OnCreate.class, OnUpdate.class})
     private String content;
 
 }

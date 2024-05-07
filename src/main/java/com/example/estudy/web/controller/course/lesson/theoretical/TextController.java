@@ -2,8 +2,8 @@ package com.example.estudy.web.controller.course.lesson.theoretical;
 
 import com.example.estudy.domain.lesson.content.theoretical.Chapter;
 import com.example.estudy.domain.lesson.content.theoretical.Text;
-import com.example.estudy.service.impl.ChapterServiceImpl;
-import com.example.estudy.service.impl.TextServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.ChapterServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.TextServiceImpl;
 import com.example.estudy.web.dto.lesson.TextDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;

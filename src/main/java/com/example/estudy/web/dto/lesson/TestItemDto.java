@@ -13,7 +13,7 @@ public class TestItemDto {
     private Long id;
 
     @NotNull(message = "Value must be not null", groups = {OnCreate.class, OnUpdate.class})
-    @Length(max = 33, message = "Value must be smaller than 33 symbols", groups = {OnCreate.class, OnUpdate.class})
+    @Length(max = 256, message = "Value must be smaller than 256 symbols", groups = {OnCreate.class, OnUpdate.class})
     private String value;
 
 }

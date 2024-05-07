@@ -1,5 +1,6 @@
 package com.example.estudy.domain.user;
 
+import com.example.estudy.domain.FAQ.Question;
 import com.example.estudy.domain.answer.GapsTaskAnswer;
 import com.example.estudy.domain.answer.SortTaskAnswer;
 import com.example.estudy.domain.answer.TestAnswer;
@@ -63,6 +64,9 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
     private List<News> news = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    private List<Question> questions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "followers")
     private Set<Course> followedCourses = new HashSet<>();

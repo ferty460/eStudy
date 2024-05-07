@@ -3,7 +3,7 @@ package com.example.estudy.web.controller;
 import com.example.estudy.domain.lesson.content.practical.GapsValueItem;
 import com.example.estudy.domain.lesson.content.practical.SortingTask;
 import com.example.estudy.domain.lesson.content.practical.SortingTaskElement;
-import com.example.estudy.service.impl.*;
+import com.example.estudy.service.impl.course.content.practical.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

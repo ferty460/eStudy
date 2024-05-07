@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.news;
 
 import com.example.estudy.domain.news.NewsItem;
-import com.example.estudy.service.impl.NewsItemServiceImpl;
+import com.example.estudy.service.impl.news.NewsItemServiceImpl;
 import com.example.estudy.web.dto.news.NewsItemDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
@@ -23,8 +23,7 @@ public class NewsItemController {
     private final NewsItemMapper newsItemMapper;
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
-            "@newsItemServiceImpl.getById(#itemDto.id).news.author.id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String create(@Validated(OnCreate.class) NewsItemDto itemDto, Long newsId) {
         NewsItem item = newsItemMapper.toEntity(itemDto);
         newsItemService.create(item, newsId);
@@ -32,8 +31,7 @@ public class NewsItemController {
     }
 
     @PostMapping("/edit")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
-            "@newsItemServiceImpl.getById(#itemDto.id).news.author.id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String edit(@Validated(OnUpdate.class) NewsItemDto itemDto, Long id) {
         NewsItem item = newsItemMapper.toEntity(itemDto);
         NewsItem editedItem = newsItemService.update(item, id);
@@ -41,8 +39,7 @@ public class NewsItemController {
     }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
-            "@newsItemServiceImpl.getById(#id).news.author.id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String edit(Long id) {
         Long newsId = newsItemService.getById(id).getNews().getId();
         newsItemService.delete(id);

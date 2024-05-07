@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.practical.SortingTaskElement;
-import com.example.estudy.service.impl.SortingTaskElementServiceImpl;
+import com.example.estudy.service.impl.course.content.practical.SortingTaskElementServiceImpl;
 import com.example.estudy.web.dto.lesson.SortingTaskElementDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.mappers.SortingTaskElementMapper;

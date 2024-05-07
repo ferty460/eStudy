@@ -2,8 +2,8 @@ package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.course.Course;
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.CourseService;
-import com.example.estudy.service.UserService;
+import com.example.estudy.service.dao.course.CourseService;
+import com.example.estudy.service.dao.user.UserService;
 import com.example.estudy.web.dto.course.CourseDto;
 import com.example.estudy.web.dto.user.UserDto;
 import com.example.estudy.web.dto.validation.OnUpdate;

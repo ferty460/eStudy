@@ -2,8 +2,8 @@ package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.PracticalContent;
 import com.example.estudy.domain.lesson.content.practical.TextTask;
-import com.example.estudy.service.impl.PracticalContentServiceImpl;
-import com.example.estudy.service.impl.TextTaskServiceImpl;
+import com.example.estudy.service.impl.course.content.PracticalContentServiceImpl;
+import com.example.estudy.service.impl.course.content.practical.TextTaskServiceImpl;
 import com.example.estudy.web.dto.lesson.TextTaskDto;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.TextTaskMapper;

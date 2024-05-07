@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.course.lesson.practical;
 
 import com.example.estudy.domain.lesson.content.practical.TestItem;
-import com.example.estudy.service.impl.TestItemServiceImpl;
+import com.example.estudy.service.impl.course.content.practical.TestItemServiceImpl;
 import com.example.estudy.web.dto.lesson.TestItemDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.mappers.TestItemMapper;

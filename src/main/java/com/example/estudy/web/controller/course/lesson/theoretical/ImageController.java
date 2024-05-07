@@ -2,8 +2,8 @@ package com.example.estudy.web.controller.course.lesson.theoretical;
 
 import com.example.estudy.domain.lesson.content.theoretical.Chapter;
 import com.example.estudy.domain.lesson.content.theoretical.Image;
-import com.example.estudy.service.impl.ChapterServiceImpl;
-import com.example.estudy.service.impl.ImageServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.ChapterServiceImpl;
+import com.example.estudy.service.impl.course.content.theoretical.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;

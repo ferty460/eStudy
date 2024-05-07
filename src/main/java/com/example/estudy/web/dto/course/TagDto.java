@@ -13,7 +13,7 @@ public class TagDto {
     private Long id;
 
     @NotNull(message = "Name must be not null", groups = {OnCreate.class, OnUpdate.class})
-    @Length(max = 33, message = "Name must be smaller than 33 symbols", groups = {OnCreate.class, OnUpdate.class})
+    @Length(max = 256, message = "Name must be smaller than 256 symbols", groups = {OnCreate.class, OnUpdate.class})
     private String name;
 
 }

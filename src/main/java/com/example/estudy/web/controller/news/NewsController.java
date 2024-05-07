@@ -2,9 +2,9 @@ package com.example.estudy.web.controller.news;
 
 import com.example.estudy.domain.news.News;
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.impl.NewsItemServiceImpl;
-import com.example.estudy.service.impl.NewsServiceImpl;
-import com.example.estudy.service.impl.UserServiceImpl;
+import com.example.estudy.service.impl.news.NewsItemServiceImpl;
+import com.example.estudy.service.impl.news.NewsServiceImpl;
+import com.example.estudy.service.impl.user.UserServiceImpl;
 import com.example.estudy.web.dto.news.NewsDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
@@ -62,6 +62,7 @@ public class NewsController {
     }
 
     @GetMapping("/create")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
@@ -72,6 +73,7 @@ public class NewsController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String create(@Validated(OnCreate.class) NewsDto newsDto,
                          @AuthenticationPrincipal UserDetails userDetails,
                          @RequestParam("file") MultipartFile file) throws IOException {
@@ -82,8 +84,7 @@ public class NewsController {
     }
 
     @PostMapping("/edit")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
-            "@newsServiceImpl.getById(#newsDto.id).author.id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String update(@Validated(OnUpdate.class) NewsDto newsDto, Long id,
                          @RequestParam("file") MultipartFile file) throws IOException {
         News news = newsMapper.toEntity(newsDto);
@@ -92,8 +93,7 @@ public class NewsController {
     }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || " +
-            "@newsServiceImpl.getById(#id).author.id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
     public String delete(@RequestParam("id") Long id) {
         newsItemService.deleteAllByNewsId(id);
         newsService.delete(id);

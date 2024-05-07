@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.impl.UserServiceImpl;
+import com.example.estudy.service.impl.user.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

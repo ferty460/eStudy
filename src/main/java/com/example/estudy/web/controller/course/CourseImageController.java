@@ -1,7 +1,7 @@
 package com.example.estudy.web.controller.course;
 
 import com.example.estudy.domain.course.CourseImage;
-import com.example.estudy.repository.CourseImageRepository;
+import com.example.estudy.repository.course.CourseImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;

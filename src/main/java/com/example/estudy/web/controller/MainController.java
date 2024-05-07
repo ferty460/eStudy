@@ -1,8 +1,8 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.user.User;
-import com.example.estudy.service.impl.CourseServiceImpl;
-import com.example.estudy.service.impl.UserServiceImpl;
+import com.example.estudy.service.impl.course.CourseServiceImpl;
+import com.example.estudy.service.impl.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
