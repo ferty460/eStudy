@@ -67,6 +67,9 @@ public class Course {
 
     private Float rating;
 
+    @Column(unique = true)
+    private String accessCode;
+
     private LocalDateTime dateOfCreated;
 
     @PrePersist

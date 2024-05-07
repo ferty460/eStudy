@@ -60,16 +60,24 @@ public class CourseController {
     }
 
     @GetMapping
-    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    @PreAuthorize("@courseServiceImpl.isPrivate(#id) ? @courseServiceImpl.isValidAccessCode(#id, #accessCode) " +
+            "|| @userServiceImpl.isCourseOwner(authentication.principal.id, #id)" +
+            "|| @userServiceImpl.isCourseFollower(authentication.principal.id, @courseServiceImpl.getById(#id))" +
+            "|| @userServiceImpl.isCourseFavorite(authentication.principal.id, @courseServiceImpl.getById(#id)) : true")
+    public String getById(@RequestParam("id") Long id, @RequestParam(value = "access_code", required = false) String accessCode,
+                          @AuthenticationPrincipal UserDetails userDetails, Model model) {
         Course course = courseService.getById(id);
         User user = userService.getByUsername(userDetails.getUsername());
+
         model.addAttribute("course", course);
         model.addAttribute("user", user);
         model.addAttribute("modules", moduleService.getAllByCourseId(course.getId()));
+        model.addAttribute("isPrivate", courseService.isPrivate(course.getId()));
         model.addAttribute("isCourseOwner", userService.isCourseOwner(user.getId(), course.getId()));
         model.addAttribute("isCourseFollower", userService.isCourseFollower(user.getId(), course));
         model.addAttribute("isCourseFavorite", userService.isCourseFavorite(user.getId(), course));
         model.addAttribute("followed_courses", user.getFollowedCourses());
+
         return "course";
     }
 

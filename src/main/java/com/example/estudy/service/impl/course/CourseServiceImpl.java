@@ -1,10 +1,8 @@
 package com.example.estudy.service.impl.course;
 
-import com.example.estudy.domain.course.Availability;
-import com.example.estudy.domain.course.Course;
-import com.example.estudy.domain.course.CourseImage;
-import com.example.estudy.domain.course.CourseRating;
+import com.example.estudy.domain.course.*;
 import com.example.estudy.domain.user.User;
+import com.example.estudy.repository.course.CourseAccessLinkRepository;
 import com.example.estudy.repository.course.CourseImageRepository;
 import com.example.estudy.repository.course.CourseRatingRepository;
 import com.example.estudy.repository.course.CourseRepository;
@@ -18,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +27,7 @@ public class CourseServiceImpl implements CourseService {
     private final UserRepository userRepository;
     private final CourseImageRepository imageRepository;
     private final CourseRatingRepository ratingRepository;
+    private final CourseAccessLinkRepository linkRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -58,13 +58,13 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(query, query, availability);
     }
 
-    //     Добавление поступивших пользователей на курс
+    // Добавление поступивших пользователей на курс
     public void addFollowerToCourse(User follower, Course course) {
         course.addFollower(follower);
         courseRepository.save(course);
     }
 
-    //     Связка пользователей, добавивших курс в избранное, с соответствующим курсом
+    // Связка пользователей, добавивших курс в избранное, с соответствующим курсом
     public void addUserToCourse(User user, Course course) {
         course.addUser(user);
         courseRepository.save(course);
@@ -133,6 +133,48 @@ public class CourseServiceImpl implements CourseService {
 
         ratedCourse.setRating(newRating);
         courseRepository.save(ratedCourse);
+    }
+
+    public String generateAccessLink(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found"));
+
+        String accessCode = UUID.randomUUID().toString();
+        course.setAccessCode(accessCode);
+        courseRepository.save(course);
+
+        saveAccessLinkInfo(courseId, accessCode);
+
+        String baseUrl = "http://localhost:8080/courses";
+        return baseUrl + "?id=" + courseId + "&access_code=" + accessCode;
+    }
+
+    private void saveAccessLinkInfo(Long courseId, String accessCode) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course with id " + courseId + " not found"));
+
+        CourseAccessLink accessLink = new CourseAccessLink(course, accessCode);
+        linkRepository.save(accessLink);
+    }
+
+    public boolean isPrivate(Long id) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course with id " + id + " not found"));
+
+        return course.getAvailability() == Availability.PRIVATE;
+    }
+
+    public boolean isValidAccessCode(Long courseId, String accessCode) {
+        if (!linkRepository.existsByAccessCode(accessCode)) return false;
+
+        CourseAccessLink link = linkRepository.findByAccessCode(accessCode)
+                .orElseThrow(() -> new RuntimeException("Course access link not found"));
+        boolean result = link.isActive() && linkRepository.existsByCourseIdAndAccessCode(courseId, accessCode);
+        if (result) {
+            linkRepository.deleteById(link.getId());
+        }
+
+        return result;
     }
 
     /* --------- IMAGE --------- */

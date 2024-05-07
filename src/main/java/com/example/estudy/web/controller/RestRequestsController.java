@@ -3,6 +3,7 @@ package com.example.estudy.web.controller;
 import com.example.estudy.domain.lesson.content.practical.GapsValueItem;
 import com.example.estudy.domain.lesson.content.practical.SortingTask;
 import com.example.estudy.domain.lesson.content.practical.SortingTaskElement;
+import com.example.estudy.service.impl.course.CourseServiceImpl;
 import com.example.estudy.service.impl.course.content.practical.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class RestRequestsController {
     private final SortingTaskElementServiceImpl sortingTaskElementService;
     private final SortingTaskServiceImpl sortingTaskService;
     private final GapsValueItemServiceImpl gapsValueItemService;
+    private final CourseServiceImpl courseService;
 
     @GetMapping("/practical/text/findTextTask")
     public String findById(@RequestParam("id") Long id) {
@@ -59,6 +61,11 @@ public class RestRequestsController {
             }
         }
         return "Да";
+    }
+
+    @PostMapping("/generateAccessLink")
+    public String generateAccessLink(@RequestParam("courseId") Long courseId) {
+        return courseService.generateAccessLink(courseId);
     }
 
 }

@@ -145,6 +145,10 @@
                     <div class="add-news__block">
                         <div class="best-courses__details news__details">
                             <h2 class="best-courses__title">Учебный курс</h2>
+                            <a href="#" class="profile-settings__link" data-hystmodal="#generate_link" th:if="${isCourseOwner && isPrivate}">
+                                <img th:src="@{/images/settings.svg}" alt="settings" class="settings-image">
+                                <p>Настройки</p>
+                            </a>
                         </div>
 
                         <div class="news-details__block">
@@ -235,6 +239,25 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hystmodal" id="generate_link" aria-hidden="true">
+                    <div class="hystmodal__wrap">
+                        <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                            <button data-hystclose class="hystmodal__close">Закрыть</button>
+                            <div class="lesson-type-block">
+                                <div class="news-inputs__block new-note">
+                                    <div class="news-title__block" style="align-items: center">
+                                        <input type="text" name="value" class="search-bar news-input" disabled>
+                                    </div>
+                                    <div class="news-buttons" style="justify-content: center">
+                                        <input type="hidden" name="course_id" th:value="${course.getId()}">
+                                        <button type="submit" class="ok" id="generate" style="margin-top: 1rem;">Генерировать ссылку</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -360,9 +383,10 @@
         </div>
     </footer>
 
-    <script th:src="@{/js/header.js}"></script>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/js/header.js}"></script>
     <script th:src="@{/js/add_image.js}"></script>
+    <script th:src="@{/js/generate_link.js}"></script>
     <script>
         $(document).ready(function() {
             $('.module-head').click(function() {
