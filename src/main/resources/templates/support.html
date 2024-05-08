@@ -150,7 +150,7 @@
             <div class="courses__block">
                 <div class="best-courses__details">
                     <h2 class="best-courses__title">Часто задаваемые вопросы</h2>
-                    <a th:href="@{/faq/create}" class="ok" sec:authorize="hasRole('ROLE_ADMIN')">Добавить</a>
+                    <a th:href="@{/faq/create}" class="ok" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')">Добавить</a>
                 </div>
 
                 <div class="courses__list">

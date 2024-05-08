@@ -244,82 +244,32 @@
                     </div>
 
                     <div class="courses__list">
-                        <div class="courses__item">
+                        <div class="courses__item" th:each="course : ${courses}">
                             <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/course/course1.png}" alt="course" class="course__image">
+                                <a th:href="@{/courses(id=__${course.getId()}__)}">
+                                    <div class="input-file-list">
+                                        <div class="input-file-list-item">
+                                            <img th:src="@{/course/img/{id}(id=${course.getImage().getId()})}" alt="course" class="input-file-list-img">
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                             <div class="course__details">
                                 <div class="course__title-block">
                                     <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Английский для программистов</a>
+                                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="course__title-link" th:text="${course.getTitle()}"></a>
                                     </h4>
                                     <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Языки</a>
+                                        <a th:href="@{/courses/catalog(tag=${course.getTag().getName()})}" class="tag__link" th:text="${course.getTag().getName()}"></a>
                                     </div>
                                 </div>
                                 <div class="course__by-block">
                                     <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Безумный</a>
+                                        <a th:href="@{/courses/catalog(q=${course.getAuthor().getUsername()})}" class="course-author__link" th:text="${course.getAuthor().getUsername()}"></a>
                                     </h5>
                                     <div class="course-rating__block">
                                         <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/course/course2.png}" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Angular для чайников</a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Программирование</a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Удав Умный</a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="courses__item">
-                            <div class="course__image-block">
-                                <a href="#">
-                                    <img th:src="@{/images/course/course3.png}" alt="course" class="course__image">
-                                </a>
-                            </div>
-                            <div class="course__details">
-                                <div class="course__title-block">
-                                    <h4 class="course__title">
-                                        <a href="#" class="course__title-link">Теория по вселенной Pokemon</a>
-                                    </h4>
-                                    <div class="tag course-tag">
-                                        <a href="#" class="tag__link">Личность</a>
-                                    </div>
-                                </div>
-                                <div class="course__by-block">
-                                    <h5 class="course-author">
-                                        <a href="#" class="course-author__link">Опередивший время</a>
-                                    </h5>
-                                    <div class="course-rating__block">
-                                        <img th:src="@{/images/star.svg}" alt="star" class="star">
-                                        <p class="rating">5.0</p>
+                                        <p class="rating" th:text="${course.getRating()}"></p>
                                     </div>
                                 </div>
                             </div>

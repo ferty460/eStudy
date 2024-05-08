@@ -38,22 +38,20 @@ public class CourseController {
     private final CourseMapper courseMapper;
 
     @GetMapping("/catalog")
-    public String catalog(@AuthenticationPrincipal UserDetails userDetails,
-                          @RequestParam(value = "tag", required = false) String tag,
-                          @RequestParam(value = "q", required = false) String query, Model model) {
+    public String catalog(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(value = "s", required = false) String sort, Model model
+    ) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
-        List<Course> courses;
-        if (tag != null && !tag.isEmpty()) {
-            courses = courseService.getAllByTagName(tag, Availability.PUBLIC);
-        } else if (query != null && !query.isEmpty()) {
-            courses = courseService.getAllByTagNameOrAuthorUsername(query, Availability.PUBLIC);
-        } else {
-            courses = courseService.getAllByAvailability(Availability.PUBLIC);
-        }
+
+        List<Course> courses = courseService.getCourses(tag, query, sort, Availability.PUBLIC);
+
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("courses", courses);
         return "catalog";

@@ -9,6 +9,20 @@ body {
     font-size: 16px;
 }
 
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+    background: #282C37;
+}
+body::-webkit-scrollbar-thumb {
+    background: #6C7293;
+    border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: #535a73;
+}
+
 .main {
     flex: 1;
 }
@@ -1689,4 +1703,47 @@ body {
     padding-bottom: 20px;
     border-bottom: 1px solid #6c7293;
     margin-bottom: 20px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 55px;
+    background-color: #282C37;
+    border: 1px solid #6C7293;
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.dropdown-content a {
+    color: #6C7293;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #6C7293;
+}
+
+.dropdown-content a:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.dropdown-content a:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #1D2027;
 }

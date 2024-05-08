@@ -152,7 +152,7 @@
                         <!-- Форма поиска -->
                         <form th:action="@{/courses/catalog}" method="get" class="search-bar__form">
                             <input type="search" name="q" id="search-bar" placeholder="Название или автор"
-                                class="search-bar">
+                                class="search-bar" th:value="${param.q}">
                             <input type="submit" value="Искать" class="ok">
                         </form>
                     </div>
@@ -168,6 +168,15 @@
                 <div class="courses__block">
                     <div class="best-courses__details">
                         <h2 class="best-courses__title">Онлайн-курсы</h2>
+                        <div>
+                            <button onclick="toggleDropdown()" class="dropdown-button ok">Фильтр</button>
+                            <div id="dropdown-content" class="dropdown-content">
+                                <a th:href="@{'?s=a-z'}">По названию &#129047;</a>
+                                <a th:href="@{'?s=z-a'}">По названию &#129045;</a>
+                                <a th:href="@{'?s=top'}">По рейтингу &#129047;</a>
+                                <a th:href="@{'?s=bottom'}">По рейтингу &#129045;</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="courses__list">
@@ -231,6 +240,12 @@
 
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/js/header.js}"></script>
+    <script>
+        function toggleDropdown() {
+            let dropdownContent = document.getElementById("dropdown-content");
+            dropdownContent.classList.toggle("show");
+        }
+    </script>
 </body>
 
 </html>

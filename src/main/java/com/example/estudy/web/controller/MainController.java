@@ -1,5 +1,6 @@
 package com.example.estudy.web.controller;
 
+import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.course.CourseServiceImpl;
 import com.example.estudy.service.impl.user.UserServiceImpl;
@@ -24,6 +25,7 @@ public class MainController {
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
+        model.addAttribute("courses", courseService.getTop5ByRating(Availability.PUBLIC));
 
         return "main";
     }

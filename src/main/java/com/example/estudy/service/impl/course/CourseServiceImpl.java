@@ -10,6 +10,7 @@ import com.example.estudy.repository.user.UserRepository;
 import com.example.estudy.service.dao.course.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +54,32 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getAllByTagName(String tagName, Availability availability) {
         return courseRepository.findAllByTagNameAndAvailability(tagName, availability);
     }
+
+    public List<Course> getAllByTitleAsc() {
+        Sort sort = Sort.by("title").ascending();
+        return courseRepository.findAllByAvailability(Availability.PUBLIC, sort);
+    }
+
+    public List<Course> getAllByTitleDesc() {
+        Sort sort = Sort.by("title").descending();
+        return courseRepository.findAllByAvailability(Availability.PUBLIC, sort);
+    }
+
+    public List<Course> getAllByRatingAsc() {
+        Sort sort = Sort.by("rating").ascending();
+        return courseRepository.findAllByAvailability(Availability.PUBLIC, sort);
+    }
+
+    public List<Course> getAllByRatingDesc() {
+        Sort sort = Sort.by("rating").descending();
+        return courseRepository.findAllByAvailability(Availability.PUBLIC, sort);
+    }
+
+    @Override
+    public List<Course> getTop5ByRating(Availability availability) {
+        return courseRepository.findFirst5ByAvailabilityOrderByRatingDesc(availability);
+    }
+
     @Transactional(readOnly = true)
     public List<Course> getAllByTagNameOrAuthorUsername(String query, Availability availability) {
         return courseRepository.findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(query, query, availability);
@@ -175,6 +202,33 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return result;
+    }
+
+    public List<Course> getCourses(String tag, String query, String sort, Availability availability) {
+        List<Course> courses;
+        if (tag != null && !tag.isEmpty()) {
+            courses = courseRepository.findAllByTagNameAndAvailability(tag, availability);
+        } else if (query != null && !query.isEmpty()) {
+            courses = courseRepository.findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(query, query, availability);
+        } else {
+            courses = courseRepository.findAllByAvailability(availability);
+        }
+
+        if (sort != null) {
+            courses = sortCourses(sort);
+        }
+
+        return courses;
+    }
+
+    private List<Course> sortCourses(String sort) {
+        return switch (sort) {
+            case "a-z" -> getAllByTitleAsc();
+            case "z-a" -> getAllByTitleDesc();
+            case "top" -> getAllByRatingDesc();
+            case "bottom" -> getAllByRatingAsc();
+            default -> courseRepository.findAllByAvailability(Availability.PUBLIC);
+        };
     }
 
     /* --------- IMAGE --------- */
