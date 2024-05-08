@@ -128,4 +128,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public long count() {
+        return userRepository.count();
+    }
+
 }

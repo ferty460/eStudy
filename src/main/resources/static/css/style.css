@@ -1747,3 +1747,7 @@ body::-webkit-scrollbar-thumb:hover {
 .dropdown-content a:hover {
     background-color: #1D2027;
 }
+
+.toFAQ, .statistics {
+    margin-top: 30px;
+}

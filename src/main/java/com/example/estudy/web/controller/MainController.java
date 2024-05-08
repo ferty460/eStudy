@@ -3,6 +3,7 @@ package com.example.estudy.web.controller;
 import com.example.estudy.domain.course.Availability;
 import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.course.CourseServiceImpl;
+import com.example.estudy.service.impl.course.LessonServiceImpl;
 import com.example.estudy.service.impl.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ public class MainController {
 
     private final UserServiceImpl userService;
     private final CourseServiceImpl courseService;
+    private final LessonServiceImpl lessonService;
 
     @GetMapping("/")
     public String mainPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -28,6 +30,20 @@ public class MainController {
         model.addAttribute("courses", courseService.getTop5ByRating(Availability.PUBLIC));
 
         return "main";
+    }
+
+    @GetMapping("/about")
+    public String about(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails != null) {
+            User user = userService.getByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+            model.addAttribute("followed_courses", user.getFollowedCourses());
+        }
+        model.addAttribute("coursesCount", courseService.count());
+        model.addAttribute("usersCount", userService.count());
+        model.addAttribute("lessonsCount", lessonService.count());
+
+        return "about";
     }
 
     @GetMapping("/profile")

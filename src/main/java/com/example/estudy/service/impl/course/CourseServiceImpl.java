@@ -80,11 +80,6 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findFirst5ByAvailabilityOrderByRatingDesc(availability);
     }
 
-    @Transactional(readOnly = true)
-    public List<Course> getAllByTagNameOrAuthorUsername(String query, Availability availability) {
-        return courseRepository.findAllByTitleContainingIgnoreCaseOrAuthorUsernameContainingIgnoreCaseAndAvailability(query, query, availability);
-    }
-
     // Добавление поступивших пользователей на курс
     public void addFollowerToCourse(User follower, Course course) {
         course.addFollower(follower);
@@ -95,6 +90,10 @@ public class CourseServiceImpl implements CourseService {
     public void addUserToCourse(User user, Course course) {
         course.addUser(user);
         courseRepository.save(course);
+    }
+
+    public long count() {
+        return courseRepository.count();
     }
 
     @Override

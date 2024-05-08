@@ -56,4 +56,8 @@ public class LessonServiceImpl implements LessonService {
         lessonRepository.deleteById(id);
     }
 
+    public long count() {
+        return lessonRepository.count();
+    }
+
 }

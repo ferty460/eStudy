@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
-    <title>Добавление вопроса | eStudy</title>
+    <title>О нас | eStudy</title>
 </head>
 
 <body>
@@ -114,7 +114,7 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a th:href="@{/faq}" class="sidebar-menu__link active">
+                    <a th:href="@{/faq}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
                         </div>
@@ -122,7 +122,7 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
-                    <a th:href="@{/about}" class="sidebar-menu__link">
+                    <a th:href="@{/about}" class="sidebar-menu__link active">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
                         </div>
@@ -144,44 +144,125 @@
 
 <main class="main">
     <div id="content" class="content sidebar-show__content">
-        <section class="add-news">
-
-            <!-- Форма создания новости -->
-            <form th:action="@{/faq/create}" method="post" enctype="multipart/form-data">
-                <div class="add-news__block">
-                    <div class="best-courses__details news__details">
-                        <h2 class="best-courses__title">Вопрос</h2>
-                        <div class="news-buttons">
-                            <a th:href="@{/faq}" class="cancel news-cancel">Отмена</a>
-                            <button type="submit" class="ok">Добавить</button>
+        <section class="we">
+            <div class="courses__block">
+                <div class="best-courses__details" style="border-bottom: none">
+                    <h1 class="best-courses__title">О нас</h1>
+                </div>
+                <div>
+                    <p class="label">Мы - электронная обучающая система eStudy, которая предоставляет доступ к обширному выбору курсов по различным темам. Наша цель - обеспечить качественное и интерактивное обучение, чтобы помочь вам достичь ваших целей в области образования.</p>
+                </div>
+            </div>
+        </section>
+        <section class="welcome">
+            <div class="welcome__roles">
+                <div class="roles__item">
+                    <div class="welcome__details">
+                        <img th:src="@{/images/learning.svg}" alt="learning" class="details__image">
+                        <div class="tag">
+                            <a href="#" class="tag__link">Обучение</a>
                         </div>
                     </div>
-
-                    <div class="news-details__block">
-                        <div class="news-image__block">
-                            <div class="input-file-row">
-                                <label class="input-file">
-                                    <input id="file" type="file" name="file" required>
-                                    <span>Выберите файл</span>
-                                </label>
-                                <div class="input-file-list"></div>
-                            </div>
-                        </div>
-                        <div class="news-inputs__block">
-                            <div class="news-title__block">
-                                <label for="news_title" class="label">Заголовок</label>
-                                <input type="text" id="news_title" name="title" class="search-bar news-input" required>
-                            </div>
-                            <div class="news-description__block">
-                                <label for="news_description" class="label">Описание</label>
-                                <textarea name="description" id="news_description"
-                                          class="search-bar news-input"></textarea>
-                            </div>
-                        </div>
+                    <div class="welcome__title">
+                        <h3>Обучение на eStudy</h3>
+                    </div>
+                    <div class="welcome__description">
+                        <p>На eStudy вы найдете доступ к широкому спектру курсов, которые помогут вам развивать свои
+                            навыки и знания</p>
                     </div>
                 </div>
-            </form>
 
+                <div class="roles__item">
+                    <div class="welcome__details">
+                        <img th:src="@{/images/teaching.svg}" alt="teaching" class="details__image">
+                        <div class="tag">
+                            <a href="#" class="tag__link">Преподавание</a>
+                        </div>
+                    </div>
+                    <div class="welcome__title">
+                        <h3>Преподавание на eStudy</h3>
+                    </div>
+                    <div class="welcome__description">
+                        <p>Делитесь знаниями в нашей электронной обучающей системе eStudy, создавая бесплатные курсы
+                            для других</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="advantages">
+            <h2 class="advantages__title">Наши преимущества</h2>
+            <div class="advantages__block">
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Онлайн-обучение</h3>
+                    <p class="advantages__item-description">Мы предлагаем комплексные программы обучения в режиме
+                        онлайн, что позволяет ученикам обучаться в любое удобное для них время</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Гибкость</h3>
+                    <p class="advantages__item-description">Мы предлагаем гибкие планы обучения, которые могут быть
+                        адаптированы под ваши нужды</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Конструктор</h3>
+                    <p class="advantages__item-description">Вы можете создавать свои собственные обучающие
+                        программы, чтобы ученикам было легче изучать материал</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Безопасность</h3>
+                    <p class="advantages__item-description">Мы берем на себя ответственность за безопасность ваших
+                        данных</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Поддержка</h3>
+                    <p class="advantages__item-description">Наша команда поддержки всегда готова помочь вам в любых
+                        вопросах, которые у вас возникают</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title">Интерактивность</h3>
+                    <p class="advantages__item-description">Наша платформа предоставляет интерактивные уроки, что
+                        повышает вовлеченность и понимание материала</p>
+                </div>
+            </div>
+        </section>
+        <section class="statistics">
+            <h2 class="advantages__title">У нас вы найдете</h2>
+            <div class="advantages__block">
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${coursesCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">полностью бесплатных курсов</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${lessonsCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">теоретических и практических уроков</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${usersCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">зарегистрированных пользователей</p>
+                </div>
+            </div>
+        </section>
+        <section class="toFAQ">
+            <div class="welcome__begin">
+                <div class="begin__main">
+                    <div class="begin__logo">
+                        <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                    </div>
+                    <div class="begin__presentation">
+                        <h4 class="begin__title">FAQ</h4>
+                        <p class="begin__description">Здесь вы можете обратиться за помощью.</p>
+                    </div>
+                </div>
+                <div class="begin__button">
+                    <a th:href="@{/faq}" class="ok">Перейти</a>
+                </div>
+            </div>
         </section>
     </div>
 </main>
@@ -203,8 +284,6 @@
 </footer>
 
 <script th:src="@{/js/header.js}"></script>
-<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
-<script th:src="@{/js/add_image.js}"></script>
 </body>
 
 </html>
