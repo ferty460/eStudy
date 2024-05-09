@@ -1,6 +1,7 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.user.User;
+import com.example.estudy.service.dao.course.TagService;
 import com.example.estudy.service.dao.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     private final UserService userService;
+    private final TagService tagService;
 
     @GetMapping
     public String adminPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -27,6 +29,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
         model.addAttribute("users", userService.getAll());
+        model.addAttribute("tags", tagService.getAll());
         return "admin";
     }
 

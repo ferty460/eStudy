@@ -148,6 +148,8 @@
     <div id="content" class="content sidebar-show__content">
         <section class="theory-lesson">
             <div class="theory-lesson-block">
+
+                <!-- Пользователи -->
                 <div class="theory-lesson-main" th:id="${'chapter' + 1}" style="width: 100%; min-height: 600px;">
 
                     <div class="theory-lesson-content">
@@ -170,6 +172,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Тэги -->
                 <div class="theory-lesson-main" th:id="${'chapter' + 2}" style="display: none; width: 100%; min-height: 600px;">
 
                     <div class="theory-lesson-content">
@@ -177,15 +181,19 @@
                             <h3 class="lesson-chapter" style="text-decoration: underline;">Тэги</h3>
                         </div>
                         <div>
-                            <div th:each="user1, userItem : ${users}" class="user-item">
+                            <div class="lesson-tools" style="grid-template-columns: none;">
+                                <div class="lesson-tools-item" data-hystmodal='#new_tag'>
+                                    <span>+ Новый тэг</span>
+                                </div>
+                            </div>
+                            <div th:each="tag, tagItem : ${tags}" class="user-item">
                                 <div class="user-details">
-                                    <span th:text="${userItem.index+1}" class="user-index"></span>
-                                    <span th:text="${user1.getUsername()}" class="user-username"></span>
-                                    <span th:text="${user1.getEmail()}" class="user-index"></span>
+                                    <span th:text="${tagItem.index+1}" class="user-index"></span>
+                                    <span th:text="${tag.getName()}" class="user-username"></span>
                                 </div>
                                 <div class="user-help">
-                                    <a href="#" th:attr="data-hystmodal=${'#user' + user1.getId()}"><img th:src="@{/images/settings.svg}" alt="Подробнее"></a>
-                                    <a href="#" th:attr="data-hystmodal=${'#user_del' + user1.getId()}"><img th:src="@{/images/delete.svg}" alt="Удалить"></a>
+                                    <a href="#" th:attr="data-hystmodal=${'#tag' + tag.getId()}"><img th:src="@{/images/settings.svg}" alt="Подробнее"></a>
+                                    <a href="#" th:attr="data-hystmodal=${'#tag_del' + tag.getId()}"><img th:src="@{/images/delete.svg}" alt="Удалить"></a>
                                 </div>
                             </div>
                         </div>
@@ -244,6 +252,7 @@
             </div>
         </section>
 
+        <!-- Удаление пользователя -->
         <section class="hystmodal" th:each="user1 : ${users}" th:id="${'user_del' + user1.getId()}" aria-hidden="true">
             <div class="hystmodal__wrap">
                 <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
@@ -255,6 +264,70 @@
                                 </div>
                                 <div class="news-buttons" style="justify-content: center;">
                                     <input type="hidden" name="id" th:value="${user1.getId()}">
+                                    <button type="submit" class="ok">Удалить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Новый тэг -->
+        <section class="hystmodal" id="new_tag" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                        <form th:action="@{/tags/create}" method="post">
+                            <div class="news-inputs__block new-note">
+                                <div class="news-title__block" style="align-items: center">
+                                    <label class="label" style="margin-bottom: .5rem">Название</label>
+                                    <input type="text" name="name" class="search-bar news-input" required>
+                                </div>
+                                <div class="news-buttons" style="justify-content: center">
+                                    <button type="submit" class="ok" style="margin-top: 1rem;">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Редактирование тэга -->
+        <section class="hystmodal" th:each="tag : ${tags}" th:id="${'tag' + tag.getId()}" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                        <form th:action="@{/tags/update}" method="post">
+                            <div class="news-inputs__block new-note">
+                                <div class="news-title__block" style="align-items: center">
+                                    <label class="label" style="margin-bottom: .5rem">Название</label>
+                                    <input type="text" name="name" class="search-bar news-input" th:value="${tag.getName()}" required>
+                                </div>
+                                <div class="news-buttons" style="justify-content: center">
+                                    <input type="hidden" name="id" th:value="${tag.getId()}">
+                                    <button type="submit" class="ok" style="margin-top: 1rem;">Изменить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Удаление тэга -->
+        <section class="hystmodal" th:each="tag : ${tags}" th:id="${'tag_del' + tag.getId()}" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                        <form th:action="@{/tags/delete}" method="post">
+                            <div class="news-inputs__block new-note">
+                                <div class="news-title__block">
+                                    <h2 class="best-courses__title">Вы уверены?</h2>
+                                </div>
+                                <div class="news-buttons" style="justify-content: center;">
+                                    <input type="hidden" name="id" th:value="${tag.getId()}">
                                     <button type="submit" class="ok">Удалить</button>
                                 </div>
                             </div>

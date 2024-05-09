@@ -14,7 +14,6 @@ public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;
 
-
     @Override
     public Tag getById(Long id) {
         return tagRepository.findById(id)
@@ -23,7 +22,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag update(Tag tag, Long id) {
-        return null;
+        Tag editedTag = tagRepository.findById(id).orElseThrow(() -> new RuntimeException("Tag not found"));
+        editedTag.setName(tag.getName());
+        return tagRepository.save(editedTag);
     }
 
     @Override
