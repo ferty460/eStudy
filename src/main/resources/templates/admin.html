@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <script th:src="@{/js/hystmodal.min.js}"></script>
+    <title>Панель администратора | eStudy</title>
+</head>
+
+<body>
+<header id="header" class="header">
+    <div class="header__inner">
+        <div class="header__inner-item">
+            <img th:src="@{/images/sidebar_button.svg}" alt="sidebar_button" id="toggleSidebar">
+            <div>
+                <a th:href="@{/}" class="logo__link">
+                    <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+
+        <div class="header__inner-item" sec:authorize="isAuthenticated()">
+            <a href="#">
+                <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
+            </a>
+            <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
+                <span class="header__inner-username" th:text="${user.getUsername()}"></span>
+                <span class="down-triangle">&#9660;</span>
+            </a>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <ul class="dropdown-list">
+                    <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
+                    <li class="dropdown-item"><a th:href="@{/faq}" class="dropdown-link">Поддержка</a></li>
+                    <li class="dropdown-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header__inner-item" sec:authorize="isAnonymous()">
+            <a th:href="@{/auth/login}" class="header__inner-item auth">
+                <span class="header__inner-username">Войти</span>
+            </a>
+            <a th:href="@{/auth/registration}" class="header__inner-item auth">
+                <span class="header__inner-username">Зарегистрироваться</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar sidebar-show">
+        <nav class="sidebar-menu">
+            <ul class="sidebar-menu__list">
+                <li class="sidebar-menu__item" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/profile}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/personal_account.svg}" alt="personal account"
+                                 class="sidebar-menu__img">
+                        </div>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" id="submenu" sec:authorize="isAuthenticated()">
+                    <a href="#" class="sidebar-menu__link pull-out-menu">
+                        <div class="sidebar-menu__title">
+                            <div class="sidebar-menu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="sidebar-menu__img">
+                            </div>
+                            <span>Мои курсы</span>
+                        </div>
+                        <span class="down-triangle">&#9660;</span>
+                    </a>
+                </li>
+
+                <!-- SUBMENU MY COURSES -->
+                <ul class="submenu__list sidebar-menu__list" sec:authorize="isAuthenticated()">
+                    <li class="submenu__item sidebar-menu__item" th:if="${followed_courses.isEmpty()}">
+                        <a th:href="@{/courses/catalog}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <span>Курсов нет</span>
+                        </a>
+                    </li>
+                    <li class="submenu__item sidebar-menu__item" th:each="course : ${followed_courses}">
+                        <a th:href="@{/courses(id=__${course.getId()}__)}" class="submenu__link sidebar-menu__link my-courses__link">
+                            <div class="submenu__img-block">
+                                <img th:src="@{/images/sidebar/my_courses.svg}" alt="my courses" class="submenu__img">
+                            </div>
+                            <span th:text="${course.getTitle()}"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/courses/catalog}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/catalog.svg}" alt="catalog" class="sidebar-menu__img">
+                        </div>
+                        <span>Каталог</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/news}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/news.svg}" alt="news" class="sidebar-menu__img">
+                        </div>
+                        <span>Новости</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/faq}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/support.svg}" alt="support" class="sidebar-menu__img">
+                        </div>
+                        <span>Поддержка</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item">
+                    <a th:href="@{/about}" class="sidebar-menu__link">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/about.svg}" alt="about" class="sidebar-menu__img">
+                        </div>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin}" class="sidebar-menu__link active">
+                        <div class="sidebar-menu__img-block">
+                            <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
+                        </div>
+                        <span>Админ. панель</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <div id="content" class="content sidebar-show__content">
+        <section class="theory-lesson">
+            <div class="theory-lesson-block">
+                <div class="theory-lesson-main" th:id="${'chapter' + 1}" style="width: 100%; min-height: 600px;">
+
+                    <div class="theory-lesson-content">
+                        <div class="lesson-actions">
+                            <h3 class="lesson-chapter" style="text-decoration: underline;">Пользователи</h3>
+                        </div>
+                        <div>
+                            <div th:each="user1, userItem : ${users}" class="user-item">
+                                <div class="user-details">
+                                    <span th:text="${userItem.index+1}" class="user-index"></span>
+                                    <span th:text="${user1.getUsername()}" class="user-username"></span>
+                                    <span th:text="${user1.getEmail()}" class="user-index"></span>
+                                </div>
+                                <div class="user-help">
+                                    <span class="label" th:text="${user1.getRoleNames()}"></span>
+                                    <a href="#" th:attr="data-hystmodal=${'#user' + user1.getId()}"><img th:src="@{/images/settings.svg}" alt="Подробнее"></a>
+                                    <a href="#" th:attr="data-hystmodal=${'#user_del' + user1.getId()}"><img th:src="@{/images/delete.svg}" alt="Удалить"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="theory-lesson-main" th:id="${'chapter' + 2}" style="display: none; width: 100%; min-height: 600px;">
+
+                    <div class="theory-lesson-content">
+                        <div class="lesson-actions">
+                            <h3 class="lesson-chapter" style="text-decoration: underline;">Тэги</h3>
+                        </div>
+                        <div>
+                            <div th:each="user1, userItem : ${users}" class="user-item">
+                                <div class="user-details">
+                                    <span th:text="${userItem.index+1}" class="user-index"></span>
+                                    <span th:text="${user1.getUsername()}" class="user-username"></span>
+                                    <span th:text="${user1.getEmail()}" class="user-index"></span>
+                                </div>
+                                <div class="user-help">
+                                    <a href="#" th:attr="data-hystmodal=${'#user' + user1.getId()}"><img th:src="@{/images/settings.svg}" alt="Подробнее"></a>
+                                    <a href="#" th:attr="data-hystmodal=${'#user_del' + user1.getId()}"><img th:src="@{/images/delete.svg}" alt="Удалить"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- РАЗДЕЛЫ -->
+                <div class="theory-lesson-chapters">
+                    <h3 class="chapters-title">Разделы</h3>
+                    <ol class="chapters-list" id="chapters-list">
+                        <li class="active-chapter chapters-item">
+                            <a th:href="@{${'#chapter' + 1}}">Пользователи</a>
+                        </li>
+                        <li class="chapters-item">
+                            <a th:href="@{${'#chapter' + 2}}">Тэги</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Пользователь -->
+        <section class="hystmodal" aria-hidden="true" th:each="user1 : ${users}" th:id="${'user' + user1.getId()}">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="registration-block">
+                        <h2 class="best-courses__title" style="text-align: center;">Пользователь</h2>
+
+                        <form th:action="@{/users/updateRoles}" th:method="post" class="registration-form">
+                            <div class="registration-item">
+                                <p class="user-username">Имя пользователя: <span class="label" th:text="${user1.getUsername()}"></span></p>
+                                <p class="user-username">Фамилия: <span class="label" th:text="${user1.getSurname()}"></span></p>
+                                <p class="user-username">Имя: <span class="label" th:text="${user1.getName()}"></span></p>
+                                <p class="user-username">Отчество: <span class="label" th:text="${user1.getPatronymic()}"></span></p>
+                                <p class="user-username">Возраст: <span class="label" th:text="${user1.getAge()}"></span></p>
+                                <p class="user-username">Пол: <span class="label" th:text="${user1.getGender().getName()}"></span></p>
+                                <p class="user-username">Эл. почта: <span class="label" th:text="${user1.getEmail()}"></span></p>
+                                <p class="user-username">Привелегии: </p>
+                                <label class="label">
+                                    <input type="checkbox" name="roleUser" value="true" th:checked="${user1.getRoleNames().contains('Пользователь')}"> Пользователь
+                                </label>
+                                <label class="label">
+                                    <input type="checkbox" name="roleModerator" value="true" th:checked="${user1.getRoleNames().contains('Модератор')}"> Модератор
+                                </label>
+                                <label class="label">
+                                    <input type="checkbox" name="roleAdmin" value="true" th:checked="${user1.getRoleNames().contains('Администратор')}"> Администратор
+                                </label>
+                                <div class="registration-buttons" style="justify-content: center;">
+                                    <input type="hidden" name="id" th:value="${user1.getId()}">
+                                    <button type="submit" class="ok">Изменить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hystmodal" th:each="user1 : ${users}" th:id="${'user_del' + user1.getId()}" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                        <form th:action="@{/users/delete}" method="post">
+                            <div class="news-inputs__block new-note">
+                                <div class="news-title__block">
+                                    <h2 class="best-courses__title">Вы уверены?</h2>
+                                </div>
+                                <div class="news-buttons" style="justify-content: center;">
+                                    <input type="hidden" name="id" th:value="${user1.getId()}">
+                                    <button type="submit" class="ok">Удалить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer sidebar-show__content">
+    <div class="footer__inner">
+        <div class="footer__makes-by">
+            <span>ИС-4</span>
+            <span>Ростовцев В.С.</span>
+        </div>
+        <div class="footer__diplom">
+            <span>Дипломная работа</span>
+        </div>
+        <div class="footer__customer">
+            <span>Техникум</span>
+            <span>Бизнес и право</span>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/theory_lesson.js}"></script>
+<script>
+    const new_chapter = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        // настройки (не обязательно), см. API
+    });
+</script>
+</body>
+
+</html>

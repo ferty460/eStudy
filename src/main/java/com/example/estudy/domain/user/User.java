@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +54,12 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    public String getRoleNames() {
+        return roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(", "));
+    }
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))

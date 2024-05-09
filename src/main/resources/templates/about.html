@@ -26,7 +26,7 @@
         </div>
 
         <div class="header__inner-item" sec:authorize="isAuthenticated()">
-            <a href="#">
+            <a th:href="@{/profile}">
                 <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
             </a>
             <a href="#" class="header__inner-item is_authenticated" id="dropdown-button">
@@ -36,7 +36,7 @@
             <div id="dropdownMenu" class="dropdown-menu">
                 <ul class="dropdown-list">
                     <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
-                    <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                    <li class="dropdown-item"><a th:href="@{/faq}" class="dropdown-link">Поддержка</a></li>
                     <li class="dropdown-item">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
@@ -130,7 +130,7 @@
                     </a>
                 </li>
                 <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="#" class="sidebar-menu__link">
+                    <a th:href="@{/admin}" class="sidebar-menu__link">
                         <div class="sidebar-menu__img-block">
                             <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
                         </div>
@@ -189,6 +189,25 @@
                 </div>
             </div>
         </section>
+        <section class="statistics">
+            <h2 class="advantages__title">У нас вы найдете</h2>
+            <div class="advantages__block">
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${coursesCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">полностью бесплатных курсов</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${lessonsCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">теоретических и практических уроков</p>
+                </div>
+
+                <div class="advantages__item">
+                    <h3 class="advantages__item-title" style="text-align: center" th:text="${usersCount + ' +'}"></h3>
+                    <p class="advantages__item-description" style="text-align: center">зарегистрированных пользователей</p>
+                </div>
+            </div>
+        </section>
         <section class="advantages">
             <h2 class="advantages__title">Наши преимущества</h2>
             <div class="advantages__block">
@@ -226,25 +245,6 @@
                     <h3 class="advantages__item-title">Интерактивность</h3>
                     <p class="advantages__item-description">Наша платформа предоставляет интерактивные уроки, что
                         повышает вовлеченность и понимание материала</p>
-                </div>
-            </div>
-        </section>
-        <section class="statistics">
-            <h2 class="advantages__title">У нас вы найдете</h2>
-            <div class="advantages__block">
-                <div class="advantages__item">
-                    <h3 class="advantages__item-title" style="text-align: center" th:text="${coursesCount + ' +'}"></h3>
-                    <p class="advantages__item-description" style="text-align: center">полностью бесплатных курсов</p>
-                </div>
-
-                <div class="advantages__item">
-                    <h3 class="advantages__item-title" style="text-align: center" th:text="${lessonsCount + ' +'}"></h3>
-                    <p class="advantages__item-description" style="text-align: center">теоретических и практических уроков</p>
-                </div>
-
-                <div class="advantages__item">
-                    <h3 class="advantages__item-title" style="text-align: center" th:text="${usersCount + ' +'}"></h3>
-                    <p class="advantages__item-description" style="text-align: center">зарегистрированных пользователей</p>
                 </div>
             </div>
         </section>

@@ -1,5 +1,6 @@
 package com.example.estudy.web.dto.user;
 
+import com.example.estudy.domain.user.Role;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,6 +9,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 public class UserDto {
@@ -40,5 +42,7 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "Password must be not null", groups = {OnCreate.class})
     private String password;
+
+    private Set<Role> roles;
 
 }

@@ -36,7 +36,7 @@
                 <div id="dropdownMenu" class="dropdown-menu">
                     <ul class="dropdown-list">
                         <li class="dropdown-item"><a th:href="@{/profile}" class="dropdown-link">Личный кабинет</a></li>
-                        <li class="dropdown-item"><a href="#" class="dropdown-link">Что-то еще</a></li>
+                        <li class="dropdown-item"><a th:href="@{/faq}" class="dropdown-link">Поддержка</a></li>
                         <li class="dropdown-item">
                             <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="dropdown-link dropdown-button">Выйти</button>
@@ -121,7 +121,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu__item" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="#" class="sidebar-menu__link">
+                        <a th:href="@{/admin}" class="sidebar-menu__link">
                             <div class="sidebar-menu__img-block">
                                 <img th:src="@{/images/sidebar/admin_panel.svg}" alt="admin_panel" class="sidebar-menu__img">
                             </div>

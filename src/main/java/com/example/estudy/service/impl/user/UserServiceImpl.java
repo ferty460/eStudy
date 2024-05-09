@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public User getByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException("No User Found");
@@ -47,9 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user, Long id) {
-        if (userRepository.findByUsername(user.getUsername()) != null
-                || userRepository.findByEmail(user.getEmail()) != null) return null;
-
         User editedUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
         editedUser.setName(user.getName());
@@ -58,9 +62,20 @@ public class UserServiceImpl implements UserService {
         editedUser.setUsername(user.getUsername());
         editedUser.setEmail(user.getEmail());
         if (user.getGender() != null) editedUser.setGender(user.getGender());
-        if (user.getAge() != null) editedUser.setAge(user.getAge());
+        if (user.getBirthDate() != null) {
+            editedUser.setBirthDate(user.getBirthDate());
+            editedUser.setAge(ageToString(user.getBirthDate()));
+        }
 
         log.info("Editing User with id {}", id);
+        return userRepository.save(editedUser);
+    }
+
+    @Override
+    public User updateRoles(Set<Role> roles, Long userId) {
+        User editedUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User with id " + userId + " not found"));
+        editedUser.setRoles(roles);
         return userRepository.save(editedUser);
     }
 
