@@ -44,6 +44,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> getAll() {
+        return courseRepository.findAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Course> getAllByAvailability(Availability availability) {
         return courseRepository.findAllByAvailability(availability);

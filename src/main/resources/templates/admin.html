@@ -200,6 +200,28 @@
                     </div>
                 </div>
 
+                <!-- Курсы -->
+                <div class="theory-lesson-main" th:id="${'chapter' + 3}" style="display: none; width: 100%; min-height: 600px;">
+
+                    <div class="theory-lesson-content">
+                        <div class="lesson-actions">
+                            <h3 class="lesson-chapter" style="text-decoration: underline;">Курсы</h3>
+                        </div>
+                        <div>
+                            <div th:each="course, courseItem : ${courses}" class="user-item">
+                                <div class="user-details">
+                                    <span th:text="${courseItem.index+1}" class="user-index"></span>
+                                    <a th:href="@{/courses(id=__${course.getId()}__)}" th:text="${course.getTitle()}" class="course__title-link" style="font-size: 16px"></a>
+                                </div>
+                                <div class="user-help">
+                                    <a th:href="@{/courses(id=__${course.getId()}__)}"><img th:src="@{/images/settings.svg}" alt="Подробнее"></a>
+                                    <a href="#" th:attr="data-hystmodal=${'#course_del' + course.getId()}"><img th:src="@{/images/delete.svg}" alt="Удалить"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- РАЗДЕЛЫ -->
                 <div class="theory-lesson-chapters">
                     <h3 class="chapters-title">Разделы</h3>
@@ -209,6 +231,9 @@
                         </li>
                         <li class="chapters-item">
                             <a th:href="@{${'#chapter' + 2}}">Тэги</a>
+                        </li>
+                        <li class="chapters-item">
+                            <a th:href="@{${'#chapter' + 3}}">Курсы</a>
                         </li>
                     </ol>
                 </div>
@@ -328,6 +353,27 @@
                                 </div>
                                 <div class="news-buttons" style="justify-content: center;">
                                     <input type="hidden" name="id" th:value="${tag.getId()}">
+                                    <button type="submit" class="ok">Удалить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Удаление курса -->
+        <section class="hystmodal" th:each="course : ${courses}" th:id="${'course_del' + course.getId()}" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true" style="background: none; width: 800px;">
+                    <div class="add-note__block" style="width: 100%; display: flex; justify-content: center;">
+                        <form th:action="@{/courses/delete}" method="post">
+                            <div class="news-inputs__block new-note">
+                                <div class="news-title__block">
+                                    <h2 class="best-courses__title">Вы уверены?</h2>
+                                </div>
+                                <div class="news-buttons" style="justify-content: center;">
+                                    <input type="hidden" name="id" th:value="${course.getId()}">
                                     <button type="submit" class="ok">Удалить</button>
                                 </div>
                             </div>

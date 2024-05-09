@@ -13,6 +13,8 @@ public interface CourseService {
 
     List<Course> getAllByUserId(Long id);
 
+    List<Course> getAll();
+
     List<Course> getAllByAvailability(Availability availability);
 
     List<Course> getAllByTagName(String tagName, Availability availability);

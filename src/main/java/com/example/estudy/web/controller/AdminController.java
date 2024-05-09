@@ -1,6 +1,7 @@
 package com.example.estudy.web.controller;
 
 import com.example.estudy.domain.user.User;
+import com.example.estudy.service.dao.course.CourseService;
 import com.example.estudy.service.dao.course.TagService;
 import com.example.estudy.service.dao.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class AdminController {
 
     private final UserService userService;
     private final TagService tagService;
+    private final CourseService courseService;
 
     @GetMapping
     public String adminPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -30,6 +32,7 @@ public class AdminController {
         model.addAttribute("followed_courses", user.getFollowedCourses());
         model.addAttribute("users", userService.getAll());
         model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("courses", courseService.getAll());
         return "admin";
     }
 
