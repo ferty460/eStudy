@@ -4,7 +4,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-color: #131313;
+    background-color: #c1cadf;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
 }
@@ -16,11 +16,11 @@ body::-webkit-scrollbar-track {
     background: #282C37;
 }
 body::-webkit-scrollbar-thumb {
-    background: #6C7293;
+    background: #4764ad;
     border-radius: 5px;
 }
 body::-webkit-scrollbar-thumb:hover {
-    background: #535a73;
+    background: #2A3349;
 }
 
 .main {
@@ -35,8 +35,8 @@ body::-webkit-scrollbar-thumb:hover {
     align-items: center;
     width: 100%;
     height: 70px;
-    background-color: #282C37;
-    border-bottom: 1px solid #6C7293;
+    background-color: #2A3349;
+    border-bottom: 1px solid #16223b;
     z-index: 1;
 }
 
@@ -51,7 +51,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     gap: 15px;
     align-items: center;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .header__inner-profile {
@@ -60,7 +60,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .down-triangle {
     font-size: 16px;
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .is_authenticated {
@@ -68,7 +68,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .auth:hover {
-    color: #6c7293;
+    color: #8ea0cc;
     transition: .3s;
 }
 
@@ -86,8 +86,8 @@ body::-webkit-scrollbar-thumb:hover {
     min-width: 160px;
     padding: 10px 0;
     text-align: right;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
     opacity: 0;
     transform: translateY(-100%);
@@ -96,8 +96,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 .dropdown-link {
     display: block;
-    color: #6C7293;
-    border-right: 5px solid #282C37;
+    color: #BDBDBD;
+    border-right: 5px solid #2A3349;
     padding: 5px 10px;
     transition: .3s;
 }
@@ -127,9 +127,9 @@ body::-webkit-scrollbar-thumb:hover {
     left: -250px;
     width: 250px;
     height: calc(100% - 70px);
-    background-color: #282C37;
+    background-color: #2A3349;
     transition: left 0.3s ease-in-out;
-    border-right: 1px solid #6C7293;
+    border-right: 1px solid #16223b;
 }
 
 .sidebar-show {
@@ -149,8 +149,8 @@ body::-webkit-scrollbar-thumb:hover {
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    color: #6C7293;
-    border-left: 5px solid #282C37;
+    color: #BDBDBD;
+    border-left: 5px solid #2A3349;
     font-weight: 700;
     transition: .3s;
 }
@@ -205,8 +205,8 @@ body::-webkit-scrollbar-thumb:hover {
     justify-content: space-between;
     align-items: center;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
     gap: 10px;
 }
@@ -220,17 +220,17 @@ body::-webkit-scrollbar-thumb:hover {
 
 .begin__title {
     font-weight: 700;
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .begin__description {
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .ok {
     display: block;
     padding: 5px 50px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     background-color: rgba(111, 185, 99, 0.1);
     border: 2px solid #6FB963;
     border-radius: 10px;
@@ -250,9 +250,9 @@ body::-webkit-scrollbar-thumb:hover {
 
 .roles__item {
     width: 100%;
-    background-color: #282C37;
+    background-color: #2A3349;
     padding: 25px;
-    border: 1px solid #6C7293;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -274,14 +274,14 @@ body::-webkit-scrollbar-thumb:hover {
 
 .tag__link:hover {
     background-color: #6C7293;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .welcome__title {
     margin-top: 20px;
     font-size: 24px;
     font-weight: 700;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .welcome__description {
@@ -303,7 +303,7 @@ body::-webkit-scrollbar-thumb:hover {
 .advantages__title {
     font-size: 32px;
     font-weight: 700;
-    color: #c5c5c5;
+    color: #2A3349;
 }
 
 .advantages__item {
@@ -311,15 +311,14 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     gap: 15px;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
     border-radius: 10px;
 }
 
 .advantages__item-title {
     font-size: 24px;
     font-weight: 700;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .advantages__item-description {
@@ -332,9 +331,24 @@ body::-webkit-scrollbar-thumb:hover {
 
 .courses__block {
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
+    overflow: auto;
+}
+
+.courses__block::-webkit-scrollbar {
+    width: 10px;
+}
+.courses__block::-webkit-scrollbar-track {
+    background: #282C37;
+}
+.courses__block::-webkit-scrollbar-thumb {
+    background: #4764ad;
+    border-radius: 5px;
+}
+.courses__block::-webkit-scrollbar-thumb:hover {
+    background: #2A3349;
 }
 
 .best-courses__details {
@@ -347,7 +361,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .best-courses__title {
     font-size: 32px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
@@ -367,10 +381,15 @@ body::-webkit-scrollbar-thumb:hover {
     width: 100%;
 }
 
+.bread-crumbs a, .bread-crumbs span {
+    color: #2A3349;
+}
+
 .course__title-block, .course__by-block, .course-rating__block {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .course__by-block {
@@ -380,14 +399,13 @@ body::-webkit-scrollbar-thumb:hover {
 
 .course-rating__block {
     gap: 5px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
 .course__title-link {
-    color: #c5c5c5;
+    color: #BDBDBD;
     font-size: 24px;
-    color: #c5c5c5;
 }
 
 .course__title-link:hover, .course-author__link:hover {
@@ -395,15 +413,15 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .course-author__link {
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 /* --------- CATALOG --------- */
 
 .search__block {
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -417,12 +435,12 @@ body::-webkit-scrollbar-thumb:hover {
 
 .search-bar, .gaps-bar1 {
     background-color: #4F5968;
-    border: 1px solid #6C7293;
+    border: 1px solid #2A3349;
     border-radius: 5px;
     width: 250px;
     min-width: 100px;
     padding-left: 10px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     transition: .3s;
 }
 
@@ -451,8 +469,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     gap: 20px;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
     border-radius: 10px;
 }
 
@@ -475,7 +492,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .profile-username {
     font-size: 32px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
@@ -503,7 +520,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .profile-additional {
     margin-top: 15px;
-    color: #6C7293;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
@@ -531,23 +548,9 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 10px;
 }
 
-.course-progress progress[value]::-webkit-progress-bar {
-    background-color: #D9D9D9;
-    border-radius: 40px;
-}
-
-.course-progress progress[value]::-webkit-progress-value {
-    border-radius: 40px;
-    background-color: #73FC70;
-}
-
 .course__image {
     max-width: 110px;
     border-radius: 10px;
-}
-
-.progress-value {
-    color: #c5c5c5;
 }
 
 .my-courses {
@@ -559,14 +562,6 @@ body::-webkit-scrollbar-thumb:hover {
     transform: translate(-50%, -50%);
 }
 
-.bg {
-    position: absolute;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
 #toLearningList:hover, #toTeachingList:hover, #toFavoriteList:hover {
     cursor: pointer;
     transition: .3s;
@@ -576,7 +571,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* --------- NEWS --------- */
 
 .news-date {
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .news__buttons {
@@ -606,7 +601,7 @@ body::-webkit-scrollbar-thumb:hover {
     text-decoration: none;
     font-size: 14px;
     vertical-align: middle;
-    color: rgb(255 255 255);
+    color: #BDBDBD;
     text-align: center;
     border-radius: 10px;
     background-color: rgba(111, 185, 99, 0.1);
@@ -644,7 +639,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Disabled */
 .input-file input[type=file]:disabled+span {
-    background-color: #eee;
+    background-color: #BDBDBD;
 }
 
 /* Список c превью */
@@ -652,7 +647,7 @@ body::-webkit-scrollbar-thumb:hover {
     margin-top: 10px;
     width: 120px;
     height: 160px;
-    border: 1px solid #6c7293;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -674,7 +669,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .input-file-list-remove {
-    color: #fff;
+    color: #BDBDBD;
     text-decoration: none;
     display: inline-block;
     position: absolute;
@@ -692,8 +687,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 .add-news__block {
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -724,7 +719,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .news__details {
-    border-bottom: 1px solid #6C7293;
+    border-bottom: 1px solid #BDBDBD;
 }
 
 .news-inputs__block {
@@ -744,11 +739,11 @@ body::-webkit-scrollbar-thumb:hover {
     padding: 20px 0;
     display: flex;
     justify-content: center;
-    border-right: 1px solid #6C7293;
+    border-right: 1px solid #BDBDBD;
 }
 
 .label {
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .news-title__block, .news-description__block {
@@ -759,8 +754,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 .news__block {
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -777,7 +772,7 @@ body::-webkit-scrollbar-thumb:hover {
 .news-note__title {
     font-size: 24px;
     font-weight: 700;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .news-note__text-block {
@@ -804,8 +799,8 @@ body::-webkit-scrollbar-thumb:hover {
 .add-note__block {
     width: 50%;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -833,12 +828,12 @@ body::-webkit-scrollbar-thumb:hover {
 
 .course-tags {
     padding: 20px 0;
-    border-top: 1px solid #6C7293;
+    border-top: 1px solid #BDBDBD;
 }
 
 .course-tags h4 {
     font-size: 16px;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .mt10 {
@@ -853,7 +848,7 @@ body::-webkit-scrollbar-thumb:hover {
     align-items: center;
     gap: 15px;
     justify-content: space-between;
-    border-top: 1px solid #6C7293;
+    border-top: 1px solid #BDBDBD;
 }
 
 .availability {
@@ -872,7 +867,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .availability-title {
     font-size: 16px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
@@ -882,7 +877,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .availability-label>input:checked+div {
-    border: 3px solid #6C7293;
+    border: 3px solid #BDBDBD;
 }
 
 .course-btns {
@@ -908,13 +903,13 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 20px;
     width: 100%;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
 .empty-block p {
-    color: #c5c5c5;
+    color: #BDBDBD;
     text-align: center;
 }
 
@@ -930,16 +925,16 @@ body::-webkit-scrollbar-thumb:hover {
 .module-block {
     width: 100%;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
 .invite-block {
     min-width: 350px;
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -963,7 +958,7 @@ body::-webkit-scrollbar-thumb:hover {
 .module-details h4 {
     font-size: 24px;
     font-weight: 700;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .module-actions {
@@ -1017,7 +1012,7 @@ body::-webkit-scrollbar-thumb:hover {
 .lesson-details a {
     font-size: 24px;
     font-weight: 700;
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .lesson-details a:hover {
@@ -1035,7 +1030,7 @@ body::-webkit-scrollbar-thumb:hover {
     justify-content: space-between;
     gap: 25px;
     padding: 15px;
-    border: 3px solid #6C7293;
+    border: 3px solid #BDBDBD;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -1064,8 +1059,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 .lesson-type-block {
     padding: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -1080,32 +1075,32 @@ body::-webkit-scrollbar-thumb:hover {
 
 .theory-lesson-block {
     display: flex;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
 .practice-lesson-block {
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
 .theory-lesson-main {
-    border-right: 1px solid #6C7293;
+    border-right: 1px solid #BDBDBD;
 }
 
 .lesson-tools {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    background-color: #6C7293;
+    background-color: #2A3349;
     grid-gap: 1px;
     border-bottom: 1px solid #6C7293;
 }
 
 .lesson-tools-item {
     padding: 20px 0;
-    background-color: #282C37;
+    background-color: #2A3349;
     text-align: center;
     transition: .3s;
     cursor: pointer;
@@ -1113,7 +1108,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .lesson-tools-item span {
     font-weight: 700;
-    color: #6C7293;
+    color: #BDBDBD;
 }
 
 .hidden-radio {
@@ -1126,7 +1121,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .lesson-tools-item:hover>span {
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .theory-lesson-content {
@@ -1136,7 +1131,7 @@ body::-webkit-scrollbar-thumb:hover {
 .lesson-chapter, .lesson-title, .chapters-title {
     font-weight: 700;
     padding-bottom: 20px;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .lesson-chapter, .chapters-title {
@@ -1181,7 +1176,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .chapters-item, .chapters-item a {
     padding: 5px;
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 .chapters-item:hover>a, .active-chapter {
@@ -1198,7 +1193,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .active-tools-item span {
-    color: #c5c5c5;
+    color: #BDBDBD;
 }
 
 /* для элемента input c type="radio" */
@@ -1268,7 +1263,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .test-title {
     margin: 20px 0;
-    color: #6C7293;
+    color: #BDBDBD;
     font-weight: 700;
 }
 
@@ -1394,8 +1389,8 @@ body::-webkit-scrollbar-thumb:hover {
     max-width: 700px;
     padding: 25px;
     margin: 0 auto;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -1417,7 +1412,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .auth-link {
     margin-top: 10px;
-    color: #c5c5c5;
+    color: #BDBDBD;
     text-align: center;
 }
 
@@ -1440,7 +1435,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #565656;
+    color: #2A3349;
 }
 
 .footer__makes-by, .footer__customer {
@@ -1551,8 +1546,8 @@ body::-webkit-scrollbar-thumb:hover {
     max-height: 600px;
     overflow-y: auto;
     min-height: 600px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
@@ -1561,7 +1556,7 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: 24px;
     font-weight: bold;
     line-height: 1;
-    color: #c5c5c5;
+    color: #BDBDBD;
     word-wrap: break-word;
 }
 
@@ -1577,17 +1572,17 @@ body::-webkit-scrollbar-thumb:hover {
     display: block;
     padding: 10px 25px;
     font-weight: bold;
-    color: #6c7293;
+    color: #BDBDBD;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    border-left: 5px solid #282C37;
+    border-left: 5px solid #6C7293;
     transition: .3s;
 }
 
 .learning-process-module-name:hover {
     background-color: #1D2027;
-    border-left: 5px solid #6c7293;
+    border-left: 5px solid #6C7293;
 }
 
 .learning-process-lessons-list {
@@ -1597,23 +1592,23 @@ body::-webkit-scrollbar-thumb:hover {
 .learning-process-lesson {
     display: block;
     padding: 5px 25px 5px 35px;
-    color: #6c7293;
+    color: #BDBDBD;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    border-left: 5px solid #282C37;
+    border-left: 5px solid #6C7293;
     cursor: pointer;
     transition: .3s;
 }
 
 .learning-process-lesson:hover {
     background-color: #1D2027;
-    border-left: 5px solid #6c7293;
+    border-left: 5px solid #BDBDBD;
 }
 
 .learning-process-lesson-active {
     background-color: #1D2027;
-    border-left: 5px solid #6c7293;
+    border-left: 5px solid #BDBDBD;
 }
 
 .learning-process-content-items-list {
@@ -1622,20 +1617,20 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 5px;
     padding: 25px;
     margin-bottom: 25px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
 }
 
 .learning-process-item-th {
     width: 24px;
     height: 24px;
-    background-color: #c5c5c5;
+    background-color: #BDBDBD;
     background-image: url("../images/lesson-theory.svg");
     background-size: 18px;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    border: 2px solid #c5c5c5;
+    border: 2px solid #BDBDBD;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -1643,7 +1638,7 @@ body::-webkit-scrollbar-thumb:hover {
 .learning-process-item-pr {
     width: 24px;
     height: 24px;
-    background-color: #c5c5c5;
+    background-color: #BDBDBD;
     background-image: url("../images/lesson-practice.svg");
     background-size: 18px;
     background-repeat: no-repeat;
@@ -1654,7 +1649,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .learning-process-item-first {
-    border: 2px solid #6c7293 !important;
+    border: 2px solid #BDBDBD !important;
 }
 
 .learning-process-item-active {
@@ -1701,7 +1696,7 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 10px;
     align-items: center;
     padding-bottom: 20px;
-    border-bottom: 1px solid #6c7293;
+    border-bottom: 1px solid #BDBDBD;
     margin-bottom: 20px;
 }
 
@@ -1709,8 +1704,8 @@ body::-webkit-scrollbar-thumb:hover {
     display: none;
     position: absolute;
     right: 55px;
-    background-color: #282C37;
-    border: 1px solid #6C7293;
+    background-color: #2A3349;
+    border: 1px solid #BDBDBD;
     border-radius: 10px;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -1756,7 +1751,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    border-bottom: 1px solid #6c7293;
+    border-bottom: 1px solid #BDBDBD;
 }
 
 .user-details {
@@ -1766,7 +1761,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .user-index {
-    color: #6c7293;
+    color: #BDBDBD;
     font-weight: bold;
 }
 
@@ -1779,4 +1774,20 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.theme-block {
+    padding: 3px;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.theme-block:hover img {
+    transition: transform 0.5s ease-in-out;
+    transform: rotate(180deg);
+}
+
+.theme-block:hover {
+    background-color: #b7bcd7;
 }

@@ -8,6 +8,7 @@ import com.example.estudy.web.dto.lesson.TheoreticalContentDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.TheoreticalContentMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,7 +35,8 @@ public class TheoreticalContentController {
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || " +
             "@theoreticalContentServiceImpl.getById(#id).lesson.module.course.author.id == authentication.principal.id")
-    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails,
+                          Model model, HttpSession session) {
         User user = userService.getByUsername(userDetails.getUsername());
         TheoreticalContent content = contentService.getById(id);
         model.addAttribute("user", user);
@@ -42,6 +44,7 @@ public class TheoreticalContentController {
         model.addAttribute("isCourseOwner",
                 userService.isCourseOwner(user.getId(), content.getLesson().getModule().getCourse().getId()));
         model.addAttribute("content", content);
+        model.addAttribute("theme", tempToggleTheme(session));
         return "theory_lesson";
     }
 
@@ -78,6 +81,15 @@ public class TheoreticalContentController {
         Long lessonId = contentService.getById(id).getLesson().getId();
         contentService.delete(id);
         return "redirect:/lessons?id=" + lessonId;
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

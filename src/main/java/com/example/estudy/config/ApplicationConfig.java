@@ -41,7 +41,8 @@ public class ApplicationConfig {
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/news/img/**", "/course/img/**", "/faq/img/**").permitAll()
                         .requestMatchers("/auth/**", "/oauth2/**", "/", "/courses/catalog", "/news",
-                                "/news/read", "/about", "/oops", "/faq", "/faq/read").permitAll()
+                                "/news/read", "/about", "/oops", "/faq", "/faq/read",
+                                "/toggle-theme").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

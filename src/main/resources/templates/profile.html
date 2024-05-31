@@ -7,10 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{'/css/' + ${theme != null ? theme : 'light'} + '.css'}" id="theme">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
     <link rel="stylesheet" th:href="@{/css/hystmodal.min.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.svg}">
     <script th:src="@{/js/hystmodal.min.js}"></script>
     <title>Личный кабинет | eStudy</title>
 </head>
@@ -28,6 +29,9 @@
             </div>
 
             <div class="header__inner-item">
+                <div class="theme-block">
+                    <img th:src="@{/images/sun.svg}" alt="theme">
+                </div>
                 <a th:href="@{/profile}">
                     <img th:src="@{/images/profile.svg}" alt="profile" class="header__inner-profile">
                 </a>
@@ -371,10 +375,6 @@
                         <div class="registration-block">
                             <h2 class="best-courses__title" style="text-align: center;">Редактирование</h2>
 
-                            <div th:if="${error}" class="reg-error">
-                                <p th:text="${error}"></p>
-                            </div>
-
                             <form th:action="@{/users/update}" th:method="post" class="registration-form">
                                 <div class="registration-item">
                                     <input type="text" name="username" class="search-bar news-input"
@@ -424,23 +424,12 @@
     </main>
 
     <footer class="footer sidebar-show__content">
-        <div class="footer__inner">
-            <div class="footer__makes-by">
-                <span>ИС-4</span>
-                <span>Ростовцев В.С.</span>
-            </div>
-            <div class="footer__diplom">
-                <span>Дипломная работа</span>
-            </div>
-            <div class="footer__customer">
-                <span>Техникум</span>
-                <span>Бизнес и право</span>
-            </div>
-        </div>
+
     </footer>
 
-    <script th:src="@{/js/header.js}"></script>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/toggle_theme.js}"></script>
     <script>
         const myLearning = new HystModal({
             linkAttributeName: "data-hystmodal",

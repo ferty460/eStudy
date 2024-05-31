@@ -9,6 +9,7 @@ import com.example.estudy.web.dto.FAQ.QuestionDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.QuestionMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,18 +38,20 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
 
     @GetMapping
-    public String faqPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String faqPage(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession session) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
         model.addAttribute("questions", questionService.getAll());
+        model.addAttribute("theme", tempToggleTheme(session));
         return "support";
     }
 
     @GetMapping("/read")
-    public String readNews(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String readNews(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails,
+                           Model model, HttpSession session) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
@@ -58,17 +61,19 @@ public class QuestionController {
         Question question = questionService.getById(id);
         model.addAttribute("questions", question);
         model.addAttribute("items", itemService.getAllByQuestionId(question.getId()));
+        model.addAttribute("theme", tempToggleTheme(session));
         return "read_question";
     }
 
     @GetMapping("/create")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODER')")
-    public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String createPage(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession session) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
+        model.addAttribute("theme", tempToggleTheme(session));
         return "add_question";
     }
 
@@ -98,6 +103,15 @@ public class QuestionController {
         itemService.deleteAllByQuestionId(id);
         questionService.delete(id);
         return "redirect:/faq";
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

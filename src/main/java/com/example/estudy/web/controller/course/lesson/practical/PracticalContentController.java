@@ -13,6 +13,7 @@ import com.example.estudy.web.dto.lesson.PracticalContentDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.PracticalContentMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -43,11 +44,13 @@ public class PracticalContentController {
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || " +
             "@practicalContentServiceImpl.getById(#id).lesson.module.course.author.id == authentication.principal.id")
-    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails,
+                          Model model, HttpSession session) {
         User user = userService.getByUsername(userDetails.getUsername());
         PracticalContent content = contentService.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
+        model.addAttribute("theme", tempToggleTheme(session));
 
         switch (content.getPracticalType()) {
             case "test" -> {
@@ -137,6 +140,15 @@ public class PracticalContentController {
         Long lessonId = contentService.getById(id).getLesson().getId();
         contentService.delete(id);
         return "redirect:/lessons?id=" + lessonId;
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

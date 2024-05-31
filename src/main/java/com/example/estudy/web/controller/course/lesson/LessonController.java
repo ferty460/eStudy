@@ -8,6 +8,7 @@ import com.example.estudy.web.dto.lesson.LessonDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.LessonMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,7 +35,8 @@ public class LessonController {
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || " +
             "@lessonServiceImpl.getById(#id).module.course.author.id == authentication.principal.id")
-    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails,
+                          Model model, HttpSession session) {
         User user = userService.getByUsername(userDetails.getUsername());
         Lesson lesson = lessonService.getById(id);
         model.addAttribute("user", user);
@@ -42,6 +44,7 @@ public class LessonController {
         model.addAttribute("lesson", lesson);
         model.addAttribute("isCourseOwner",
                 userService.isCourseOwner(user.getId(), lesson.getModule().getCourse().getId()));
+        model.addAttribute("theme", tempToggleTheme(session));
         return "lesson";
     }
 
@@ -70,6 +73,15 @@ public class LessonController {
         Long moduleId = lessonService.getById(id).getModule().getId();
         lessonService.delete(id);
         return "redirect:/modules?id=" + moduleId;
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

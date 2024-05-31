@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{'/css/' + ${theme != null ? theme : 'light'} + '.css'}" id="theme">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/media.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.svg}">
     <title>Регистрация | eStudy</title>
 </head>
 
@@ -18,6 +19,11 @@
                     <a th:href="@{/}" class="logo__link">
                         <img th:src="@{/images/logo.svg}" alt="logo" class="logo">
                     </a>
+                </div>
+            </div>
+            <div class="header__inner-item">
+                <div class="theme-block">
+                    <img th:src="@{/images/sun.svg}" alt="theme">
                 </div>
             </div>
         </div>
@@ -90,21 +96,11 @@
     </main>
 
     <footer class="footer">
-        <div class="footer__inner">
-            <div class="footer__makes-by">
-                <span>ИС-4</span>
-                <span>Ростовцев В.С.</span>
-            </div>
-            <div class="footer__diplom">
-                <span>Дипломная работа</span>
-            </div>
-            <div class="footer__customer">
-                <span>Техникум</span>
-                <span>Бизнес и право</span>
-            </div>
-        </div>
+
     </footer>
 
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+    <script th:src="@{/js/toggle_theme.js}"></script>
     <script>
         let currentSection = 1;
 

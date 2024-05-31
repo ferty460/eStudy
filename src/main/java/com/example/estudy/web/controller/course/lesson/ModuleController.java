@@ -9,6 +9,7 @@ import com.example.estudy.web.dto.module.ModuleDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.dto.validation.OnUpdate;
 import com.example.estudy.web.mappers.ModuleMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -42,13 +43,15 @@ public class ModuleController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || @moduleServiceImpl.getById(#id).course.author.id == authentication.principal.id")
-    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String getById(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetails userDetails,
+                          Model model, HttpSession session) {
         User user = userService.getByUsername(userDetails.getUsername());
         Module module = moduleService.getById(id);
         model.addAttribute("module1", module);
         model.addAttribute("lessons", lessonService.getAllByModuleId(module.getId()));
         model.addAttribute("user", user);
         model.addAttribute("followed_courses", user.getFollowedCourses());
+        model.addAttribute("theme", tempToggleTheme(session));
         return "module";
     }
 
@@ -66,6 +69,15 @@ public class ModuleController {
         Long courseId = moduleService.getById(id).getCourse().getId();
         moduleService.delete(id);
         return "redirect:/courses?id=" + courseId;
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

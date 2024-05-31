@@ -25,3 +25,12 @@ server:
   error:
     whitelabel:
       enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - env
+          - configprops

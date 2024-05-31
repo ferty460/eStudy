@@ -5,6 +5,7 @@ import com.example.estudy.service.impl.user.UserServiceImpl;
 import com.example.estudy.web.dto.user.UserDto;
 import com.example.estudy.web.dto.validation.OnCreate;
 import com.example.estudy.web.mappers.UserMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,14 @@ public class AuthController {
     private final UserMapper userMapper;
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model, HttpSession session) {
+        model.addAttribute("theme", tempToggleTheme(session));
         return "login";
     }
 
     @GetMapping("/registration")
-    public String registrationPage() {
+    public String registrationPage(Model model, HttpSession session) {
+        model.addAttribute("theme", tempToggleTheme(session));
         return "registration";
     }
 
@@ -42,6 +45,15 @@ public class AuthController {
         }
         userService.create(user);
         return "redirect:/auth/login";
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }

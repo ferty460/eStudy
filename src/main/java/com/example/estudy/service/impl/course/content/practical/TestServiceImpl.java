@@ -56,7 +56,7 @@ public class TestServiceImpl implements TestService {
         editedTest.setDescription(test.getDescription());
 
         TestItem item = itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Item not found"));
-        for (TestItem i : itemRepository.findAll()) {
+        for (TestItem i : itemRepository.findAllByTestId(testId)) {
             i.setRight(false);
             itemRepository.save(i);
         }

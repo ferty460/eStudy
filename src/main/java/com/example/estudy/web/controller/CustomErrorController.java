@@ -4,6 +4,7 @@ import com.example.estudy.domain.user.User;
 import com.example.estudy.service.impl.user.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,12 +20,14 @@ public class CustomErrorController {
     private final UserServiceImpl userService;
 
     @RequestMapping("/oops")
-    public String handleError(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String handleError(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails,
+                              Model model, HttpSession session) {
         if (userDetails != null) {
             User user = userService.getByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
             model.addAttribute("followed_courses", user.getFollowedCourses());
         }
+        model.addAttribute("theme", tempToggleTheme(session));
 
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
@@ -42,6 +45,15 @@ public class CustomErrorController {
             }
         }
         return "error/undefined";
+    }
+
+    public String tempToggleTheme(HttpSession session) {
+        String theme = (String) session.getAttribute("theme");
+        if (theme == null) {
+            theme = "light";
+            session.setAttribute("theme", theme);
+        }
+        return theme;
     }
 
 }
